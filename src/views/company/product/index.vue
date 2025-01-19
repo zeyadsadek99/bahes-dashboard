@@ -1,25 +1,17 @@
 <template>
   <div class="h-full flex flex-col">
-    <breadcrumbs :items="breadItems" :title="$t('LABELS.vendors')" />
+    <breadcrumbs :items="breadItems" :title="$t('LABELS.product')" />
     <div
       class="bg-white rounded-3xl h-full shadow-[0_7px_6px_0px,rgba(#B1B1B11A)] md:p-7 flex-1 flex flex-col"
     >
       <base-filter
-        name="vendors"
+        name="product"
         :inputs="[]"
-        :btn-name="t(`BUTTONS.add`, { name: t('LABELS.vendor') })"
+        :btn-name="t(`BUTTONS.add`, { name: t('LABELS.product') })"
         icon="fas fa-plus"
         :keyword="true"
-        @action="$router.push('/vendors/form')"
+        @action="$router.push('/product/form')"
       />
-      <!-- <SliderCard
-            @remove="remove"
-            @reload="fetchData"
-            @edit="$router.push(`/sliders/form/${item.id}`)"
-            v-for="item in items"
-            :key="item.id"
-            :item="item"
-          /> -->
       <v-data-table-virtual
         :headers="headers"
         :items="items"
@@ -41,17 +33,17 @@
             <h3 class="mt-4 font-semibold text-text text-center">
               {{
                 $t("TITLES.No have been added yet", {
-                  name: $t("LABELS.vendors"),
+                  name: $t("LABELS.product"),
                 })
               }}
             </h3>
             <div class="flex items-center justify-center mt-7 gap-2 flex-wrap">
               <router-link
-                to="/vendors/store"
+                to="/product/form"
                 class="base-btn rounded-xl self-end"
               >
                 <i class="fas fa-plus"></i>
-                {{ $t(`BUTTONS.add`, { name: $t("LABELS.vendor") }) }}
+                {{ $t(`BUTTONS.add`, { name: $t("LABELS.product") }) }}
               </router-link>
             </div>
           </div>
@@ -62,44 +54,37 @@
 
         <template v-slot:[`item.name`]="{ item }">
           <div class="flex gap-2 items-center flex-wrap">
-            <small-details-card :title="`${item.full_name}`" />
-          </div>
-        </template>
-        <template v-slot:[`item.phone_code`]="{ item }">
-          <div class="flex gap-2 items-center flex-wrap">
-            <small-details-card :title="`${item.phone_code}`" />
-          </div>
-        </template>
-        <template v-slot:[`item.phone`]="{ item }">
-          <div class="flex gap-2 items-center flex-wrap">
-            <small-details-card :title="`${item.phone}`" />
+            <small-details-card
+              :title="`${item.name}`"
+              :text="`${item.desc}`"
+
+            />
           </div>
         </template>
         
+        <template v-slot:[`item.code`]="{ item }">
+          <div class="flex gap-2 items-center flex-wrap">
+            <small-details-card
+              :title="`${item.code}`"
+            />
+          </div>
+        </template>
 
+        
         <template v-slot:[`item.is_admin_active_user`]="{ item }">
           <global-switcher
             :id="item.id"
-            :url="`vendors/${item.id}/toggle-active-vendor`"
+            :url="`product/${item.id}/toggle-active-brand`"
             v-model:modalValue="item.is_admin_active_user"
-            method='POST'
-          />
-        </template>
-        <template v-slot:[`item.is_ban`]="{ item }">
-          <global-switcher
-            :id="item.id"
-            v-model:modalValue="item.is_ban"
-            method='POST'
-
           />
         </template>
         <template v-slot:[`item.actions`]="{ item, index }">
           <div class="flex items-center gap-4">
-            <router-link :to="`/vendors/form/${item.id}`">
+            <router-link :to="`/product/form/${item.id}`">
               <svg-icon class="text-primary" name="edit" filled />
             </router-link>
             <Deleter
-              :url="`vendors/${item.id}`"
+              :url="`products/${item.id}`"
               :id="item.id"
               method="DELETE"
               @remove="items.splice(index, 1)"
@@ -128,8 +113,8 @@ const breadItems = [
     imgIcon: "settings.svg",
   },
   {
-    name: t("LABELS.vendors"),
-    path: "/vendors",
+    name: t("LABELS.product"),
+    path: "/product",
     imgIcon: "",
   },
 ];
@@ -138,57 +123,42 @@ const items = ref([]);
 const loading = ref(false);
 const paginator = ref(null);
 
-  const headers = [
-    {
-      title: t("LABELS.Name", { name: t("LABELS.vendor") }),
-      align: "start",
-      sortable: false,
-      key: "name",
-    },
-    {
-      title: t("LABELS.phone"),
-      align: "start",
-      sortable: false,
-      key: "phone",
-    },
-    {
-      title: t("LABELS.phone_code"),
-      align: "start",
-      sortable: false,
-      key: "phone_code",
-    },
-    {
-      title: t("LABELS.activation"),
-      align: "start",
-      sortable: false,
-      key: "is_admin_active_user",
-    },
-    {
-    title: t("LABELS.banned"),
+const headers = [
+  {
+    title: t("LABELS.Name", { name: t("LABELS.product") }),
     align: "start",
     sortable: false,
-    key: "is_ban",
+    key: "name",
   },
-    {
-      title: t("LABELS.Actions"),
-      align: "start",
-      sortable: false,
-      key: "actions",
-    },
-  ];
+  {
+    title: t("LABELS.Code", { name: t("LABELS.product") }),
+    align: "start",
+    sortable: false,
+    key: "code",
+  },
+  
+  {
+    title: t("LABELS.activation"),
+    align: "start",
+    sortable: false,
+    key: "is_admin_active_user",
+  },
+
+  {
+    title: t("LABELS.Actions"),
+    align: "start",
+    sortable: false,
+    key: "actions",
+  },
+];
 
 function fetchData() {
-  const params = new URLSearchParams();
-  // params.append("from", route.query.from_date || "");
-  // params.append("to", route.query.to_date || "");
-  // params.append("type", route.query.type || "");
-
-  params.append("keyword", route.query.keyword || "");
-  params.append("page", +route.query.page || 1);
   loading.value = true;
   axios
-    .get("vendors", {
-      params,
+    .get("products", {
+      params: {
+        user_type: route.query.keyword || "",
+      },
     })
     .then((res) => {
       items.value = res.data.data;

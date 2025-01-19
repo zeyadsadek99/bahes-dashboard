@@ -1,6 +1,10 @@
 <template>
   <div>
-    <breadcrumbs back="/sliders" :title="$t('LABELS.Sliders')" :items="breads" />
+    <breadcrumbs
+      back="/sliders"
+      :title="$t('LABELS.Sliders')"
+      :items="breads"
+    />
     <div class="flex gap-4 flex-wrap">
       <div class="flex-1 w-full min-w-[250px]">
         <FormSkelton v-if="loading" />
@@ -13,63 +17,38 @@
               @submit="handleSubmit"
               :initial-values="initialValues"
               class="profile_page"
-
             >
               <div class="grid gap-2 md:grid-cols-2 xl:grid-cols-3">
-                <base-input
-                  id="titleAr"
-                  name="titleAr"
+                <base-date
+                  id="start_day"
+                  name="start_day"
                   :placeholder="
-                    $t('LABELS.Title', { name: $t('LABELS.Slider') }) +
-                    $t('inArabic')
+                    $t('LABELS.start_day', { name: $t('LABELS.Slider') })
                   "
-                  :label="
-                    $t('LABELS.Title', { name: $t('LABELS.Slider') }) +
-                    $t('inArabic')
+                  :label="$t('LABELS.start_day', { name: $t('LABELS.Slider') })"
+                  v-model:itemValue="initialValues.start_day"
+                  type="text"
+                />
+                <base-date
+                  :min-date="new Date()"
+                  id="end_day"
+                  name="end_day"
+                  :placeholder="
+                    $t('LABELS.end_day', { name: $t('LABELS.Slider') })
                   "
+                  :label="$t('LABELS.end_day', { name: $t('LABELS.Slider') })"
+                  v-model:itemValue="initialValues.end_day"
                   type="text"
                 />
                 <base-input
-                  id="titleEn"
-                  name="titleEn"
+                  id="link"
+                  name="link"
                   :placeholder="
-                    $t('LABELS.Title', { name: $t('LABELS.Slider') }) +
-                    $t('inEnglish')
+                    $t('LABELS.link', { name: $t('LABELS.Slider') })
                   "
-                  :label="
-                    $t('LABELS.Title', { name: $t('LABELS.Slider') }) +
-                    $t('inEnglish')
-                  "
+                  :label="$t('LABELS.link', { name: $t('LABELS.Slider') })"
                   type="text"
                 />
-                <base-input
-                  id="desAr"
-                  name="desAr"
-                  :placeholder="
-                    $t('LABELS.Desc', { name: $t('LABELS.Slider') }) +
-                    $t('inArabic')
-                  "
-                  :label="
-                    $t('LABELS.Desc', { name: $t('LABELS.Slider') }) +
-                    $t('inArabic')
-                  "
-                  type="text"
-                />
-                <base-input
-                  id="desEN"
-                  name="desEN"
-                  :placeholder="
-                    $t('LABELS.Desc', { name: $t('LABELS.Slider') }) +
-                    $t('inEnglish')
-                  "
-                  :label="
-                    $t('LABELS.Desc', { name: $t('LABELS.Slider') }) +
-                    $t('inEnglish')
-                  "
-                  type="text"
-                />
-                
-                
               </div>
               <div class="mb-5">
                 <base-file
@@ -123,19 +102,14 @@ const router = useRouter();
 const { t } = useI18n();
 
 const initialValues = reactive({
-  desAr: "",
-  titleAr: "",
-  desEn: "",
-  titleEn: "",
-  // nameUr: "",
+  start_day: "",
+  end_day: "",
+  link: "",
+
   image: "",
   preview: "",
-  // type: null,
   id: "",
 });
-
-
-
 
 const schema = yup.object().shape({
   // nameEn: yup
@@ -176,20 +150,18 @@ function handleSubmit(values, actions) {
   const frmData = new FormData();
 
   let url = "sliders";
-  console.log(values)
+  console.log(values);
   if (route.params.id) {
     frmData.append("_method", "PUT");
     url = `sliders/${values.id}`;
   }
-  
-  frmData.append("ar[title]", values.nameAr);
-  frmData.append("en[title]", values.nameEn);
-  frmData.append("ar[description]", values.nameAr);
-  frmData.append("en[description]", values.nameEn);
-  // frmData.append("urd[title]", values.nameUr);
-  // frmData.append("type", values.type);
+
+  frmData.append("start_day", values.start_day);
+  frmData.append("end_day", values.end_day);
+  frmData.append("link", values.link);
+
   if (values.image) {
-    frmData.append("image[media]", values.image);
+    frmData.append("image", values.image);
   }
 
   axios
@@ -228,10 +200,13 @@ const breads = [
 ];
 
 function getData() {
-  console.log(route.params.id)
+  console.log(route.params.id);
   axios.get(`sliders/${route.params.id}`).then((res) => {
     const result = res.data.data;
-    console.log(result)
+    console.log(result);
+    initialValues.start_day = result.start_day;
+    initialValues.end_day = result.end_day;
+    initialValues.link = result.link;
 
     // initialValues.titleAr = result.ar.title;
     // initialValues.desAr = result.ar.description;

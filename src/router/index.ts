@@ -306,6 +306,201 @@ const router = createRouter({
           ],
         },
         {
+          path: "store-activities",
+          meta: {
+            auth: true,
+          },
+          component: () => import("@/views/company/store-activities/Home.vue"),
+          children: [
+            {
+              path: "",
+              name: "store-activities",
+              meta: {
+                auth: true,
+                permission: ["store-activities", "index"],
+              },
+              component: () => import("@/views/company/store-activities/index.vue"),
+            },
+
+            {
+              path: "form/:id",
+              props: true,
+              name: "edit-admin",
+              meta: {
+                auth: true,
+                permission: ["store-activities", "update"],
+              },
+              component: () => import("@/views/company/store-activities/Form.vue"),
+            },
+            {
+              path: "form",
+              props: true,
+              name: "add-admin",
+              meta: {
+                auth: true,
+                permission: ["store-activities", "store"],
+              },
+              component: () => import("@/views/company/store-activities/Form.vue"),
+            },
+          ],
+        },
+        {
+          path: "brands",
+          meta: {
+            auth: true,
+          },
+          component: () => import("@/views/company/brands/Home.vue"),
+          children: [
+            {
+              path: "",
+              name: "brands",
+              meta: {
+                auth: true,
+                permission: ["brands", "index"],
+              },
+              component: () => import("@/views/company/brands/index.vue"),
+            },
+
+            {
+              path: "form/:id",
+              props: true,
+              name: "edit-brand",
+              meta: {
+                auth: true,
+                permission: ["brands", "update"],
+              },
+              component: () => import("@/views/company/brands/Form.vue"),
+            },
+            {
+              path: "form",
+              props: true,
+              name: "add-brand",
+              meta: {
+                auth: true,
+                permission: ["brands", "store"],
+              },
+              component: () => import("@/views/company/brands/Form.vue"),
+            },
+          ],
+        },
+        {
+          path: "models",
+          meta: {
+            auth: true,
+          },
+          component: () => import("@/views/company/models/Home.vue"),
+          children: [
+            {
+              path: "",
+              name: "models",
+              meta: {
+                auth: true,
+                permission: ["models", "index"],
+              },
+              component: () => import("@/views/company/models/index.vue"),
+            },
+
+            {
+              path: "form/:id",
+              props: true,
+              name: "edit-model",
+              meta: {
+                auth: true,
+                permission: ["models", "update"],
+              },
+              component: () => import("@/views/company/models/Form.vue"),
+            },
+            {
+              path: "form",
+              props: true,
+              name: "add-model",
+              meta: {
+                auth: true,
+                permission: ["models", "store"],
+              },
+              component: () => import("@/views/company/models/Form.vue"),
+            },
+          ],
+        },
+        {
+          path: "product",
+          meta: {
+            auth: true,
+          },
+          component: () => import("@/views/company/product/Home.vue"),
+          children: [
+            {
+              path: "",
+              name: "product",
+              meta: {
+                auth: true,
+                permission: ["product", "index"],
+              },
+              component: () => import("@/views/company/product/index.vue"),
+            },
+
+            {
+              path: "form/:id",
+              props: true,
+              name: "edit-product",
+              meta: {
+                auth: true,
+                permission: ["product", "update"],
+              },
+              component: () => import("@/views/company/product/Form.vue"),
+            },
+            {
+              path: "form",
+              props: true,
+              name: "add-product",
+              meta: {
+                auth: true,
+                permission: ["product", "store"],
+              },
+              component: () => import("@/views/company/product/Form.vue"),
+            },
+          ],
+        },
+        {
+          path: "product-type",
+          meta: {
+            auth: true,
+          },
+          component: () => import("@/views/company/product-type/Home.vue"),
+          children: [
+            {
+              path: "",
+              name: "product-type",
+              meta: {
+                auth: true,
+                permission: ["product-type", "index"],
+              },
+              component: () => import("@/views/company/product-type/index.vue"),
+            },
+
+            {
+              path: "form/:id",
+              props: true,
+              name: "edit-brand",
+              meta: {
+                auth: true,
+                permission: ["product-type", "update"],
+              },
+              component: () => import("@/views/company/product-type/Form.vue"),
+            },
+            {
+              path: "form",
+              props: true,
+              name: "add-brand",
+              meta: {
+                auth: true,
+                permission: ["product-type", "store"],
+              },
+              component: () => import("@/views/company/product-type/Form.vue"),
+            },
+          ],
+        },
+        {
           path: "vendors",
           meta: {
             auth: true,
@@ -532,6 +727,84 @@ const router = createRouter({
           ],
         },
         
+        {
+          path: "app-ratio",
+          meta: {
+            auth: true,
+          },
+          component: () => import("@/views/company/app-ratio/Home.vue"),
+          children: [
+            {
+              path: "",
+              name: "app-ratio",
+              meta: {
+                auth: true,
+                permission: ["app-ratio", "index"],
+              },
+              component: () => import("@/views/company/app-ratio/index.vue"),
+            },
+
+            {
+              path: "form/:id",
+              props: true,
+              name: "edit-app-ratio",
+              meta: {
+                auth: true,
+                permission: ["app-ratio", "update"],
+              },
+              component: () => import("@/views/company/app-ratio/Form.vue"),
+            },
+            {
+              path: "form",
+              props: true,
+              name: "add-app-ratio",
+              meta: {
+                auth: true,
+                permission: ["app-ratio", "store"],
+              },
+              component: () => import("@/views/company/app-ratio/Form.vue"),
+            },
+          ],
+        },
+        {
+          path: "contacts",
+          meta: {
+            auth: true,
+          },
+          component: () => import("@/views/company/contacts/Home.vue"),
+          children: [
+            {
+              path: "",
+              name: "contacts",
+              meta: {
+                auth: true,
+                permission: ["contacts", "index"],
+              },
+              component: () => import("@/views/company/contacts/index.vue"),
+            },
+
+            {
+              path: "form/:id",
+              props: true,
+              name: "edit-contacts",
+              meta: {
+                auth: true,
+                permission: ["contacts", "update"],
+              },
+              component: () => import("@/views/company/contacts/Form.vue"),
+            },
+            {
+              path: "reply/:id",
+              props: true,
+              name: "reply-contacts",
+              meta: {
+                auth: true,
+                permission: ["contacts", "store"],
+              },
+              component: () => import("@/views/company/contacts/Reply.vue"),
+            },
+          ],
+        },
         {
           path: "settings",
           meta: {
@@ -969,16 +1242,16 @@ const router = createRouter({
               },
               component: () => import("@/views/company/sliders/Form.vue"),
             },
-            // {
-            //   path: "form",
-            //   props: true,
-            //   name: "add-sliders",
-            //   meta: {
-            //     auth: true,
-            //     permission: ["sliders", "store"],
-            //   },
-            //   component: () => import("@/views/company/sliders/Form.vue"),
-            // },
+            {
+              path: "form",
+              props: true,
+              name: "add-sliders",
+              meta: {
+                auth: true,
+                permission: ["sliders", "store"],
+              },
+              component: () => import("@/views/company/sliders/Form.vue"),
+            },
           ],
         },
 

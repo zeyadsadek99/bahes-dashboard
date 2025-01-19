@@ -116,8 +116,8 @@ const initialValues = reactive({
   desEn: "",
   // shortDesAr: "",
   // shortDesEn: "",
-  type: ''
-  // name: "",
+  type: '',
+  ordering: "",
   // email: "",
   // phoneNumber: "",
   // preview: "",
@@ -211,7 +211,7 @@ function handleSubmit(values, actions) {
   // frmData.append("en[short_description]", values.shortDesEn);
   frmData.append("ar[desc]", values.desAr);
   frmData.append("en[desc]", values.desEn);
-  // frmData.append("price", values.price);
+  frmData.append("ordering", values.ordering);
   // frmData.append("full_name", values.name);
   // frmData.append("phone", values.phoneNumber);
   // frmData.append("phone_code", values.phoneCode.phone_code);

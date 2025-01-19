@@ -1,16 +1,12 @@
 <template>
   <div>
-    <breadcrumbs
-      back="/categories"
-      :title="$t('LABELS.categories')"
-      :items="breads"
-    />
+    <breadcrumbs back="/app-ratio" :title="$t('LABELS.app-ratio')" :items="breads" />
     <div class="flex gap-4 flex-wrap">
       <div class="flex-1 w-full min-w-[250px]">
         <FormSkelton v-if="loading" />
         <template v-else>
           <base-card1
-            :title="$t('TITLES.Details', { name: $t('LABELS.categories') })"
+            :title="$t('TITLES.Details', { name: $t('LABELS.app-ratio') })"
           >
             <VeeForm
               :validation-schema="schema"
@@ -18,7 +14,7 @@
               :initial-values="initialValues"
               class="profile_page"
             >
-              <div class="w-fit relative">
+              <!-- <div class="w-fit relative">
                 <base-file
                   @uploading="btnLoading = $event"
                   modalName="users"
@@ -43,56 +39,135 @@
                     alt="solar icon"
                   />
                 </label>
-              </div>
+              </div> -->
               <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                <base-input
-                  id="titleAr"
-                  name="titleAr"
-                  :placeholder="$t('LABELS.titleAr')"
-                  :label="$t('LABELS.titleAr')"
+                <!-- <base-input
+                  v-model="initialValues.website_name"
+                  :placeholder="$t('LABELS.websiteName')"
+                  :label="$t('LABELS.websiteName')"
+                  name="website_name"
                   type="text"
                 />
                 <base-input
-                  id="titleEn"
-                  name="titleEn"
-                  :placeholder="$t('LABELS.titleEn')"
-                  :label="$t('LABELS.titleEn')"
+                  v-model="initialValues.email"
+                  :placeholder="$t('LABELS.email')"
+                  :label="$t('LABELS.email')"
+                  name="email"
+                  type="email"
+                /> -->
+                <base-input
+                  v-model="initialValues.tax_rate"
+                  :placeholder="$t('LABELS.tax_rate')"
+                  :label="$t('LABELS.tax_rate')"
+                  name="tax_rate"
                   type="text"
                 />
+                <base-input
+                  v-model="initialValues.rate_for_application_from_merchants"
+                  :placeholder="$t('LABELS.rate_for_application_from_merchants')"
+                  :label="$t('LABELS.rate_for_application_from_merchants')"
+                  name="rate_for_application_from_merchants"
+                  type="text"
+                />
+                <base-input
+                  v-model="initialValues.rate_for_workshop_customers"
+                  :placeholder="$t('LABELS.rate_for_workshop_customers')"
+                  :label="$t('LABELS.rate_for_workshop_customers')"
+                  name="rate_for_workshop_customers"
+                  type="text"
+                />
+                <base-input
+                  v-model="initialValues.permitted_period_for_accepting_request"
+                  :placeholder="$t('LABELS.permitted_period_for_accepting_request')"
+                  :label="$t('LABELS.permitted_period_for_accepting_request')"
+                  name="permitted_period_for_accepting_request"
+                  type="text"
+                />
+                <base-input
+                  v-model="initialValues.maximum_number_of_pending_requests"
+                  :placeholder="$t('LABELS.maximum_number_of_pending_requests')"
+                  :label="$t('LABELS.maximum_number_of_pending_requests')"
+                  name="maximum_number_of_pending_requests"
+                  type="text"
+                />
+                <!-- <base-input
+                  v-model="initialValues.tiktok"
+                  :placeholder="$t('LABELS.tiktok')"
+                  :label="$t('LABELS.tiktok')"
+                  name="tiktok"
+                  type="text"
+                />
+                <base-input
+                  v-model="initialValues.snapchat"
+                  :placeholder="$t('LABELS.snapchat')"
+                  :label="$t('LABELS.snapchat')"
+                  name="snapchat"
+                  type="text"
+                />
+                <base-input
+                  v-model="initialValues.app_store"
+                  :placeholder="$t('LABELS.appStore')"
+                  :label="$t('LABELS.appStore')"
+                  name="app_store"
+                  type="text"
+                />
+                <base-input
+                  v-model="initialValues.google_play"
+                  :placeholder="$t('LABELS.googlePlay')"
+                  :label="$t('LABELS.googlePlay')"
+                  name="google_play"
+                  type="text"
+                /> -->
+                <!-- <base-input
+                  v-model="initialValues.whatsapp"
+                  :placeholder="$t('LABELS.whatsapp')"
+                  :label="$t('LABELS.whatsapp')"
+                  name="whatsapp"
+                  type="text"
+                /> -->
+                <!-- <base-input
+                  v-model="initialValues.vat"
+                  :placeholder="$t('LABELS.vat')"
+                  :label="$t('LABELS.vat')"
+                  name="vat"
+                  type="text"
+                />
+                <base-input
+                  v-model="initialValues.vendor_percentage"
+                  :placeholder="$t('LABELS.vendorPercentage')"
+                  :label="$t('LABELS.vendorPercentage')"
+                  name="vendor_percentage"
+                  type="text"
+                /> -->
                 
-                <base-input
-                  id="slugAr"
-                  name="slugAr"
-                  :placeholder="$t('LABELS.slugAr')"
-                  :label="$t('LABELS.slugAr')"
-                  type="text"
-                />
-                <base-input
-                  id="slugEn"
-                  name="slugEn"
-                  :placeholder="$t('LABELS.slugEn')"
-                  :label="$t('LABELS.slugEn')"
-                  type="text"
-                />
-                
+                <!-- Phones Inputs -->
+                <!-- <div v-for="(phone, index) in initialValues.phones" :key="index" class="flex gap-2">
+                  <base-input
+                    v-model="phone.phone"
+                    :placeholder="$t('LABELS.phone')"
+                    :label="$t('LABELS.phone')"
+                    :name="`phones[${index}][phone]`"
+                    type="text"
+                  />
+                  <base-input
+                    v-model="phone.phone_code"
+                    :placeholder="$t('LABELS.phoneCode')"
+                    :label="$t('LABELS.phoneCode')"
+                    :name="`phones[${index}][phone_code]`"
+                    type="text"
+                  />
+                </div> -->
 
-                <base-select
-                  id="category"
-                  name="category"
-                  :placeholder="$t('LABELS.category')"
-                  :label="$t('LABELS.category')"
-                  :options="categories"
-                  v-model:itemValue="initialValues.category"
-                />
+                
+                
               </div>
 
-              
 
               <div
                 class="flex items-center justify-end mt-7 gap-4 md:col-span-2 xl:col-span-3"
               >
                 <router-link
-                  to="/categories"
+                  to="/app-ratio"
                   class="capitalize font-semibold text-sub"
                 >
                   {{ $t("BUTTONS.cancel") }}
@@ -124,28 +199,22 @@ const router = useRouter();
 const { t } = useI18n();
 
 const initialValues = reactive({
-  titleAr: "",
-  titleEn: "",
-  slugAr: "",
-  slugEn: "",
+  tax_rate: '',
+  rate_for_application_from_merchants: '',
+  rate_for_workshop_customers: '',
+  permitted_period_for_accepting_request: '',
+  maximum_number_of_pending_requests: '',
+  permitted_period_for_completing_reques: '',
+
+
   
-  id: "",
-  // email: "",
-  // phoneNumber: "",
-  preview: "",
-  // phoneCode: "",
-  image: "",
-  category: "",
-  // role: "",
-  // phone_code: "",
-  // password: "",
-  // cPassword: "",
 });
 
 const schema = yup.object().shape({
-  // title: yup.string().required(t("ERRORS.name")),
-  // price: yup.string().required(t("ERRORS.name")),
-  // slug: yup.string().required(t("ERRORS.name")),
+  // questionAr: yup.string().required(t("ERRORS.name")),
+  // questionEn: yup.string().required(t("ERRORS.name")),
+  // answerAr: yup.string().required(t("ERRORS.name")),
+  // answerEn: yup.string().required(t("ERRORS.name")),
   // name: yup.string().required(t("ERRORS.name")),
   // email: yup.string().required(t("ERRORS.emailAddress")),
   // phoneCode: yup.mixed().required(t("ERRORS.phoneCode")),
@@ -204,35 +273,34 @@ function handleSubmit(values, actions) {
   btnLoading.value = true;
   const frmData = new FormData();
 
-  let url = "categories";
+  let url = "app_ratios";
 
-  if (route.params.id) {
-    frmData.append("_method", "PUT");
-    url = `categories/${values.id}`;
-  }
+  // if (route.params.id) {
+  //   frmData.append("_method", "PUT");
+  //   url = `settings`;
+  // }
 
-  if (initialValues.image) {
-    frmData.append("image[media]", initialValues.image);
-  }
+  // if (initialValues.image) {
+  //   frmData.append("image", initialValues.image);
+  // }
+  console.log(values);
+  frmData.append("tax_rate", values.tax_rate);
+  frmData.append("rate_for_application_from_merchants", values.rate_for_application_from_merchants);
+  frmData.append("rate_for_workshop_customers", values.rate_for_workshop_customers);
+  frmData.append("permitted_period_for_accepting_request", values.permitted_period_for_accepting_request);
+  frmData.append("maximum_number_of_pending_requests", values.maximum_number_of_pending_requests);
 
-  frmData.append("ar[title]", values.titleAr);
-  frmData.append("en[title]", values.titleEn);
-  frmData.append("ar[slug]", values.slugAr);
-  frmData.append("en[slug]", values.slugEn);
+  frmData.append("permitted_period_for_completing_reques", values.permitted_period_for_completing_reques);  
+
+// });
+
   
-  frmData.append("parent_id", values.category);
-  // frmData.append("full_name", values.name);
-  // frmData.append("phone", values.phoneNumber);
-  // frmData.append("phone_code", values.phoneCode.phone_code);
-  // frmData.append("email", values.email);
-  // frmData.append("role_id", values.role);
-  // if (values.password) frmData.append("password", values.password);
 
   axios
     .post(url, frmData)
     .then((res) => {
       setTimeout(() => toast.success(res.data.message), 300);
-      router.push("/categories");
+      router.push("/app-ratio");
       btnLoading.value = false;
       actions.resetForm();
     })
@@ -251,56 +319,89 @@ const breads = [
     name: t("TITLES.home"),
   },
   {
-    name: t("LABELS.categories"),
-    path: "/categories",
+    name: t("LABELS.app-ratio"),
+    path: "/app-ratio",
     imgIcon: "",
   },
   {
     name: t(`BUTTONS.${route.params.id ? "Edit" : "add"}`, {
-      name: t("LABELS.categories"),
+      name: t("LABELS.app-ratio"),
     }),
-    path: `/categories/form${route.params.id ? "/" + route.params.id : ""}`,
+    path: `/app-ratio/form${route.params.id ? "/" + route.params.id : ""}`,
   },
 ];
 
 function getData() {
-  axios.get(`categories/${route.params.id}`).then((res) => {
-    console.log(route.params.id)
-    const result = res.data.data;
-    initialValues.titleAr = result.ar.title;
-    initialValues.titleEn = result.en.title;
-    initialValues.slugAr = result.ar.slug;
-    initialValues.slugEn = result.en.slug;
-    
+  axios.get(`app_ratios`).then((res) => {
+  const result = res.data.data;
+    console.log(result)
+  // Iterate over the data and set the initialValues based on the key
+  result.forEach(item => {
+    switch(item.key) {
+      // case 'number_of_cancel_orders':
+      //   initialValues.number_of_cancel_orders = item.value;
+      //   break;
+      case 'tax_rate':
+        initialValues.tax_rate = item.value;
+        break;
+      
+      case 'rate_for_application_from_merchants':
+        initialValues.rate_for_application_from_merchants = item.value;
+        break;
+      case 'rate_for_workshop_customers':
+        initialValues.rate_for_workshop_customers = item.value;
+        break;
+      case 'permitted_period_for_accepting_request':
+        initialValues.permitted_period_for_accepting_request= item.value;
+        break;
+      case 'maximum_number_of_pending_requests':
+        initialValues.maximum_number_of_pending_requests= item.value;
+        break;
+      case 'permitted_period_for_completing_reques':
+        initialValues.permitted_period_for_completing_reques= item.value;
+        break;
 
-    initialValues.preview = result.image;
-    
-    initialValues.id = result.id;
-    initialValues.category = result.parent_id;
-
-    loading.value = false;
+      // case 'tiktok':
+      //   initialValues.tiktok = item.value;
+      //   break;
+      // case 'snapchat':
+      //   initialValues.snapchat = item.value;
+      //   break;
+      // case 'app_store':
+      //   initialValues.app_store = item.value;
+      //   break;
+      // case 'google_play':
+      //   initialValues.google_play = item.value;
+      //   break;
+   
+      // case 'website_name':
+      //   initialValues.website_name = item.value;
+      //   break;
+      // case 'vat':
+      //   initialValues.vat = item.value;
+      //   break;
+      // case 'vendor_percentage':
+      //   initialValues.vendor_percentage = item.value;
+      //   break;
+      // case 'phones':
+      //   initialValues.phones = item.value;  // For array (phone data)
+      //   break;
+      default:
+        break;
+    }
   });
-}
+  console.log(initialValues)
 
-const categories = ref([]);
-
-function getCategories() {
-  axios.get("index-without-pagination").then((res) => {
-    categories.value = res.data.data.map((el) => {
-      return {
-        id: el.id,
-        name: el.title,
-      };
-    });
-  });
+  // After assigning all values, you can stop loading
+  loading.value = false;
+});
 }
-getCategories();
 
 onBeforeMount(() => {
-  if (route.params.id) {
+  
     loading.value = true;
     getData();
-  }
+  
 });
 </script>
 

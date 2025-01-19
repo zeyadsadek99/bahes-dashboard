@@ -20,7 +20,7 @@
           no-today
           :time-picker="timePicker"
           :model-type="
-            timePicker ? (is24 ? 'hh:mm' : 'hh:mm aa') : 'yyyy-MM-dd'
+            timePicker ? (is24 ? 'hh:mm' : 'hh:mm aa') : 'yyyy/MM/dd'
           "
           :date-select="dateSelect"
           :id="id"
@@ -143,7 +143,7 @@ watch(
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
 
-    formattedDate = `${year}-${month}-${day}`;
+    formattedDate = `${year}/${month}/${day}`;
 
     updateValue(formattedDate);
   }

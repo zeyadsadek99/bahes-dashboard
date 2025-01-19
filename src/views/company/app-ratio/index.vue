@@ -1,16 +1,13 @@
 <template>
   <div class="h-full flex flex-col">
-    <breadcrumbs :items="breadItems" :title="$t('LABELS.categories')" />
-    <div
-      class="bg-white rounded-3xl h-full shadow-[0_7px_6px_0px,rgba(#B1B1B11A)] md:p-7 flex-1 flex flex-col"
-    >
+    <breadcrumbs :items="breadItems" :title="$t('LABELS.app-ratio')" />
+    <div class="bg-white rounded-3xl h-full shadow-[0_7px_6px_0px,rgba(#B1B1B11A)] md:p-7 flex-1 flex flex-col">
       <base-filter
-        name="categories"
+        name="app-ratio"
         :inputs="[]"
-        :btn-name="t(`BUTTONS.add`, { name: t('LABELS.categories') })"
+        :btn-name="t(`BUTTONS.add`, { name: t('LABELS.app-ratio') })"
         icon="fas fa-plus"
-        :keyword="true"
-        @action="$router.push('/categories/form')"
+        @action="$router.push('/app-ratio/form')"
       />
       <v-data-table-virtual
         :headers="headers"
@@ -26,24 +23,14 @@
         </template>
 
         <template v-slot:no-data>
-          <div
-            class="text-center"
-            v-if="!$route.query.keyword && !$route.query.status"
-          >
+          <div class="text-center" v-if="!$route.query.keyword && !$route.query.status">
             <h3 class="mt-4 font-semibold text-text text-center">
-              {{
-                $t("TITLES.No have been added yet", {
-                  name: $t("LABELS.categories"),
-                })
-              }}
+              {{ $t("TITLES.No have been added yet", { name: $t("LABELS.app-ratio") }) }}
             </h3>
             <div class="flex items-center justify-center mt-7 gap-2 flex-wrap">
-              <router-link
-                to="/categories/form"
-                class="base-btn rounded-xl self-end"
-              >
+              <router-link to="/app_ratios/form" class="base-btn rounded-xl self-end">
                 <i class="fas fa-plus"></i>
-                {{ $t(`BUTTONS.add`, { name: $t("LABELS.categories") }) }}
+                {{ $t(`BUTTONS.add`, { name: $t("LABELS.app-ratio") }) }}
               </router-link>
             </div>
           </div>
@@ -52,46 +39,40 @@
           </h3>
         </template>
 
-        <template v-slot:[`item.title`]="{ item }">
+        <!-- Custom Slot for displaying Key -->
+        <template v-slot:[`item.key`]="{ item }">
           <div class="flex gap-2 items-center flex-wrap">
-            <small-details-card
-              :title="item.title"
-              :image="item.image"
-            />
+            <small-details-card :title="`${item.key}`" />
+          </div>
+
+        </template>
+
+        <!-- Custom Slot for displaying Value -->
+        <template v-slot:[`item.value`]="{ item }">
+          <div class="flex gap-2 items-center flex-wrap">
+            <!-- Check if the key is 'phones' and display accordingly -->
+            <div v-if="item.key === 'phones'">
+              <ul>
+                <li v-for="(phone, index) in item.value" :key="index" class="flex items-center">
+                  <span class="font-semibold">Phone: </span> 
+                  <span>{{ phone.phone }}</span>
+                  <span class="ml-2">({{ phone.phone_code }})</span>
+                </li>
+              </ul>
+            </div>
+            <!-- For other keys, show them as regular text -->
+            <div v-else>
+              <small-details-card :title="`${item.value}`" />
+            </div>
           </div>
         </template>
 
-        <!-- <template v-slot:[`item.email`]="{ item }">
-          <div class="flex gap-2 items-center flex-wrap">
-            <small-details-card :title="`${item.title}`" />
-          </div>
-        </template> -->
-
-        <!-- <template v-slot:[`item.is_admin_active_user`]="{ item }">
-          <global-switcher
-            :id="item.id"
-            :url="`faq/${item.id}/toggle-active-user`"
-            v-model:modalValue="item.is_admin_active_user"
-          />
-        </template> -->
-        <template v-slot:[`item.actions`]="{ item, index }">
-          <div class="flex items-center gap-4">
-            <router-link :to="`/categories/form/${item.id}`">
-              <svg-icon class="text-primary" name="edit" filled />
-            </router-link>
-            <Deleter
-              :url="`categories/${item.id}`"
-              :id="item.id"
-              method="DELETE"
-              @remove="items.splice(index, 1)"
-            />
-          </div>
-        </template>
       </v-data-table-virtual>
     </div>
     <base-pagination :item="paginator" v-if="paginator" />
   </div>
 </template>
+
 
 <script setup>
 import axios from "axios";
@@ -109,8 +90,8 @@ const breadItems = [
     imgIcon: "settings.svg",
   },
   {
-    name: t("LABELS.categories"),
-    path: "/categories",
+    name: t("LABELS.app-ratio"),
+    path: "/app-ratio",
     imgIcon: "",
   },
 ];
@@ -121,43 +102,24 @@ const paginator = ref(null);
 
 const headers = [
   {
-    title: t("LABELS.Name", { name: t("LABELS.Title") }),
+    title: t("LABELS.key"),
     align: "start",
     sortable: false,
-    key: "title",
+    key: "key",
   },
-  
-  // {
-  //   title: t("LABELS.Name", { name: t("LABELS.Slug") }),
-  //   align: "start",
-  //   sortable: false,
-  //   key: "slug",
-  // },
-  // {
-  //   title: t("LABELS.email"),
-  //   align: "start",
-  //   sortable: false,
-  //   key: "email",
-  // },
-  // {
-  //   title: t("LABELS.activation"),
-  //   align: "start",
-  //   sortable: false,
-  //   key: "is_admin_active_user",
-  // },
 
   {
-    title: t("LABELS.Actions"),
+    title: t("LABELS.value"),
     align: "start",
     sortable: false,
-    key: "actions",
+    key: "value",
   },
 ];
 
 function fetchData() {
   loading.value = true;
   axios
-    .get("categories", {
+    .get("app_ratios", {
       params: {
         keyword: route.query.keyword || "",
       },

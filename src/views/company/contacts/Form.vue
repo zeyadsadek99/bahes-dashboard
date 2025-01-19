@@ -1,12 +1,12 @@
 <template>
   <div>
-    <breadcrumbs back="/cities" :title="$t('LABELS.City')" :items="breads" />
+    <breadcrumbs back="/contacts" :title="$t('LABELS.contacts')" :items="breads" />
     <div class="flex gap-4 flex-wrap">
       <div class="flex-1 w-full min-w-[250px]">
         <FormSkelton v-if="loading" />
         <template v-else>
           <base-card1
-            :title="$t('TITLES.Details', { name: $t('LABELS.City') })"
+            :title="$t('TITLES.Details', { name: $t('LABELS.contacts') })"
           >
             <VeeForm
               :validation-schema="schema"
@@ -42,49 +42,45 @@
               </div> -->
               <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <base-input
-                  id="nameAr"
-                  name="nameAr"
-                  :placeholder="$t('LABELS.nameAr')"
-                  :label="$t('LABELS.nameAr')"
+                  v-model="initialValues.name"
+                  :placeholder="$t('LABELS.name')"
+                  :label="$t('LABELS.name')"
+                  name="name"
                   type="text"
                 />
                 <base-input
-                  id="nameEn"
-                  name="nameEn"
-                  :placeholder="$t('LABELS.nameEn')"
-                  :label="$t('LABELS.nameEn')"
+                  v-model="initialValues.content"
+                  :placeholder="$t('LABELS.content')"
+                  :label="$t('LABELS.content')"
+                  name="content"
                   type="text"
                 />
                 <!-- <base-input
-                  id="shortName"
-                  name="shortName"
-                  :placeholder="$t('LABELS.shortName')"
-                  :label="$t('LABELS.shortName')"
+                  v-model="initialValues.reply"
+                  :placeholder="$t('LABELS.reply')"
+                  :label="$t('LABELS.reply')"
+                  name="reply"
                   type="text"
                 /> -->
                 
-                <base-select
-                  id="countries"
-                  name="countries"
-                  :placeholder="$t('LABELS.countries')"
-                  :label="$t('LABELS.countries')"
-                  url="countries_without_pagination"
-                  v-model:itemValue="initialValues.countries"
-                />
+                
+                
+
+                
+                
               </div>
 
-              
 
               <div
                 class="flex items-center justify-end mt-7 gap-4 md:col-span-2 xl:col-span-3"
               >
                 <router-link
-                  to="/cities"
+                  to="/contacts"
                   class="capitalize font-semibold text-sub"
                 >
                   {{ $t("BUTTONS.cancel") }}
                 </router-link>
-                <button class="base-btn" :disabled="btnLoading" type="submit">
+                <button class="base-btn disabled" :disabled="btnLoading"  type="submit">
                   {{ $t("BUTTONS.save") }}
                 </button>
               </div>
@@ -111,30 +107,37 @@ const router = useRouter();
 const { t } = useI18n();
 
 const initialValues = reactive({
-  nameAr:"",
-  nameEn:"",
-  shortName: "",
-  countries:"",
-  // cityName: "",
-  // countryName: "",
-  id: "",
-  
-  
+  content: '',
+  name: '',
+  // number_of_cancel_orders: '',
+  // email: '',
+  // facebook: '',
+  // twitter: '',
+  // instagram: '',
+  // tiktok: '',
+  // snapchat: '',
+  // app_store: '',
+  // google_play: '',
+  // whatsapp: '',
+  // website_name: '',
+  // vat: '',
+  // vendor_percentage: '',
+  // phones: ''
 });
 
 const schema = yup.object().shape({
-  // country: yup.string().required(t("ERRORS.name")),
-  // countryKey: yup.string().required(t("ERRORS.name")),
+  // questionAr: yup.string().required(t("ERRORS.name")),
+  // questionEn: yup.string().required(t("ERRORS.name")),
+  // answerAr: yup.string().required(t("ERRORS.name")),
+  // answerEn: yup.string().required(t("ERRORS.name")),
   // name: yup.string().required(t("ERRORS.name")),
   // email: yup.string().required(t("ERRORS.emailAddress")),
   // phoneCode: yup.mixed().required(t("ERRORS.phoneCode")),
-
   // phoneNumber: yup
   //   .string()
   //   .required(t("ERRORS.isRequired", { name: t("LABELS.phone") }))
   //   .test((value, context) => {
   //     let parent = context.parent.phoneCode?.phone_number_limit;
-
   //     if (value.length > parent || value.length < parent) {
   //       return context.createError({
   //         message: t("ERRORS.phoneLength", { value: parent }),
@@ -175,7 +178,6 @@ const schema = yup.object().shape({
   //             return true;
   //           } else return false;
   //         })
-
   //         .oneOf([yup.ref("password")], t("ERRORS.notEqualPasswords"))
   //     : field
   // ),
@@ -186,36 +188,43 @@ function handleSubmit(values, actions) {
   btnLoading.value = true;
   const frmData = new FormData();
 
-  let url = "cities";
-  console.log(route.params)
-    //   console.log(values);
-
+  let url = "contacts";
 
   if (route.params.id) {
     frmData.append("_method", "PUT");
-    console.log(values);
-    url = `cities/${values.id}`;
+    url = `contacts`;
   }
 
   // if (initialValues.image) {
   //   frmData.append("image", initialValues.image);
   // }
-  // frmData.append("short_name", values.shortName);
-  frmData.append("ar[name]", values.nameAr);
-  frmData.append("en[name]", values.nameEn);
-  // if (route.params.id)
-  frmData.append("country_id", values.countries);
-  // console.log(values)
-  
+  console.log(values);
+  // frmData.append("number_of_cancel_orders", values.number_of_cancel_orders);
+  frmData.append("reply", values.reply);
   // frmData.append("email", values.email);
-  // frmData.append("role_id", values.role);
-  // if (values.password) frmData.append("password", values.password);
+  // frmData.append("facebook", values.facebook);
+  // frmData.append("twitter", values.twitter);
+  // frmData.append("instagram", values.instagram);
+  // frmData.append("tiktok", values.tiktok);
+  // frmData.append("snapchat", values.snapchat);
+  // frmData.append("app_store", values.app_store);
+  // frmData.append("google_play", values.google_play);
+  // frmData.append("whatsapp", values.whatsapp);
+//   frmData.append("website_name", values.website_name);
+//   frmData.append("vat", values.vat);
+//   frmData.append("vendor_percentage", values.vendor_percentage);
+//   values.phones.forEach((phone, index) => {
+//   frmData.append(`phones[${index}][phone]`, phone.phone);
+//   frmData.append(`phones[${index}][phone_code]`, phone.phone_code);
+// });
+
+  
 
   axios
     .post(url, frmData)
     .then((res) => {
       setTimeout(() => toast.success(res.data.message), 300);
-      router.push("/cities");
+      router.push("/contacts");
       btnLoading.value = false;
       actions.resetForm();
     })
@@ -234,36 +243,25 @@ const breads = [
     name: t("TITLES.home"),
   },
   {
-    name: t("LABELS.City"),
-    path: "/cities",
+    name: t("LABELS.contacts"),
+    path: "/contacts",
     imgIcon: "",
   },
   {
     name: t(`BUTTONS.${route.params.id ? "Edit" : "add"}`, {
-      name: t("LABELS.city"),
+      name: t("LABELS.contacts"),
     }),
-    path: `/cities/form${route.params.id ? "/" + route.params.id : ""}`,
+    path: `/contacts/form${route.params.id ? "/" + route.params.id : ""}`,
   },
 ];
 
 function getData() {
-  axios.get(`cities/${route.params.id}`).then((res) => {
+  console.log(route.params);
+  axios.get(`contacts/${route.params.id}`).then((res) => {
     const result = res.data.data;
 
-    // initialValues.shortName = result.short_name;
-    initialValues.nameAr = result.en.name;
-    initialValues.nameEn = result.ar.name;
-    // initialValues.shortName = result.short_name;
-    initialValues.countries = result.country.id;
-    // initialValues.nameEn = result.en[name];
-    // initialValues.name = result.full_name;
-    // initialValues.email = result.email;
-    // initialValues.phoneNumber = result.phone;
-    // initialValues.phoneCode = result.country;
-    // initialValues.phone_code = result.country;
-    // initialValues.role = result.role.id;
-
-    // initialValues.preview = result.image ?? result.logo;
+    initialValues.name = result.full_name;
+    initialValues.content = result.content;
 
     initialValues.id = result.id;
 
@@ -272,10 +270,10 @@ function getData() {
 }
 
 onBeforeMount(() => {
-  if (route.params.id) {
+  
     loading.value = true;
     getData();
-  }
+  
 });
 </script>
 

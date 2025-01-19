@@ -26,7 +26,6 @@
     "merchantsOffers": "Merchants' offers",
     "closeTicket": "Close Ticket",
     "AreYouDoneComplainingAndWantToClose": "Have you finished your complaint or suggestion and want to close it?",
-
     "You dont have any notifications yet": "You don't have any notifications yet",
     "No notifications": "No notifications",
     "finalDelete": "Are you sure about the delete?",
@@ -72,6 +71,12 @@
     "All Copyrights are reserved by": "All Copyrights are reserved by"
   },
   "LABELS": {
+    "app_ratio": "App Ratio",
+    "tax_rate": "Tax Rate",
+    "rate_for_application_from_merchants": "Rate for Application from Merchants",
+    "rate_for_workshop_customers": "Rate for Workshop Customers",
+    "permitted_period_for_accepting_request": "Permitted Period for Accepting Request",
+    "maximum_number_of_pending_requests": "Maximum Number of Pending Requests",
     "FacilityPhone": "Facility Phone",
     "FacilityEmail": "Facility Email",
     "enterValidUrl": "Enter valid url",
@@ -112,22 +117,19 @@
     "order_cancelled_by_client": "Cancelled by Client",
     "order_cancelled_by_vendor": "Cancelled by Vendor",
     "refund_order": "Refund Order",
-
-  "profile": "Profile",
-  "page": "Page",
-  "cancel-order": "Cancel Order",
-  "vendors": "Vendors",
-  "clients": "Clients",
-  "rate": "Rate",
-
-  "deposit": "Deposit",
+    "profile": "Profile",
+    "page": "Page",
+    "cancel-order": "Cancel Order",
+    "vendors": "Vendors",
+    "clients": "Clients",
+    "rate": "Rate",
+    "deposit": "Deposit",
     "withdraw": "Withdraw",
     "Hello": "Hello {name}",
     "Transaction": "Transaction",
     "amount": "Amount",
     "types": "Type",
     "Details": "Transaction Details",
-
     "nameAr": "Arabic Name",
     "nameEn": "English Name",
     "natAr": "Arabic Nationality",
@@ -137,16 +139,12 @@
     "natIdlimit": "National ID Limit",
     "continent": "Continent",
     "phoneNumberLimit": "Phone Number Limit",
-
-  
     "slugAr": "Slug (Arabic)",
     "slugEn": "Slug (English)",
     "desAr": "Description (Arabic)",
     "desEn": "Description (English)",
     "shortDesAr": "Short Description (Arabic)",
     "shortDesEn": "Short Description (English)",
- 
-  
     "link": "Link",
     "cancel-orders": "Cancel Orders",
     "id": "ID",
@@ -154,18 +152,14 @@
     "vendor": "Vendor",
     "Vendor": "Vendor",
     "Vendor Details": "Vendor Details",
-    "comment": "Comment"  ,
-
-
+    "comment": "Comment",
     "Desc": "Description",
-
     "googlePlayLink": "Google Play Link",
     "googlePlay": "Google Play",
     "appStoreLink": "App Store Link",
     "appStore": "App Store",
     "googlePlusLink": "Google Plus Link",
     "googlePlus": "Google Plus",
-
     "Footer Description": "Footer Description",
     "Default Language": "Default Language",
     "web_title": "Website Title",
@@ -228,12 +222,10 @@
     "Admins": "Admins",
     "Faqs": "Faqs",
     "faqs": "faqs",
-
     "Services": "Services",
     "services": "services",
     "slug": "slug",
     "Slug": "Slug",
-
     "questionAr": "questionAr",
     "questionEn": "questionEn",
     "question": "question",
@@ -261,7 +253,6 @@
     "card": "Visa / Master Card",
     "views number": "Views Number",
     "view": "View",
-
     "Number of inquiries": "Number of inquiries",
     "Number of views": "Number of views",
     "Number of likes": "Number of likes",
@@ -281,18 +272,14 @@
     "Almost sold out": "Almost sold out",
     "Admin Status": "Admin Status",
     "Product Status": "Product Status",
-
     "Available Quantity": "Available Quantity",
-
     "active discount": "Active Discount",
     "price before discount": "Price Before Discount",
     "price after discount": "Price After Discount",
     "current price": "Current Price",
     "Availability": "Availability",
     "products": "products",
-
     "product": "product",
-
     "Product Features": "Product Features",
     "minimum_stock_notification": "Minimum stock notification",
     "quantity": "Quantity",
@@ -314,12 +301,10 @@
     "rate-question": "Rate Question",
     "Cancel Reasons": "Cancel Reasons",
     "Cancel Reason": "Cancel Reason",
-
     "Shipping type": "Shipping Type",
     "facility type": "Facility Type",
     "coupon_price": "Coupon Discount",
     "Order Number": "Order Number",
-
     "orderNumber": "Order Number",
     "total": "Total",
     "Payment": "Payment",
@@ -331,7 +316,6 @@
     "Sizes": "Sizes",
     "Size": "Size",
     "block": "Block",
-
     "size": "size",
     "Company": "Company",
     "Shipping company": "Shipping company",
@@ -479,7 +463,6 @@
     "paid": "paid",
     "unPaid": "unpaid",
     "not_paid": "unpaid",
-
     "showInHome": "Show In Home",
     "noMessages": "No Messages",
     "searchFor": "Search for {name}",
@@ -507,16 +490,14 @@
     "Products": "Products",
     "Choose": "Choose",
     "choose": "choose",
-      "payment_method": "Payment Method",
-    
+    "payment_method": "Payment Method",
     "tamara": "Tamara",
-  "tabby": "Tabby",
-  "mada": "Mada",
-  "apple": "Apple",
-  "Wallet": "Wallet",
-  "visa": "Visa",
-  "cancelBy": "Cancel By",
-
+    "tabby": "Tabby",
+    "mada": "Mada",
+    "apple": "Apple",
+    "Wallet": "Wallet",
+    "visa": "Visa",
+    "cancelBy": "Cancel By",
     "subCategories": "Sub Categories",
     "subCategory": "Sub Category",
     "AddWholesaler": "Add Wholesaler",
@@ -572,10 +553,8 @@
     "admin_cancel": "Wholesaler Cancelled",
     "Rejected Stories": "Rejected Stories",
     "active_stories": "Active stories",
-
     "admin_processing": "In Progress",
     "all": "All",
-    
     "in_progress": "In Progress",
     "unCompleted": "Uncompleted",
     "refused": "Rejected",
@@ -676,7 +655,6 @@
     "Reject": "Reject",
     "make": "Make",
     "Make": "Make {name}",
-
     "Accept": "Accept",
     "permissions": "Permissions",
     "Yes Cancel Order": "Yes, Cancel Order",
@@ -781,11 +759,9 @@
     "questionnaireDetails": "questionnaire details",
     "search": "search",
     "back": "back",
-
     "Show": "Show {name}",
     "Make Transaction": "Make Transaction",
     "Withdraw Request": "Withdraw Request",
-
     "employeePromotion": "employee promotion",
     "endAppointmentPeriod": "termination of the appointment period",
     "showSalaryDetails": "view salary details",
@@ -859,7 +835,6 @@
     "deal": "Deal",
     "story": "Story"
   },
-
   "Edited successfully": "Edited successfully",
   "New order": "New order",
   "You cant move to the same table": "You can't move items to the same table",

@@ -4,14 +4,14 @@
     <div
       class="bg-white rounded-3xl h-full shadow-[0_7px_6px_0px,rgba(#B1B1B11A)] md:p-7 flex-1 flex flex-col"
     >
-      <!-- <base-filter
+      <base-filter
         name="sliders"
         :inputs="[]"
         :btn-name="t(`BUTTONS.add`, { name: t('LABELS.slider') })"
         icon="fas fa-plus"
         :keyword="true"
         @action="$router.push('/sliders/form')"
-      /> -->
+      />
       <v-data-table-virtual
         :headers="headers"
         :items="[items]"
@@ -56,25 +56,35 @@
                 :text="item.en.description"
 
         -->
-        <template v-slot:[`item.name`]="{ item }">
-  <div class="flex gap-2 items-center flex-wrap ">
-    <small-details-card 
-      :text="`${item.en?.description}`"
-      :image="item.image"
-      class="max-w-[100px] sm:max-w-[250px] md:max-w-[350px] lg:max-w-[450px] xl:max-w-[520px] xs:max-w-[200px]  overflow-hidden whitespace-nowrap"
-    />
-  </div>
-</template>
+        <template v-slot:[`item.link`]="{ item }">
+          <div class="flex gap-2 items-center flex-wrap">
+            <small-details-card
+              :title="`${item.link}`"
+              :image="item.image"
+              class="max-w-[100px] sm:max-w-[250px] md:max-w-[350px] lg:max-w-[450px] xl:max-w-[520px] xs:max-w-[200px] overflow-hidden whitespace-nowrap"
+            />
+          </div>
+        </template>
 
-
-
+        <template v-slot:[`item.is_active`]="{ item }">
+          <global-switcher
+            :id="item.id"
+            :url="`sliders/${item.id}/toggle-active-slider`"
+            v-model:modalValue="item.is_active"
+          />
+        </template>
 
         <template v-slot:[`item.actions`]="{ item, index }">
           <div class="flex items-center gap-4">
             <router-link :to="`/sliders/form/${item.id}`">
               <svg-icon class="text-primary" name="edit" filled />
             </router-link>
-            
+            <Deleter
+              :url="`sliders/${item.id}`"
+              :id="item.id"
+              method="DELETE"
+              @remove="items.splice(index, 1)"
+            />
           </div>
         </template>
         <!-- <template v-slot:[`item.email`]="{ item }">
@@ -83,9 +93,7 @@
             />
           </div>
         </template> -->
-
       </v-data-table-virtual>
-      
     </div>
     <base-pagination :item="paginator" v-if="paginator" />
   </div>
@@ -117,12 +125,12 @@ const items = ref([]);
 const loading = ref(false);
 const paginator = ref(null);
 
-  const headers = [
+const headers = [
   {
     title: t("LABELS.slider"),
     align: "start",
     sortable: false,
-    key: "name",
+    key: "link",
   },
   // {
   //   title: t("LABELS.email"),
@@ -130,14 +138,19 @@ const paginator = ref(null);
   //   sortable: false,
   //   key: "email",
   // },
-
-    {
-      title: t("LABELS.Actions"),
-      align: "starat",
-      sortable: false,
-      key: "actions",
-    },
-  ];
+  {
+    title: t("LABELS.activation"),
+    align: "start",
+    sortable: false,
+    key: "is_active",
+  },
+  {
+    title: t("LABELS.Actions"),
+    align: "starat",
+    sortable: false,
+    key: "actions",
+  },
+];
 
 function fetchData() {
   loading.value = true;
@@ -149,7 +162,7 @@ function fetchData() {
     })
     .then((res) => {
       items.value = res.data.data;
-      console.log(items.value.en.title)
+      console.log(items.value.en.title);
       paginator.value = res.data.meta;
       loading.value = false;
     })

@@ -18,60 +18,33 @@
               :initial-values="initialValues"
               class="profile_page"
             >
-              
-            
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-7 relative">
+              <!-- Vendor -->
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-2 mb-7 relative">
                 <div class="image1 relative w-52">
                   <base-file
-                  @uploading="btnLoading = $event"
-                  modalName="users"
-                  modalType="image"
-                  id="image"
-                  name="image"
-                  :placeholder="$t('LABELS.image')"
-                  label=""
-                  v-model:itemValue="initialValues.preview"
-                  v-model:image="initialValues.image"
-                  accept="image/png, image/webp, image/jpeg"
-                  :no_preview="true"
-                />
-
-                <label
-                  for="image"
-                  class="w-10 h-10 end-9 bg-primary rounded-full flex justify-center items-center absolute -bottom-1"
-                >
-                  <img
-                    class="!object-contain"
-                    src="@/assets/images/icons/solar_upload-linear.png"
-                    alt="solar icon"
+                    @uploading="btnLoading = $event"
+                    modalName="users"
+                    modalType="image"
+                    id="image"
+                    name="image"
+                    :placeholder="$t('LABELS.image')"
+                    label=""
+                    v-model:itemValue="initialValues.preview"
+                    v-model:image="initialValues.image"
+                    accept="image/png, image/webp, image/jpeg"
+                    :no_preview="true"
                   />
-                </label>
-                </div>
-                <div class="image2 relative w-52">
-                  <base-file
-                  @uploading="btnLoading = $event"
-                  modalName="users"
-                  modalType="image"
-                  id="image2"
-                  name="image2"
-                  :placeholder="$t('LABELS.image')"
-                  label=""
-                  v-model:itemValue="initialValues.preview"
-                  v-model:image="initialValues.image2"
-                  accept="image/png, image/webp, image/jpeg"
-                  :no_preview="true"
-                />
 
-                <label
-                  for="image"
-                  class="w-10 h-10 end-9 bg-primary rounded-full flex justify-center items-center absolute -bottom-1"
-                >
-                  <img
-                    class="!object-contain"
-                    src="@/assets/images/icons/solar_upload-linear.png"
-                    alt="solar icon"
-                  />
-                </label>
+                  <label
+                    for="image"
+                    class="w-10 h-10 end-9 bg-primary rounded-full flex justify-center items-center absolute -bottom-1"
+                  >
+                    <img
+                      class="!object-contain"
+                      src="@/assets/images/icons/solar_upload-linear.png"
+                      alt="solar icon"
+                    />
+                  </label>
                 </div>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -82,20 +55,26 @@
                   :label="$t('LABELS.name')"
                   type="text"
                 />
-
                 <base-input
-                  id="bankAcc"
-                  name="bankAcc"
-                  :placeholder="$t('LABELS.bankAcc')"
-                  :label="$t('LABELS.bankAcc')"
+                  id="email"
+                  name="email"
+                  :placeholder="$t('LABELS.email')"
+                  :label="$t('LABELS.email')"
                   type="text"
                 />
+
+                <!-- <base-input
+                    id="bankAcc"
+                    name="bankAcc"
+                    :placeholder="$t('LABELS.bankAcc')"
+                    :label="$t('LABELS.bankAcc')"
+                    type="text"
+                  /> -->
                 <base-phone
                   id="phoneNumber"
                   name="phoneNumber"
                   :placeholder="$t('LABELS.phone')"
                   :top-label="$t('LABELS.phone')"
-                  
                   :regular-phone="true"
                 />
                 <base-input
@@ -105,10 +84,21 @@
                   :label="$t('LABELS.phoneCode')"
                   type="text"
                 />
-                
 
-                
-                <base-select
+                <base-password
+                  id="password"
+                  name="password"
+                  :placeholder="$t('LABELS.password')"
+                  label="password"
+                />
+                <base-password
+                  id="cPassword"
+                  name="cPassword"
+                  :placeholder="$t('LABELS.cPassword')"
+                  label="cPassword"
+                />
+
+                <!-- <base-select
                   id="category"
                   name="category"
                   :placeholder="$t('LABELS.category')"
@@ -123,23 +113,112 @@
                   :label="$t('LABELS.category')"
                   :options="categories"
                   v-model:itemValue="initialValues.category2"
-                />
+                /> -->
               </div>
+              <!-- store -->
+              <base-card1
+                :title="$t('TITLES.Details', { name: $t('LABELS.Store') })"
+              >
+                <div
+                  class="grid grid-cols-1 md:grid-cols-3 gap-2 mb-7 relative"
+                >
+                  <div class="image1 relative w-52">
+                    <base-file
+                      @uploading="btnLoading = $event"
+                      modalName="users"
+                      modalType="image"
+                      id="storeImage"
+                      name="storeImage"
+                      :placeholder="$t('LABELS.image')"
+                      label=""
+                      v-model:itemValue="initialValues.storeImage"
+                      v-model:image="initialValues.storeImage"
+                      accept="image/png, image/webp, image/jpeg"
+                      :no_preview="true"
+                    />
 
-              <div class="grid md:grid-cols-2 gap-2 mt-4">
-                <base-password
-                  id="password"
-                  name="password"
-                  :placeholder="$t('LABELS.password')"
-                  label="password"
-                />
-                <base-password
-                  id="cPassword"
-                  name="cPassword"
-                  :placeholder="$t('LABELS.cPassword')"
-                  label="cPassword"
-                />
-              </div>
+                    <label
+                      for="image"
+                      class="w-10 h-10 end-9 bg-primary rounded-full flex justify-center items-center absolute -bottom-1"
+                    >
+                      <img
+                        class="!object-contain"
+                        src="@/assets/images/icons/solar_upload-linear.png"
+                        alt="solar icon"
+                      />
+                    </label>
+                  </div>
+                  <div class="image1 relative w-52">
+                    <base-file
+                      @uploading="btnLoading = $event"
+                      modalName="users"
+                      modalType="image"
+                      id="storeCommericalRegisterImage"
+                      name="storeCommericalRegisterImage"
+                      :placeholder="$t('LABELS.image')"
+                      label=""
+                      v-model:itemValue="
+                        initialValues.storeCommericalRegisterImage
+                      "
+                      v-model:image="initialValues.storeCommericalRegisterImage"
+                      accept="image/png, image/webp, image/jpeg"
+                      :no_preview="true"
+                    />
+
+                    <label
+                      for="image"
+                      class="w-10 h-10 end-9 bg-primary rounded-full flex justify-center items-center absolute -bottom-1"
+                    >
+                      <img
+                        class="!object-contain"
+                        src="@/assets/images/icons/solar_upload-linear.png"
+                        alt="solar icon"
+                      />
+                    </label>
+                  </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  <base-input
+                    id="storeName"
+                    name="storeName"
+                    :placeholder="$t('LABELS.storeName')"
+                    :label="$t('LABELS.storeName')"
+                    type="text"
+                  />
+                  <base-input
+                    id="storeRegion"
+                    name="storeRegion"
+                    :placeholder="$t('LABELS.storeRegion')"
+                    :label="$t('LABELS.storeRegion')"
+                    type="text"
+                  />
+                  <base-select
+                    id="storeCity"
+                    name="storeCity"
+                    :placeholder="$t('LABELS.storeCity')"
+                    :label="$t('LABELS.storeCity')"
+                    :options="cities"
+                    v-model:itemValue="initialValues.storeCity"
+                  />
+                  <base-select
+                    id="storeActivity"
+                    name="storeActivity"
+                    :placeholder="$t('LABELS.storeActivity')"
+                    :label="$t('LABELS.storeActivity')"
+                    :options="categories"
+                    v-model:itemValue="initialValues.storeActivity"
+                  />
+
+                  
+                  <base-input
+                    id="storeLocation"
+                    name="storeLocation"
+                    :placeholder="$t('LABELS.storeLocation')"
+                    :label="$t('LABELS.storeLocation')"
+                    type="text"
+                  />
+                </div>
+              </base-card1>
 
               <div
                 class="flex items-center justify-end mt-7 gap-4 md:col-span-2 xl:col-span-3"
@@ -178,17 +257,20 @@ const { t } = useI18n();
 
 const initialValues = reactive({
   name: "",
-  // email: "",
+  email: "",
   phoneNumber: "",
-  category: "",
-  category2: "",
   phoneCode: "",
   image: "",
   preview: "",
-  image2: "",
-  bankAcc: "",
   password: "",
   cPassword: "",
+  storeName: "",
+  storeRegion: "",
+  storeCity: "",
+  storeActivity: "",
+  storeLocation: "",
+  storeImage: "",
+  storeCommericalRegisterImage: "",
   // subCategoryId: "",
   // subCategoryId2: "",
 });
@@ -252,30 +334,36 @@ function handleSubmit(values, actions) {
   btnLoading.value = true;
   const frmData = new FormData();
 
-  let url = "vendors/store";
-  console.log(route.params)
-  console.log(values)
+  let url = "vendors";
+  console.log(route.params);
+  console.log(values);
   if (route.params.id) {
     frmData.append("_method", "[PUT]");
-    url = `vendors/store/${values.id}`;
+    url = `vendors/${values.id}`;
   }
 
+  // frmData.append("card_front[media]", initialValues.image);
 
-    frmData.append("card_front[media]", initialValues.image);
-  
-  
-    frmData.append("card_back[media]", initialValues.image2);
-  
+  // frmData.append("card_back[media]", initialValues.image2);
+
   frmData.append("full_name", values.name);
-  frmData.append("subcategory_ids[0]", values.category);
-  frmData.append("subcategory_ids[1]", values.category2);
+  frmData.append("email", values.email);
+  frmData.append("store[0][full_name]", values.storeName);
+  frmData.append("store[0][region]", values.storeRegion);
+  frmData.append("store[0][city_id]", values.storeCity);
+  frmData.append("store[0][store_activity_id]", values.storeActivity);
+  frmData.append("store[0][location_in_map]", values.storeLocation);
+  frmData.append("store[0][store_image]", values.storeImage);
+  frmData.append(
+    "store[0][commercial_register_image]",
+    values.storeCommericalRegisterImage
+  );
   frmData.append("phone", values.phoneNumber);
   frmData.append("phone_code", values.phoneCode);
-  frmData.append("bank_account_number", values.bankAcc);
   if (values.password) frmData.append("password", values.password);
   if (values.password)
     frmData.append("password_confirmation", values.cPassword);
-  console.log(route.params)
+  console.log(route.params);
 
   axios
     .post(url, frmData)
@@ -313,41 +401,54 @@ const breads = [
 ];
 
 function getData() {
-  console.log(route.params)
-  axios.get(`vendors/show/${route.params.id}`).then((res) => {
+  console.log(route.params);
+  axios.get(`vendors/${route.params.id}`).then((res) => {
     const result = res.data.data;
-    
+
     initialValues.name = result.full_name;
-    // initialValues.password = result.password;
-    // initialValues.cPassword = result.full_name;
-    initialValues.category = result.subcategories[0].parent_id;
-    initialValues.category2 = result.subcategories[1].parent_id;
+    initialValues.email = result.email;
+    initialValues.storeName = result.store.full_name;
+    initialValues.storeRegion = result.store.region;
+    initialValues.storeCity = result.store.id;
+
+    initialValues.storeActivity = result.store.store_activity;
+    initialValues.storeLocation = result.store.location_in_map;
+    initialValues.storeImage = result.store.store_image;
+    initialValues.storeCommericalRegisterImage =
+      result.store.commercial_register_image;
+
     initialValues.phoneNumber = result.phone;
     initialValues.phoneCode = result.phone_code;
-    initialValues.bankAcc = result.bank_account_number;
-
-    // initialValues.preview = result.image;
 
     initialValues.id = result.id;
-    // initialValues.category = result.sub_category_id;
-
 
     loading.value = false;
   });
 }
-const categories = ref([
-]);
+const categories = ref([]);
+const cities = ref([]);
 function getCategories() {
-  axios.get("index-without-pagination").then((res) => {
+  axios.get("store-activities").then((res) => {
     categories.value = res.data.data.map((el) => {
       return {
         id: el.id,
-        name: el.title,
+        name: el.name,
       };
     });
   });
 }
-getCategories(); 
+function getCities() {
+  axios.get("cities_without_pagination").then((res) => {
+    cities.value = res.data.data.map((el) => {
+      return {
+        id: el.id,
+        name: el.name,
+      };
+    });
+  });
+}
+getCities();
+getCategories();
 
 onBeforeMount(() => {
   if (route.params.id) {

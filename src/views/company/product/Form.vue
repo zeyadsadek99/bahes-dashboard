@@ -1,12 +1,12 @@
 <template>
   <div>
-    <breadcrumbs back="/cities" :title="$t('LABELS.City')" :items="breads" />
+    <breadcrumbs back="/product" :title="$t('LABELS.product')" :items="breads" />
     <div class="flex gap-4 flex-wrap">
       <div class="flex-1 w-full min-w-[250px]">
         <FormSkelton v-if="loading" />
         <template v-else>
           <base-card1
-            :title="$t('TITLES.Details', { name: $t('LABELS.City') })"
+            :title="$t('TITLES.Details', { name: $t('LABELS.product') })"
           >
             <VeeForm
               :validation-schema="schema"
@@ -14,33 +14,15 @@
               :initial-values="initialValues"
               class="profile_page"
             >
-              <!-- <div class="w-fit relative">
-                <base-file
-                  @uploading="btnLoading = $event"
-                  modalName="users"
-                  modalType="image"
-                  id="image"
-                  name="image"
-                  :placeholder="$t('LABELS.image')"
-                  label=""
-                  v-model:itemValue="initialValues.preview"
-                  v-model:image="initialValues.image"
-                  accept="image/png, image/webp, image/jpeg"
-                  :no_preview="true"
-                />
-
-                <label
-                  for="image"
-                  class="w-10 h-10 end-7 bg-primary rounded-full flex justify-center items-center absolute -bottom-2"
-                >
-                  <img
-                    class="!object-contain"
-                    src="@/assets/images/icons/solar_upload-linear.png"
-                    alt="solar icon"
-                  />
-                </label>
-              </div> -->
+             
               <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <!-- <base-input
+                  id="name"
+                  name="name"
+                  :placeholder="$t('LABELS.name')"
+                  :label="$t('LABELS.name')"
+                  type="text"
+                /> -->
                 <base-input
                   id="nameAr"
                   name="nameAr"
@@ -55,22 +37,36 @@
                   :label="$t('LABELS.nameEn')"
                   type="text"
                 />
-                <!-- <base-input
-                  id="shortName"
-                  name="shortName"
-                  :placeholder="$t('LABELS.shortName')"
-                  :label="$t('LABELS.shortName')"
-                  type="text"
-                /> -->
-                
-                <base-select
-                  id="countries"
-                  name="countries"
-                  :placeholder="$t('LABELS.countries')"
-                  :label="$t('LABELS.countries')"
-                  url="countries_without_pagination"
-                  v-model:itemValue="initialValues.countries"
+                <base-input
+                  id="desAr"
+                  name="desAr"
+                  :placeholder="$t('LABELS.desAr')"
+                  :label="$t('LABELS.desAr')"
+                  type="text" 
                 />
+                <base-input
+                  id="desEn"
+                  name="desEn"
+                  :placeholder="$t('LABELS.desEn')"
+                  :label="$t('LABELS.desEn')"
+                  type="text"
+                />
+                <base-input
+                  id="code"
+                  name="code"
+                  :placeholder="$t('LABELS.code')"
+                  :label="$t('LABELS.code')"
+                  type="text"
+                />
+                <base-select
+                  id="product_id"
+                  name="product_id"
+                  :placeholder="$t('LABELS.product_id')"
+                  :label="$t('LABELS.product_id')"
+                  :options="categories"
+                />
+                
+              
               </div>
 
               
@@ -79,7 +75,7 @@
                 class="flex items-center justify-end mt-7 gap-4 md:col-span-2 xl:col-span-3"
               >
                 <router-link
-                  to="/cities"
+                  to="/product"
                   class="capitalize font-semibold text-sub"
                 >
                   {{ $t("BUTTONS.cancel") }}
@@ -111,20 +107,16 @@ const router = useRouter();
 const { t } = useI18n();
 
 const initialValues = reactive({
-  nameAr:"",
-  nameEn:"",
-  shortName: "",
-  countries:"",
-  // cityName: "",
-  // countryName: "",
-  id: "",
-  
+  nameAr: "",
+  nameEn: "",
+  desAr: "",
+  desEn: "",
+  code: "",
+  product_id: "",
   
 });
 
 const schema = yup.object().shape({
-  // country: yup.string().required(t("ERRORS.name")),
-  // countryKey: yup.string().required(t("ERRORS.name")),
   // name: yup.string().required(t("ERRORS.name")),
   // email: yup.string().required(t("ERRORS.emailAddress")),
   // phoneCode: yup.mixed().required(t("ERRORS.phoneCode")),
@@ -144,9 +136,9 @@ const schema = yup.object().shape({
   //       return true;
   //     }
   //   }),
-  // role: yup
-  //   .string()
-  //   .required(t("ERRORS.isRequired", { name: t("LABELS.Role") })),
+  // // role: yup
+  // //   .string()
+  // //   .required(t("ERRORS.isRequired", { name: t("LABELS.Role") })),
   // image: yup
   //   .mixed()
   //   .test(
@@ -186,36 +178,33 @@ function handleSubmit(values, actions) {
   btnLoading.value = true;
   const frmData = new FormData();
 
-  let url = "cities";
-  console.log(route.params)
-    //   console.log(values);
-
+  let url = "products";
 
   if (route.params.id) {
     frmData.append("_method", "PUT");
-    console.log(values);
-    url = `cities/${values.id}`;
+    url = `products/${values.id}`;
   }
 
   // if (initialValues.image) {
   //   frmData.append("image", initialValues.image);
   // }
-  // frmData.append("short_name", values.shortName);
-  frmData.append("ar[name]", values.nameAr);
+
   frmData.append("en[name]", values.nameEn);
-  // if (route.params.id)
-  frmData.append("country_id", values.countries);
-  // console.log(values)
-  
+  frmData.append("ar[name]", values.nameAr);
+  frmData.append("en[desc]", values.desEn);
+  frmData.append("ar[desc]", values.desAr);
+  frmData.append("code", values.code);
+  frmData.append("product_type_id", values.product_id);
+  // frmData.append("phone", values.phoneNumber);
+  // frmData.append("phone_code", values.phoneCode);
   // frmData.append("email", values.email);
-  // frmData.append("role_id", values.role);
   // if (values.password) frmData.append("password", values.password);
 
   axios
     .post(url, frmData)
     .then((res) => {
       setTimeout(() => toast.success(res.data.message), 300);
-      router.push("/cities");
+      router.push("/product");
       btnLoading.value = false;
       actions.resetForm();
     })
@@ -234,43 +223,44 @@ const breads = [
     name: t("TITLES.home"),
   },
   {
-    name: t("LABELS.City"),
-    path: "/cities",
+    name: t("LABELS.product"),
+    path: "/product",
     imgIcon: "",
   },
   {
     name: t(`BUTTONS.${route.params.id ? "Edit" : "add"}`, {
-      name: t("LABELS.city"),
+      name: t("LABELS.brand"),
     }),
-    path: `/cities/form${route.params.id ? "/" + route.params.id : ""}`,
+    path: `/product/form${route.params.id ? "/" + route.params.id : ""}`,
   },
 ];
 
 function getData() {
-  axios.get(`cities/${route.params.id}`).then((res) => {
+  axios.get(`products/${route.params.id}`).then((res) => {
     const result = res.data.data;
-
-    // initialValues.shortName = result.short_name;
-    initialValues.nameAr = result.en.name;
-    initialValues.nameEn = result.ar.name;
-    // initialValues.shortName = result.short_name;
-    initialValues.countries = result.country.id;
-    // initialValues.nameEn = result.en[name];
-    // initialValues.name = result.full_name;
-    // initialValues.email = result.email;
-    // initialValues.phoneNumber = result.phone;
-    // initialValues.phoneCode = result.country;
-    // initialValues.phone_code = result.country;
-    // initialValues.role = result.role.id;
-
-    // initialValues.preview = result.image ?? result.logo;
+    initialValues.code = result.code;
+    initialValues.product_id = result.product_type;
+    // initialValues.nameAr = result.name;
+  //  initialValues.nameEn = result.name;
 
     initialValues.id = result.id;
 
     loading.value = false;
   });
 }
+const categories = ref([]);
 
+function getCategories() {
+  axios.get("product-types").then((res) => {
+    categories.value = res.data.data.map((el) => {
+      return {
+        id: el.id,
+        name: el.name,
+      };
+    });
+  });
+}
+getCategories();
 onBeforeMount(() => {
   if (route.params.id) {
     loading.value = true;

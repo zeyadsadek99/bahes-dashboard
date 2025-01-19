@@ -6,7 +6,7 @@
     >
       <base-filter
         name="clients"
-        :inputs="[]"
+        :inputs="inputs"
         :btn-name="t(`BUTTONS.add`, { name: t('LABELS.clients') })"
         icon="fas fa-plus"
         :keyword="true"
@@ -72,7 +72,7 @@
         <template v-slot:[`item.is_admin_active_user`]="{ item }">
           <global-switcher
             :id="item.id"
-            :url="`clients/toggle-active/${item.id}`"
+            :url="`clients/${item.id}/toggle-active-client`"
             v-model:modalValue="item.is_admin_active_user"
             method='POST'
 
@@ -114,7 +114,40 @@ import { useRoute } from "vue-router";
 
 const route = useRoute();
 const { t } = useI18n();
+const inputs = [
+  {
+    name: "strat_date",
+    placeholder: "from_date",
+    type: "date",
+    icon: "calendar",
+    filter: null,
+    multiple: false,
+    minDate: "",
+  },
+  {
+    name: "end_date",
+    placeholder: "to_date",
+    type: "date",
+    icon: "calendar",
+    filter: null,
+    multiple: false,
+    minDate: "",
+  },
+  {
+    name: "filter",
+    placeholder: "filter",
+    type: "select",
+    // icon: "calendar",
+    filter: null,
+    options : [
+    // { id: "", name: t("STATUS.all")},
+    { id: 'newest', name: 'newest' },
+    { id: 'activist', name: 'activist' },
+  ],
 
+    multiple: false,
+  },
+];
 const breadItems = [
   {
     name: t("TITLES.home"),
@@ -173,14 +206,17 @@ const headers = [
 ];
 
 function fetchData() {
+  const params = new URLSearchParams();
+  params.append("from", route.query.strat_date || "");
+  params.append("to", route.query.end_date || "");
+  params.append("filter", route.query.filter || "");
+
+  params.append("keyword", route.query.keyword || "");
+  params.append("page", +route.query.page || 1);
   loading.value = true;
   axios
     .get("clients", {
-      params: {
-        keyword: route.query.keyword || "",
-        page: route.query.page || 1
-
-      },
+      params,
     })
     .then((res) => {
       items.value = res.data.data;

@@ -41,7 +41,7 @@
                 </label>
               </div> -->
               <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                <base-input
+                <!-- <base-input
                   v-model="initialValues.website_name"
                   :placeholder="$t('LABELS.websiteName')"
                   :label="$t('LABELS.websiteName')"
@@ -54,7 +54,7 @@
                   :label="$t('LABELS.email')"
                   name="email"
                   type="email"
-                />
+                /> -->
                 <base-input
                   v-model="initialValues.facebook"
                   :placeholder="$t('LABELS.facebook')"
@@ -83,7 +83,7 @@
                   name="instagram"
                   type="text"
                 />
-                <base-input
+                <!-- <base-input
                   v-model="initialValues.tiktok"
                   :placeholder="$t('LABELS.tiktok')"
                   :label="$t('LABELS.tiktok')"
@@ -110,7 +110,7 @@
                   :label="$t('LABELS.googlePlay')"
                   name="google_play"
                   type="text"
-                />
+                /> -->
                 <base-input
                   v-model="initialValues.whatsapp"
                   :placeholder="$t('LABELS.whatsapp')"
@@ -118,7 +118,7 @@
                   name="whatsapp"
                   type="text"
                 />
-                <base-input
+                <!-- <base-input
                   v-model="initialValues.vat"
                   :placeholder="$t('LABELS.vat')"
                   :label="$t('LABELS.vat')"
@@ -131,10 +131,10 @@
                   :label="$t('LABELS.vendorPercentage')"
                   name="vendor_percentage"
                   type="text"
-                />
+                /> -->
                 
                 <!-- Phones Inputs -->
-                <div v-for="(phone, index) in initialValues.phones" :key="index" class="flex gap-2">
+                <!-- <div v-for="(phone, index) in initialValues.phones" :key="index" class="flex gap-2">
                   <base-input
                     v-model="phone.phone"
                     :placeholder="$t('LABELS.phone')"
@@ -149,7 +149,7 @@
                     :name="`phones[${index}][phone_code]`"
                     type="text"
                   />
-                </div>
+                </div> -->
 
                 
                 
@@ -283,24 +283,24 @@ function handleSubmit(values, actions) {
   //   frmData.append("image", initialValues.image);
   // }
   console.log(values);
-  frmData.append("number_of_cancel_orders", values.number_of_cancel_orders);
+  // frmData.append("number_of_cancel_orders", values.number_of_cancel_orders);
   frmData.append("youtube", values.youtube);
-  frmData.append("email", values.email);
+  // frmData.append("email", values.email);
   frmData.append("facebook", values.facebook);
   frmData.append("twitter", values.twitter);
   frmData.append("instagram", values.instagram);
-  frmData.append("tiktok", values.tiktok);
-  frmData.append("snapchat", values.snapchat);
-  frmData.append("app_store", values.app_store);
-  frmData.append("google_play", values.google_play);
+  // frmData.append("tiktok", values.tiktok);
+  // frmData.append("snapchat", values.snapchat);
+  // frmData.append("app_store", values.app_store);
+  // frmData.append("google_play", values.google_play);
   frmData.append("whatsapp", values.whatsapp);
-  frmData.append("website_name", values.website_name);
-  frmData.append("vat", values.vat);
-  frmData.append("vendor_percentage", values.vendor_percentage);
-  values.phones.forEach((phone, index) => {
-  frmData.append(`phones[${index}][phone]`, phone.phone);
-  frmData.append(`phones[${index}][phone_code]`, phone.phone_code);
-});
+//   frmData.append("website_name", values.website_name);
+//   frmData.append("vat", values.vat);
+//   frmData.append("vendor_percentage", values.vendor_percentage);
+//   values.phones.forEach((phone, index) => {
+//   frmData.append(`phones[${index}][phone]`, phone.phone);
+//   frmData.append(`phones[${index}][phone_code]`, phone.phone_code);
+// });
 
   
 
@@ -346,15 +346,15 @@ function getData() {
   // Iterate over the data and set the initialValues based on the key
   result.forEach(item => {
     switch(item.key) {
-      case 'number_of_cancel_orders':
-        initialValues.number_of_cancel_orders = item.value;
-        break;
+      // case 'number_of_cancel_orders':
+      //   initialValues.number_of_cancel_orders = item.value;
+      //   break;
       case 'youtube':
         initialValues.youtube = item.value;
         break;
-      case 'email':
-        initialValues.email = item.value;
-        break;
+      // case 'email':
+      //   initialValues.email = item.value;
+      //   break;
       case 'facebook':
         initialValues.facebook = item.value;
         break;
@@ -364,33 +364,33 @@ function getData() {
       case 'instagram':
         initialValues.instagram = item.value;
         break;
-      case 'tiktok':
-        initialValues.tiktok = item.value;
-        break;
-      case 'snapchat':
-        initialValues.snapchat = item.value;
-        break;
-      case 'app_store':
-        initialValues.app_store = item.value;
-        break;
-      case 'google_play':
-        initialValues.google_play = item.value;
-        break;
+      // case 'tiktok':
+      //   initialValues.tiktok = item.value;
+      //   break;
+      // case 'snapchat':
+      //   initialValues.snapchat = item.value;
+      //   break;
+      // case 'app_store':
+      //   initialValues.app_store = item.value;
+      //   break;
+      // case 'google_play':
+      //   initialValues.google_play = item.value;
+      //   break;
       case 'whatsapp':
         initialValues.whatsapp = item.value;
         break;
-      case 'website_name':
-        initialValues.website_name = item.value;
-        break;
-      case 'vat':
-        initialValues.vat = item.value;
-        break;
-      case 'vendor_percentage':
-        initialValues.vendor_percentage = item.value;
-        break;
-      case 'phones':
-        initialValues.phones = item.value;  // For array (phone data)
-        break;
+      // case 'website_name':
+      //   initialValues.website_name = item.value;
+      //   break;
+      // case 'vat':
+      //   initialValues.vat = item.value;
+      //   break;
+      // case 'vendor_percentage':
+      //   initialValues.vendor_percentage = item.value;
+      //   break;
+      // case 'phones':
+      //   initialValues.phones = item.value;  // For array (phone data)
+      //   break;
       default:
         break;
     }

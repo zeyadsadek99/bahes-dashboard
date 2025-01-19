@@ -60,10 +60,17 @@
                   type="text"
                 />
                 <base-input
-                  id="shortName"
-                  name="shortName"
-                  :placeholder="$t('LABELS.shortName')"
-                  :label="$t('LABELS.shortName')"
+                  id="shortNameAr"
+                  name="shortNameAr"
+                  :placeholder="$t('LABELS.shortNameAr')"
+                  :label="$t('LABELS.shortNameAr')"
+                  type="text"
+                />
+                <base-input
+                  id="shortNameEn"
+                  name="shortNameEn"
+                  :placeholder="$t('LABELS.shortNameEn')"
+                  :label="$t('LABELS.shortNameEn')"
                   type="text"
                 />
                 <base-input
@@ -95,7 +102,7 @@
                   :label="$t('LABELS.curEn')"
                   type="text"
                 />
-                <base-input
+                <!-- <base-input
                   id="natIdlimit"
                   name="natIdlimit"
                   :placeholder="$t('LABELS.natIdlimit')"
@@ -108,7 +115,7 @@
                   :placeholder="$t('LABELS.continent')"
                   :label="$t('LABELS.continent')"
                   type="text"
-                />
+                /> -->
                 <base-input
                   id="phoneNumberLimit"
                   name="phoneNumberLimit"
@@ -122,7 +129,6 @@
                   :placeholder="$t('LABELS.phoneCode')"
                   :label="$t('LABELS.phoneCode')"
                   type="text"
-                
                 />
                 <!-- <base-input
                   id="name"
@@ -222,7 +228,8 @@ const { t } = useI18n();
 const initialValues = reactive({
   nameAr: "",
   nameEn: "",
-  shortName: "",
+  shortNameAr: "",
+  shortNameEn: "",
   natAr: "",
   natEn: "",
   curAr: "",
@@ -325,9 +332,8 @@ function handleSubmit(values, actions) {
   frmData.append("en[nationality]", values.natEn);
   frmData.append("ar[currency]", values.curAr);
   frmData.append("en[currency]", values.curEn);
-  frmData.append("continent", values.continent);
+  // frmData.append("continent", values.continent);
   frmData.append("national_id_limit", values.natIdlimit);
-;
   frmData.append("phone_code", values.phoneCode);
   frmData.append("phone_number_limit", values.phoneNumberLimit);
   // frmData.append("email", values.email);
@@ -374,14 +380,15 @@ function getData() {
     const result = res.data.data;
     // initialValues.titleAr = result.ar[title];
     initialValues.nameAr = result.ar.name;
-    initialValues.nameEn = result.en.name ;
-    initialValues.shortName = result.short_name ;
-    initialValues.natAr = result.ar.nationality ;
-    initialValues.natEn = result.en.nationality ;
-    initialValues.curAr = result.ar.currency ;
-    initialValues.curEn = result.en.currency ;
-    initialValues.natIdlimit = result["national_id_limit "  ];
-    initialValues.continent = result["continent "] ;
+    initialValues.nameEn = result.en.name;
+    initialValues.shortNameAr = result.ar.short_name;
+    initialValues.shortNameEn = result.en.short_name;
+    initialValues.natAr = result.ar.nationality;
+    initialValues.natEn = result.en.nationality;
+    initialValues.curAr = result.ar.currency;
+    initialValues.curEn = result.en.currency;
+    // initialValues.natIdlimit = result["national_id_limit "];
+    // initialValues.continent = result["continent "];
 
     // initialValues.image = result.flag.media;
     initialValues.phoneNumberLimit = result.phone_number_limit;
@@ -392,18 +399,18 @@ function getData() {
   });
 }
 
-const categories = ref([]);
+// const categories = ref([]);
 
-function getCategories() {
-  axios.get("countries_without_pagination").then((res) => {
-    categories.value = res.data.data.map((el) => {
-      return {
-        id: el.id,
-        name: el.title,
-      };
-    });
-  });
-}
+// function getCategories() {
+//   axios.get("countries_without_pagination").then((res) => {
+//     categories.value = res.data.data.map((el) => {
+//       return {
+//         id: el.id,
+//         name: el.title,
+//       };
+//     });
+//   });
+// }
 // getCategories();
 
 onBeforeMount(() => {

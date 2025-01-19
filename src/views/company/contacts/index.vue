@@ -1,17 +1,16 @@
 <template>
   <div class="h-full flex flex-col">
-    <breadcrumbs :items="breadItems" :title="$t('LABELS.City')" />
+    <breadcrumbs :items="breadItems" :title="$t('LABELS.contacts')" />
     <div
       class="bg-white rounded-3xl h-full shadow-[0_7px_6px_0px,rgba(#B1B1B11A)] md:p-7 flex-1 flex flex-col"
     >
-      <base-filter
-        name="City"
+      <!-- <base-filter
+        name="contacts"
         :inputs="[]"
-        :btn-name="t(`BUTTONS.add`, { name: t('LABELS.city') })"
+        :btn-name="t(`BUTTONS.add`, { name: t('LABELS.contacts') })"
         icon="fas fa-plus"
-        :keyword="true"
-        @action="$router.push('/cities/form')"
-      />
+        @action="$router.push('/contacts/form')"
+      /> -->
       <v-data-table-virtual
         :headers="headers"
         :items="items"
@@ -33,14 +32,17 @@
             <h3 class="mt-4 font-semibold text-text text-center">
               {{
                 $t("TITLES.No have been added yet", {
-                  name: $t("LABELS.City"),
+                  name: $t("LABELS.contacts"),
                 })
               }}
             </h3>
             <div class="flex items-center justify-center mt-7 gap-2 flex-wrap">
-              <router-link to="/cities/form" class="base-btn rounded-xl self-end">
+              <router-link
+                to="/contacts/form"
+                class="base-btn rounded-xl self-end"
+              >
                 <i class="fas fa-plus"></i>
-                {{ $t(`BUTTONS.add`, { name: $t("LABELS.city") }) }}
+                {{ $t(`BUTTONS.add`, { name: $t("LABELS.contacts") }) }}
               </router-link>
             </div>
           </div>
@@ -48,41 +50,38 @@
             {{ $t("TITLES.No Search result") }}
           </h3>
         </template>
-        
+
         <template v-slot:[`item.name`]="{ item }">
           <div class="flex gap-2 items-center flex-wrap">
-            <small-details-card :title="`${item.name}`" />
+            <small-details-card
+              :title="`${item.full_name}`"
+              :image="item.image"
+            />
           </div>
         </template>
-        <template v-slot:[`item.country.name`]="{ item }">
+        <!-- <template v-slot:[`item.country.name`]="{ item }">
           <div class="flex gap-2 items-center flex-wrap">
             <small-details-card
               :title="`${item.country.name}`"
-              :image="item.country.flag?.media"
+              :image="item.image"
             />
           </div>
-        </template>
+        </template> -->
 
-        
-        <template v-slot:[`item.action`]="{ item, index }">
+        <template v-slot:[`item.action`]="{ item }">
           <div class="flex items-center gap-4">
-            <router-link :to="`cities/form/${item.id}`">
-                <button class="icon-button w-5">
-                  <svg-icon name="eye2" />
-                </button>
-              </router-link>
+            <router-link :to="`contacts/reply/${item.id}`">
+              <button class="icon-button w-5">
+                <svg-icon name="eye2" />
+              </button>
+            </router-link>
 
-            <router-link :to="`/cities/form/${item.id}`">
+            <router-link :to="`/contacts/form/${item.id}`">
               <svg-icon class="text-primary" name="edit" filled />
             </router-link>
-            <Deleter
-              :url="`cities/${item.id}`"
-              :id="item.id"
-              method="DELETE"
-              @remove="items.splice(index, 1)"
-            />
+            
           </div>
-        </template> 
+        </template>
       </v-data-table-virtual>
     </div>
     <base-pagination :item="paginator" v-if="paginator" />
@@ -105,8 +104,8 @@ const breadItems = [
     imgIcon: "settings.svg",
   },
   {
-    name: t("LABELS.City"),
-    path: "/cities",
+    name: t("LABELS.contacts"),
+    path: "/contacts",
     imgIcon: "",
   },
 ];
@@ -122,19 +121,19 @@ const headers = [
     sortable: false,
     key: "name",
   },
-  
-  {
-    title: t("LABELS.Name", { name: t("LABELS.country") }),
-    align: "start",
-    sortable: false,
-    key: "country.name",
-  },
-  {
-    title:t("LABELS.Country key"),
-    align: "start",
-    sortable: false,
-    key: "country.phone_code",
-  },
+
+  // {
+  //   title: t("LABELS.Name", { name: t("LABELS.country") }),
+  //   align: "start",
+  //   sortable: false,
+  //   key: "country.name",
+  // },
+  // {
+  //   title: t("LABELS.Country key"),
+  //   align: "start",
+  //   sortable: false,
+  //   key: "country.phone_code",
+  // },
   {
     title: t("LABELS.Actions"),
     align: "start",
@@ -165,7 +164,7 @@ const headers = [
 function fetchData() {
   loading.value = true;
   axios
-    .get("cities", {
+    .get("contacts", {
       params: {
         keyword: route.query.keyword || "",
       },
