@@ -96,15 +96,6 @@ const sidebar = ref([
 
   // Content Management
   {
-    label: "Content",
-    title: "TITLES.categories",
-    path: "categories",
-    icon: "grid",
-    type: "general",
-    active: "categories",
-    permission: checkRootPermission(["categories"]),
-  },
-  {
     label: "",
     title: "LABELS.Sliders",
     path: "sliders",
@@ -122,24 +113,6 @@ const sidebar = ref([
     active: "page",
     permission: checkRootPermission(["page"]),
   },
-  {
-    label: "",
-    title: "LABELS.Links",
-    path: "links",
-    icon: "link",
-    type: "general",
-    active: "links",
-    permission: checkRootPermission(["links"]),
-  },
-  {
-    label: "",
-    title: "LABELS.Services",
-    path: "services",
-    icon: "service",
-    type: "general",
-    active: "services",
-    permission: checkRootPermission(["services"]),
-  },
 
   // User & Role Management
   {
@@ -153,7 +126,7 @@ const sidebar = ref([
   },
   {
     label: "",
-    title: "LABELS.brands",
+    title: "LABELS.Brands",
     path: "brands",
     icon: "person-circle",
     type: "general",
@@ -171,12 +144,39 @@ const sidebar = ref([
   },
   {
     label: "",
-    title: "LABELS.product",
+    title: "LABELS.Product",
     path: "product",
     icon: "person-circle",
     type: "general",
-    active: "product",
+    active: "/product",
     permission: checkRootPermission(["product"]),
+  },
+  {
+    label: "",
+    title: "LABELS.role",
+    path: "role",
+    icon: "person-circle",
+    type: "general",
+    active: "/role",
+    permission: checkRootPermission(["role"]),
+  },
+  {
+    label: "",
+    title: "LABELS.settlement-requests",
+    path: "settlement-requests",
+    icon: "person-circle",
+    type: "general",
+    active: "/settlement-requests",
+    permission: checkRootPermission(["settlement-requests"]),
+  },
+  {
+    label: "",
+    title: "LABELS.permission",
+    path: "permission",
+    icon: "person-circle",
+    type: "general",
+    active: "/permission",
+    permission: checkRootPermission(["permission"]),
   },
   {
     label: "",
@@ -189,12 +189,30 @@ const sidebar = ref([
   },
   {
     label: "",
-    title: "LABELS.product-type",
-    path: "product-type",
+    title: "LABELS.type-product",
+    path: "type-product",
     icon: "person-circle",
     type: "general",
-    active: "product-type",
-    permission: checkRootPermission(["product-type"]),
+    active: "/type-product", // Exact path
+    permission: checkRootPermission(["type-product"]),
+  },
+  {
+    label: "",
+    title: "LABELS.notifications",
+    path: "notifications",
+    icon: "person-circle",
+    type: "general",
+    active: "/notifications", 
+    permission: checkRootPermission(["notifications"]),
+  },
+  {
+    label: "",
+    title: "LABELS.review",
+    path: "review",
+    icon: "person-circle",
+    type: "general",
+    active: "/review", 
+    permission: checkRootPermission(["review"]),
   },
   {
     label: "",
@@ -243,15 +261,6 @@ const sidebar = ref([
     active: "cancel-order",
     permission: checkRootPermission(["cancel-order"]),
   },
-  {
-    label: "",
-    title: "LABELS.wallet",
-    path: "wallet",
-    icon: "wallet",
-    type: "general",
-    active: "wallet",
-    permission: checkRootPermission(["wallet"]),
-  },
 
   // Settings & Configuration
   {
@@ -292,11 +301,11 @@ const sidebar = ref([
   },
   {
     label: "",
-    title: "LABELS.City",
+    title: "LABELS.cities",
     path: "cities",
     icon: "city",
     type: "general",
-    active: "city",
+    active: "cities",
     permission: checkRootPermission(["cities"]),
   },
 
@@ -318,17 +327,6 @@ const sidebar = ref([
     type: "general",
     active: "rate",
     permission: checkRootPermission(["rate"]),
-  },
-
-  // Help & Miscellaneous
-  {
-    label: "Help",
-    title: "LABELS.Faqs",
-    path: "faqs",
-    icon: "question-answer",
-    type: "general",
-    active: "faqs",
-    permission: checkRootPermission(["faqs"]),
   },
 ]);
 

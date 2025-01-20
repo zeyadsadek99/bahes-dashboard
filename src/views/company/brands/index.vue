@@ -141,7 +141,7 @@ function fetchData() {
   axios
     .get("brands", {
       params: {
-        user_type: route.query.keyword || "",
+        user_type: route.query.user_type || "",
       },
     })
     .then((res) => {

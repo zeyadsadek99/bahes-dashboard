@@ -5,7 +5,7 @@
       <base-filter
         name="app-ratio"
         :inputs="[]"
-        :btn-name="t(`BUTTONS.add`, { name: t('LABELS.app-ratio') })"
+        :btn-name="t(`BUTTONS.edit`)"
         icon="fas fa-plus"
         @action="$router.push('/app-ratio/form')"
       />

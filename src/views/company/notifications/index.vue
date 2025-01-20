@@ -1,16 +1,16 @@
 <template>
   <div class="h-full flex flex-col">
-    <breadcrumbs :items="breadItems" :title="$t('LABELS.product-type')" />
+    <breadcrumbs :items="breadItems" :title="$t('LABELS.notifications')" />
     <div
       class="bg-white rounded-3xl h-full shadow-[0_7px_6px_0px,rgba(#B1B1B11A)] md:p-7 flex-1 flex flex-col"
     >
       <base-filter
-        name="product-type"
+        name="notifications"
         :inputs="[]"
-        :btn-name="t(`BUTTONS.add`, { name: t('LABELS.brand') })"
+        :btn-name="t(`BUTTONS.add`, { name: t('LABELS.notifications') })"
         icon="fas fa-plus"
         :keyword="true"
-        @action="$router.push('/product-type/form')"
+        @action="$router.push('/notifications/form')"
       />
       <v-data-table-virtual
         :headers="headers"
@@ -33,17 +33,17 @@
             <h3 class="mt-4 font-semibold text-text text-center">
               {{
                 $t("TITLES.No have been added yet", {
-                  name: $t("LABELS.product-type"),
+                  name: $t("LABELS.notifications"),
                 })
               }}
             </h3>
             <div class="flex items-center justify-center mt-7 gap-2 flex-wrap">
               <router-link
-                to="/product-type/form"
+                to="/notifications/form"
                 class="base-btn rounded-xl self-end"
               >
                 <i class="fas fa-plus"></i>
-                {{ $t(`BUTTONS.add`, { name: $t("LABELS.admin") }) }}
+                {{ $t(`BUTTONS.add`, { name: $t("LABELS.notifications") }) }}
               </router-link>
             </div>
           </div>
@@ -61,23 +61,28 @@
         </template>
 
         
-        <template v-slot:[`item.is_admin_active_user`]="{ item }">
+        <!-- <template v-slot:[`item.is_admin_active_user`]="{ item }">
           <global-switcher
             :id="item.id"
-            :url="`product-type/${item.id}/toggle-active-product-types`"
+            :url="`notifications/${item.id}/toggle-active-brand`"
             v-model:modalValue="item.is_admin_active_user"
           />
-        </template>
+        </template> -->
         <template v-slot:[`item.actions`]="{ item, index }">
           <div class="flex items-center gap-4">
-            <router-link :to="`/product-type/form/${item.id}`">
+            <router-link :to="`/notifications/form/${item.id}`">
               <svg-icon class="text-primary" name="edit" filled />
             </router-link>
             <Deleter
-              :url="`product-type/${item.id}`"
+              :url="`notifications/${item.id}`"
               :id="item.id"
               method="DELETE"
               @remove="items.splice(index, 1)"
+            />
+            <Deleter
+              :url="`delete_all_notifications}`"
+              method="DELETE"
+              @remove="items=[]"
             />
           </div>
         </template>
@@ -103,8 +108,8 @@ const breadItems = [
     imgIcon: "settings.svg",
   },
   {
-    name: t("LABELS.product-type"),
-    path: "/product-type",
+    name: t("LABELS.notifications"),
+    path: "/notifications",
     imgIcon: "",
   },
 ];
@@ -115,7 +120,7 @@ const paginator = ref(null);
 
 const headers = [
   {
-    title: t("LABELS.Name", { name: t("LABELS.Type") }),
+    title: t("LABELS.Name", { name: t("LABELS.Brand") }),
     align: "start",
     sortable: false,
     key: "name",
@@ -139,7 +144,7 @@ const headers = [
 function fetchData() {
   loading.value = true;
   axios
-    .get("product-types", {
+    .get("notifications", {
       params: {
         user_type: route.query.keyword || "",
       },

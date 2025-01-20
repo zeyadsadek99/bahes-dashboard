@@ -1,16 +1,16 @@
 <template>
   <div class="h-full flex flex-col">
-    <breadcrumbs :items="breadItems" :title="$t('LABELS.Admins')" />
+    <breadcrumbs :items="breadItems" :title="$t('LABELS.review')" />
     <div
       class="bg-white rounded-3xl h-full shadow-[0_7px_6px_0px,rgba(#B1B1B11A)] md:p-7 flex-1 flex flex-col"
     >
       <base-filter
-        name="Admins"
+        name="review"
         :inputs="[]"
-        :btn-name="t(`BUTTONS.add`, { name: t('LABELS.admin') })"
+        :btn-name="t(`BUTTONS.add`, { name: t('LABELS.review') })"
         icon="fas fa-plus"
         :keyword="true"
-        @action="$router.push('/admins/form')"
+        @action="$router.push('/review/form')"
       />
       <v-data-table-virtual
         :headers="headers"
@@ -33,17 +33,17 @@
             <h3 class="mt-4 font-semibold text-text text-center">
               {{
                 $t("TITLES.No have been added yet", {
-                  name: $t("LABELS.Admins"),
+                  name: $t("LABELS.review"),
                 })
               }}
             </h3>
             <div class="flex items-center justify-center mt-7 gap-2 flex-wrap">
               <router-link
-                to="/admins/form"
+                to="/review/form"
                 class="base-btn rounded-xl self-end"
               >
                 <i class="fas fa-plus"></i>
-                {{ $t(`BUTTONS.add`, { name: $t("LABELS.admin") }) }}
+                {{ $t(`BUTTONS.add`, { name: $t("LABELS.review") }) }}
               </router-link>
             </div>
           </div>
@@ -70,17 +70,17 @@
         <template v-slot:[`item.is_admin_active_user`]="{ item }">
           <global-switcher
             :id="item.id"
-            :url="`admins/${item.id}/toggle-active-user`"
+            :url="`review/${item.id}/toggle-active-user`"
             v-model:modalValue="item.is_admin_active_user"
           />
         </template>
         <template v-slot:[`item.actions`]="{ item, index }">
           <div class="flex items-center gap-4">
-            <router-link :to="`/admins/form/${item.id}`">
+            <router-link :to="`/review/form/${item.id}`">
               <svg-icon class="text-primary" name="edit" filled />
             </router-link>
             <Deleter
-              :url="`admins/${item.id}`"
+              :url="`reviews/${item.id}`"
               :id="item.id"
               method="DELETE"
               @remove="items.splice(index, 1)"
@@ -109,8 +109,8 @@ const breadItems = [
     imgIcon: "settings.svg",
   },
   {
-    name: t("LABELS.Admins"),
-    path: "/admins",
+    name: t("LABELS.review"),
+    path: "/review",
     imgIcon: "",
   },
 ];
@@ -121,7 +121,7 @@ const paginator = ref(null);
 
 const headers = [
   {
-    title: t("LABELS.Name", { name: t("LABELS.Admin") }),
+    title: t("LABELS.Name", { name: t("LABELS.review") }),
     align: "start",
     sortable: false,
     key: "name",
@@ -150,7 +150,7 @@ const headers = [
 function fetchData() {
   loading.value = true;
   axios
-    .get("admins", {
+    .get("reviews", {
       params: {
         keyword: route.query.keyword || "",
       },

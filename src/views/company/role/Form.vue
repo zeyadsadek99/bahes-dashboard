@@ -1,6 +1,6 @@
 <template>
   <div>
-    <breadcrumbs back="/roles" :title="$t('LABELS.Roles')" :items="breads" />
+    <breadcrumbs back="/role" :title="$t('LABELS.Role')" :items="breads" />
     <div class="flex gap-4 flex-wrap">
       <div class="flex-1 w-full min-w-[250px]">
         <FormSkelton v-if="loading" />
@@ -41,17 +41,7 @@
                   "
                   type="text"
                 />
-                <base-input
-                  id="nameUr"
-                  name="nameUr"
-                  :placeholder="
-                    $t('LABELS.Name', { name: $t('LABELS.Role') }) + $t('inUrd')
-                  "
-                  :label="
-                    $t('LABELS.Name', { name: $t('LABELS.Role') }) + $t('inUrd')
-                  "
-                  type="text"
-                />
+                
               </div>
 
               <div v-if="permissionsloading" class="space-y-4">
@@ -122,7 +112,7 @@
                 class="flex items-center justify-end mt-7 gap-4 md:col-span-2 xl:col-span-3"
               >
                 <router-link
-                  to="/roles"
+                  to="/role"
                   class="capitalize font-semibold text-sub"
                 >
                   {{ $t("BUTTONS.cancel") }}
@@ -175,9 +165,7 @@ const schema = yup.object().shape({
     .required(
       t("ERRORS.isRequired", { name: t("LABELS.Role") }) + t("inArabic")
     ),
-  nameUr: yup
-    .string()
-    .required(t("ERRORS.isRequired", { name: t("LABELS.Role") }) + t("inUrd")),
+  
   permissions: yup
     .array()
     .min(1, t("ERRORS.isRequired", { name: t("LABELS.Permissions") })),
@@ -198,7 +186,7 @@ function handleSubmit(values, actions) {
 
   frmData.append("ar[name]", values.nameAr);
   frmData.append("en[name]", values.nameEn);
-  frmData.append("urd[name]", values.nameUr);
+  // frmData.append("urd[name]", values.nameUr);
 
   values.permissions.map((permission, index) => {
     frmData.append(`permission_ids[${index}]`, permission);
@@ -208,7 +196,7 @@ function handleSubmit(values, actions) {
     .post(url, frmData)
     .then((res) => {
       setTimeout(() => toast.success(res.data.message), 300);
-      router.push("/roles");
+      router.push("/role");
       btnLoading.value = false;
       actions.resetForm();
     })
@@ -228,15 +216,15 @@ const breads = [
     name: t("TITLES.home"),
   },
   {
-    name: t("LABELS.Roles"),
-    path: "/roles",
+    name: t("LABELS.Role"),
+    path: "/role",
     imgIcon: "",
   },
   {
     name: t(`BUTTONS.${route.params.id ? "Edit" : "add"}`, {
       name: t("LABELS.Role"),
     }),
-    path: `/roles/form${route.params.id ? "/" + route.params.id : ""}`,
+    path: `/role/form${route.params.id ? "/" + route.params.id : ""}`,
   },
 ];
 
@@ -246,7 +234,6 @@ function getData() {
 
     initialValues.nameAr = result.ar.name;
     initialValues.nameEn = result.en.name;
-    initialValues.nameUr = result.urd.name;
     initialValues.permissions = result.permission.map((el) => el.id);
 
     initialValues.id = result.id;
@@ -258,7 +245,7 @@ function getData() {
 function fetchPermissions() {
   permissionsloading.value = true;
   axios
-    .get("permission-not-paginated")
+    .get("permission_not_paginated")
     .then((res) => {
       permissions.value = res.data.data;
 

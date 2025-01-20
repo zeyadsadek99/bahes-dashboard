@@ -45,6 +45,14 @@
                   :label="$t('LABELS.desEn')"
                   type="text"
                 />
+                <base-input
+                  id="ordering"
+                  name="ordering"
+                  :placeholder="$t('LABELS.ordering')"
+                  :label="$t('LABELS.ordering')"
+                  type="text"
+
+                />
                 
 
                 <base-select
@@ -261,6 +269,7 @@ function getData() {
     // console.log(initialValues)
     initialValues.titleAr = result.ar.title;
     initialValues.titleEn = result.en.title;
+    initialValues.ordering = result.ordering;
     // initialValues.slugAr = result.ar[slug];
     initialValues.type = result.type;
     // initialValues.shortDesAr = result.ar[short_description];

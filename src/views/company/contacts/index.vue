@@ -82,6 +82,7 @@
             
           </div>
         </template>
+        
       </v-data-table-virtual>
     </div>
     <base-pagination :item="paginator" v-if="paginator" />

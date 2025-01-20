@@ -43,7 +43,7 @@
                 class="base-btn rounded-xl self-end"
               >
                 <i class="fas fa-plus"></i>
-                {{ $t(`BUTTONS.add`, { name: $t("LABELS.admin") }) }}
+                {{ $t(`BUTTONS.add`, { name: $t("LABELS.model") }) }}
               </router-link>
             </div>
           </div>
@@ -141,7 +141,7 @@ function fetchData() {
   axios
     .get("car-models", {
       params: {
-        user_type: route.query.keyword || "",
+        user_type: route.query.user_type || "",
       },
     })
     .then((res) => {

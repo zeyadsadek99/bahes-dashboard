@@ -60,6 +60,20 @@
                   type="text"
                 />
                 <base-input
+                  id="phone_code"
+                  name="phone_code"
+                  :placeholder="$t('LABELS.phone_code')"
+                  :label="$t('LABELS.phone_code')"
+                  type="text"
+                />
+                 <base-input
+                  id="phoneNumberLimit"
+                  name="phoneNumberLimit"
+                  :placeholder="$t('LABELS.phoneNumberLimit')"
+                  :label="$t('LABELS.phoneNumberLimit')"
+                  type="text"
+                />
+                <!-- <base-input
                   id="shortNameAr"
                   name="shortNameAr"
                   :placeholder="$t('LABELS.shortNameAr')"
@@ -101,7 +115,7 @@
                   :placeholder="$t('LABELS.curEn')"
                   :label="$t('LABELS.curEn')"
                   type="text"
-                />
+                /> -->
                 <!-- <base-input
                   id="natIdlimit"
                   name="natIdlimit"
@@ -116,7 +130,7 @@
                   :label="$t('LABELS.continent')"
                   type="text"
                 /> -->
-                <base-input
+                <!-- <base-input
                   id="phoneNumberLimit"
                   name="phoneNumberLimit"
                   :placeholder="$t('LABELS.phoneNumberLimit')"
@@ -130,22 +144,7 @@
                   :label="$t('LABELS.phoneCode')"
                   type="text"
                 />
-                <!-- <base-input
-                  id="name"
-                  name="name"
-                  :placeholder="$t('LABELS.name')"
-                  :label="$t('LABELS.name')"
-                  type="text"
-                />
-
-                <base-input
-                  id="email"
-                  name="email"
-                  :placeholder="$t('LABELS.email')"
-                  :label="$t('LABELS.email')"
-                  type="text"
-                />
-
+                
                 <base-phone
                   id="phoneNumber"
                   name="phoneNumber"
@@ -163,7 +162,7 @@
                   :label="$t('LABELS.Role')"
                   url="role-names"
                   v-model:itemValue="initialValues.role"
-                /> -->
+                />  -->
 
                 <!-- <base-select
                   id="countries"
@@ -244,7 +243,7 @@ const initialValues = reactive({
   // email: "",
   phoneNumberLimit: "",
   // preview: "",
-  phoneCode: "",
+  phone_code: "",
   image: "",
   // role: "",
   // phone_code: "",
@@ -327,14 +326,15 @@ function handleSubmit(values, actions) {
 
   frmData.append("ar[name]", values.nameAr);
   frmData.append("en[name]", values.nameEn);
-  frmData.append("short_name", values.shortName);
-  frmData.append("ar[nationality]", values.natAr);
-  frmData.append("en[nationality]", values.natEn);
-  frmData.append("ar[currency]", values.curAr);
-  frmData.append("en[currency]", values.curEn);
-  // frmData.append("continent", values.continent);
-  frmData.append("national_id_limit", values.natIdlimit);
-  frmData.append("phone_code", values.phoneCode);
+  frmData.append("phone_code", values.phone_code);
+  // frmData.append("short_name", values.shortName);
+  // frmData.append("ar[nationality]", values.natAr);
+  // frmData.append("en[nationality]", values.natEn);
+  // frmData.append("ar[currency]", values.curAr);
+  // frmData.append("en[currency]", values.curEn);
+  // // frmData.append("continent", values.continent);
+  // frmData.append("national_id_limit", values.natIdlimit);
+  // frmData.append("phone_code", values.phoneCode);
   frmData.append("phone_number_limit", values.phoneNumberLimit);
   // frmData.append("email", values.email);
   // frmData.append("role_id", values.role);
@@ -392,7 +392,7 @@ function getData() {
 
     // initialValues.image = result.flag.media;
     initialValues.phoneNumberLimit = result.phone_number_limit;
-    initialValues.phoneCode = result.phone_code;
+    initialValues.phone_code = result.phone_code;
     initialValues.id = result.id;
 
     loading.value = false;

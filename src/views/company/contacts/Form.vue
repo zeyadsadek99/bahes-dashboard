@@ -43,6 +43,8 @@
               <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <base-input
                   v-model="initialValues.name"
+                  :disabled="true"
+
                   :placeholder="$t('LABELS.name')"
                   :label="$t('LABELS.name')"
                   name="name"
@@ -50,6 +52,7 @@
                 />
                 <base-input
                   v-model="initialValues.content"
+                  :disabled="true"
                   :placeholder="$t('LABELS.content')"
                   :label="$t('LABELS.content')"
                   name="content"
@@ -69,20 +72,46 @@
                 
                 
               </div>
-
+              <!-- Replies Section -->
+              <div class="mt-6">
+                <h3 class="font-semibold text-lg">
+                  {{ $t('LABELS.replies') }}
+                </h3>
+                <div
+                  v-if="initialValues.replies.length"
+                  class="mt-4 space-y-4 bg-gray-50 p-4 rounded-md"
+                >
+                  <div
+                    v-for="(reply, index) in initialValues.replies"
+                    :key="index"
+                    class="p-4 bg-white shadow-sm rounded-md"
+                  >
+                    <p class="text-gray-700 font-medium">
+                      {{ reply.author || $t('LABELS.anonymous') }}
+                    </p>
+                    <p class="text-gray-600 mt-1">
+                      {{ reply.content }}
+                    </p>
+                  </div>
+                </div>
+                <p v-else class="text-gray-500 mt-4">
+                  {{ $t('TITLES.noRepliesYet') }}
+                </p>
+              </div>
 
               <div
                 class="flex items-center justify-end mt-7 gap-4 md:col-span-2 xl:col-span-3"
               >
+                
                 <router-link
                   to="/contacts"
-                  class="capitalize font-semibold text-sub"
+                  class="capitalize base-btn font-semibold "
                 >
-                  {{ $t("BUTTONS.cancel") }}
+                  {{ $t("BUTTONS.Ok") }}
                 </router-link>
-                <button class="base-btn disabled" :disabled="btnLoading"  type="submit">
-                  {{ $t("BUTTONS.save") }}
-                </button>
+                <!-- <button class=" disabled" :disabled="btnLoading"  type="submit">
+                  {{ $t("BUTTONS.Ok") }}
+                </button> -->
               </div>
             </VeeForm>
           </base-card1>
@@ -109,20 +138,8 @@ const { t } = useI18n();
 const initialValues = reactive({
   content: '',
   name: '',
-  // number_of_cancel_orders: '',
-  // email: '',
-  // facebook: '',
-  // twitter: '',
-  // instagram: '',
-  // tiktok: '',
-  // snapchat: '',
-  // app_store: '',
-  // google_play: '',
-  // whatsapp: '',
-  // website_name: '',
-  // vat: '',
-  // vendor_percentage: '',
-  // phones: ''
+  replies:[],
+  
 });
 
 const schema = yup.object().shape({
@@ -182,57 +199,53 @@ const schema = yup.object().shape({
   //     : field
   // ),
 });
-const btnLoading = ref(false);
+// const btnLoading = ref(false);
 
-function handleSubmit(values, actions) {
-  btnLoading.value = true;
-  const frmData = new FormData();
+// function handleSubmit(values, actions) {
+//   btnLoading.value = true;
+//   const frmData = new FormData();
 
-  let url = "contacts";
+//   let url = "contacts";
 
-  if (route.params.id) {
-    frmData.append("_method", "PUT");
-    url = `contacts`;
-  }
+//   // if (route.params.id) {
+//   //   // frmData.append("_method", "PUT");
+//   //   url = `contacts`;
+//   // }
 
-  // if (initialValues.image) {
-  //   frmData.append("image", initialValues.image);
-  // }
-  console.log(values);
-  // frmData.append("number_of_cancel_orders", values.number_of_cancel_orders);
-  frmData.append("reply", values.reply);
-  // frmData.append("email", values.email);
-  // frmData.append("facebook", values.facebook);
-  // frmData.append("twitter", values.twitter);
-  // frmData.append("instagram", values.instagram);
-  // frmData.append("tiktok", values.tiktok);
-  // frmData.append("snapchat", values.snapchat);
-  // frmData.append("app_store", values.app_store);
-  // frmData.append("google_play", values.google_play);
-  // frmData.append("whatsapp", values.whatsapp);
-//   frmData.append("website_name", values.website_name);
-//   frmData.append("vat", values.vat);
-//   frmData.append("vendor_percentage", values.vendor_percentage);
-//   values.phones.forEach((phone, index) => {
-//   frmData.append(`phones[${index}][phone]`, phone.phone);
-//   frmData.append(`phones[${index}][phone_code]`, phone.phone_code);
-// });
+  
+//   // frmData.append("reply", values.reply);
+//   // frmData.append("email", values.email);
+//   // frmData.append("facebook", values.facebook);
+//   // frmData.append("twitter", values.twitter);
+//   // frmData.append("instagram", values.instagram);
+//   // frmData.append("tiktok", values.tiktok);
+//   // frmData.append("snapchat", values.snapchat);
+//   // frmData.append("app_store", values.app_store);
+//   // frmData.append("google_play", values.google_play);
+//   // frmData.append("whatsapp", values.whatsapp);
+// //   frmData.append("website_name", values.website_name);
+// //   frmData.append("vat", values.vat);
+// //   frmData.append("vendor_percentage", values.vendor_percentage);
+// //   values.phones.forEach((phone, index) => {
+// //   frmData.append(`phones[${index}][phone]`, phone.phone);
+// //   frmData.append(`phones[${index}][phone_code]`, phone.phone_code);
+// // });
 
   
 
-  axios
-    .post(url, frmData)
-    .then((res) => {
-      setTimeout(() => toast.success(res.data.message), 300);
-      router.push("/contacts");
-      btnLoading.value = false;
-      actions.resetForm();
-    })
-    .catch((e) => {
-      toast.error(e.response.data.message);
-    })
-    .finally(() => (btnLoading.value = false));
-}
+//   axios
+//     .post(url, frmData)
+//     .then((res) => {
+//       setTimeout(() => toast.success(res.data.message), 300);
+//       router.push("/contacts");
+//       btnLoading.value = false;
+//       actions.resetForm();
+//     })
+//     .catch((e) => {
+//       toast.error(e.response.data.message);
+//     })
+//     .finally(() => (btnLoading.value = false));
+// }
 
 const loading = ref(false);
 
@@ -262,7 +275,7 @@ function getData() {
 
     initialValues.name = result.full_name;
     initialValues.content = result.content;
-
+    initialValues.replies = result.replies;
     initialValues.id = result.id;
 
     loading.value = false;
@@ -307,6 +320,25 @@ onBeforeMount(() => {
     }
   }
 }
+.replies-section {
+  .reply {
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .reply-author {
+    font-weight: 600;
+    color: #333;
+  }
+
+  .reply-content {
+    margin-top: 0.5rem;
+    color: #555;
+  }
+}
+
 .profile_page {
   .upload {
     padding: 0;

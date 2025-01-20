@@ -6,12 +6,13 @@
     >
       <base-filter
         name="Admins"
-        :inputs="[]"
+        :inputs="inputs"
         :btn-name="t(`BUTTONS.add`, { name: t('LABELS.admin') })"
         icon="fas fa-plus"
-        :keyword="true"
+        :hideLabel="true"
         @action="$router.push('/admins/form')"
       />
+      
       <v-data-table-virtual
         :headers="headers"
         :items="items"
@@ -101,7 +102,23 @@ import { useRoute } from "vue-router";
 
 const route = useRoute();
 const { t } = useI18n();
+const inputs = [
+  
+  {
+    name: "status",
+    placeholder: "status",
+    type: "select",
+    // icon: "calendar",
+    filter: null,
+    options : [
+    { id: "", name: t("STATUS.all")},
+    { id: '1', name: 'active' },
+    { id: '0', name: 'inactive' },
+  ],
 
+    multiple: false,
+  },
+];
 const breadItems = [
   {
     name: t("TITLES.home"),
@@ -149,11 +166,17 @@ const headers = [
 
 function fetchData() {
   loading.value = true;
+  const params = new URLSearchParams();
+  // params.append("from", route.query.from_date || "");
+  // params.append("to", route.query.to_date || "");
+  params.append("status", route.query.status || "");
+  params.append("role_id", route.query.role_id || "");
+
+  // params.append("status", route.query.keyword || "");
+  params.append("page", +route.query.page || 1);
   axios
     .get("admins", {
-      params: {
-        keyword: route.query.keyword || "",
-      },
+      params,
     })
     .then((res) => {
       items.value = res.data.data;
@@ -163,6 +186,7 @@ function fetchData() {
     })
     .catch(() => (loading.value = false));
 }
+
 
 watch(
   () => route.query,

@@ -151,60 +151,60 @@ const initialValues = reactive({
 });
 
 const schema = yup.object().shape({
-  name: yup.string().required(t("ERRORS.name")),
-  email: yup.string().required(t("ERRORS.emailAddress")),
-  phoneCode: yup.mixed().required(t("ERRORS.phoneCode")),
+  // name: yup.string().required(t("ERRORS.name")),
+  // email: yup.string().required(t("ERRORS.emailAddress")),
+  // phoneCode: yup.mixed().required(t("ERRORS.phoneCode")),
 
-  phoneNumber: yup
-    .string()
-    .required(t("ERRORS.isRequired", { name: t("LABELS.phone") }))
-    .test((value, context) => {
-      let parent = context.parent.phoneCode?.phone_number_limit;
-
-      if (value.length > parent || value.length < parent) {
-        return context.createError({
-          message: t("ERRORS.phoneLength", { value: parent }),
-          path: "phoneNumber",
-        });
-      } else {
-        return true;
-      }
-    }),
-  // role: yup
+  // phoneNumber: yup
   //   .string()
-  //   .required(t("ERRORS.isRequired", { name: t("LABELS.Role") })),
-  image: yup
-    .mixed()
-    .test(
-      "image",
-      t("ERRORS.isRequired", { name: t("LABELS.image") }),
-      (value) => {
-        if (value || initialValues.preview) {
-          return true;
-        }
-      }
-    ),
-  password: yup.string().test("password", t("ERRORS.password"), (value) => {
-    if (route.params.id) {
-      return true;
-    } else if (value) {
-      return true;
-    } else return false;
-  }),
-  // cPassword: yup.string().when("password", (password, field) =>
-  //   password
-  //     ? field
-  //         .test("cPassword", t("ERRORS.confirmPassword"), (value) => {
-  //           if (route.params.id) {
-  //             return true;
-  //           } else if (value) {
-  //             return true;
-  //           } else return false;
-  //         })
+  //   .required(t("ERRORS.isRequired", { name: t("LABELS.phone") }))
+  //   .test((value, context) => {
+  //     let parent = context.parent.phoneCode?.phone_number_limit;
 
-  //         .oneOf([yup.ref("password")], t("ERRORS.notEqualPasswords"))
-  //     : field
-  // ),
+  //     if (value.length > parent || value.length < parent) {
+  //       return context.createError({
+  //         message: t("ERRORS.phoneLength", { value: parent }),
+  //         path: "phoneNumber",
+  //       });
+  //     } else {
+  //       return true;
+  //     }
+  //   }),
+  // // role: yup
+  // //   .string()
+  // //   .required(t("ERRORS.isRequired", { name: t("LABELS.Role") })),
+  // image: yup
+  //   .mixed()
+  //   .test(
+  //     "image",
+  //     t("ERRORS.isRequired", { name: t("LABELS.image") }),
+  //     (value) => {
+  //       if (value || initialValues.preview) {
+  //         return true;
+  //       }
+  //     }
+  //   ),
+  // password: yup.string().test("password", t("ERRORS.password"), (value) => {
+  //   if (route.params.id) {
+  //     return true;
+  //   } else if (value) {
+  //     return true;
+  //   } else return false;
+  // }),
+  // // cPassword: yup.string().when("password", (password, field) =>
+  // //   password
+  // //     ? field
+  // //         .test("cPassword", t("ERRORS.confirmPassword"), (value) => {
+  // //           if (route.params.id) {
+  // //             return true;
+  // //           } else if (value) {
+  // //             return true;
+  // //           } else return false;
+  // //         })
+
+  // //         .oneOf([yup.ref("password")], t("ERRORS.notEqualPasswords"))
+  // //     : field
+  // // ),
 });
 const btnLoading = ref(false);
 
@@ -224,7 +224,7 @@ function handleSubmit(values, actions) {
   }
 
   frmData.append("full_name", values.name);
-  frmData.append("option", values.option);
+  // frmData.append("option", values.option);
   frmData.append("phone", values.phoneNumber);
   frmData.append("phone_code", values.phoneCode);
   frmData.append("email", values.email);
@@ -266,6 +266,7 @@ const breads = [
 ];
 
 function getData() {
+  console.log(route.params.id);
   axios.get(`admins/${route.params.id}`).then((res) => {
     const result = res.data.data;
 
@@ -283,6 +284,8 @@ function getData() {
 }
 
 onBeforeMount(() => {
+  console.log('zzz');
+  
   if (route.params.id) {
     loading.value = true;
     getData();

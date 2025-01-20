@@ -14,7 +14,7 @@
       />
       <v-data-table-virtual
         :headers="headers"
-        :items="[items]"
+        :items="items"
         :loading="loading"
         item-value="id"
         class="project-table"
@@ -60,8 +60,6 @@
           <div class="flex gap-2 items-center flex-wrap">
             <small-details-card
               :title="`${item.link}`"
-              :image="item.image"
-              class="max-w-[100px] sm:max-w-[250px] md:max-w-[350px] lg:max-w-[450px] xl:max-w-[520px] xs:max-w-[200px] overflow-hidden whitespace-nowrap"
             />
           </div>
         </template>
@@ -132,12 +130,7 @@ const headers = [
     sortable: false,
     key: "link",
   },
-  // {
-  //   title: t("LABELS.email"),
-  //   align: "start",
-  //   sortable: false,
-  //   key: "email",
-  // },
+  
   {
     title: t("LABELS.activation"),
     align: "start",
@@ -146,7 +139,7 @@ const headers = [
   },
   {
     title: t("LABELS.Actions"),
-    align: "starat",
+    align: "start",
     sortable: false,
     key: "actions",
   },
@@ -157,12 +150,13 @@ function fetchData() {
   axios
     .get("sliders", {
       params: {
-        keyword: route.query.keyword || "",
+        // keyword: route.query.keyword || "",
       },
     })
     .then((res) => {
+      console.log(res.data.data);
       items.value = res.data.data;
-      console.log(items.value.en.title);
+      console.log(items.value[0].link);
       paginator.value = res.data.meta;
       loading.value = false;
     })

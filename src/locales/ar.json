@@ -73,6 +73,23 @@
     "All Copyrights are reserved by": "جميع الحقوق محفوظة بواسطة"
   },
   "LABELS": {
+    "app-ratio": "نسبة التطبيق",
+    "daily_request": "الطلبات اليومية",
+    "completed_request": "الطلبات المكتملة",
+    "rejected_request": "الطلبات المرفوضة",
+    "models": "النماذج",
+    "role": "الدور",
+    "settlement-requests": "طلبات التسوية",
+    "permission": "الصلاحيات",
+    "store-activities": "أنشطة المتجر",
+    "type-product": "نوع المنتج",
+    "notifications": "الإشعارات",
+    "review": "المراجعات",
+    
+    "contacts": "جهات الاتصال",
+    "client_count": "عدد العملاء",
+    "vendor_most_request_count": "البائع الأكثر طلباً",
+    "vendor_most_review_count": "البائع الأكثر تقييماً",
     "FacilityPhone": "جوال المنشأة",
     "FacilityEmail": "البريد الالكتروني للمنشأة",
     "enterValidUrl": "ادخل رابط صحيح",

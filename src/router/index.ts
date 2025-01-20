@@ -109,163 +109,86 @@ const router = createRouter({
         //   ],
         // },
 
-        // {
-        //   path: "features",
-        //   meta: {
-        //     auth: true,
-        //   },
-        //   component: () => import("@/views/company/features/Home.vue"),
-        //   children: [
-        //     {
-        //       path: "",
-        //       name: "features",
-        //       meta: {
-        //         auth: true,
-        //         permission: ["features", "index"],
-        //       },
-        //       component: () => import("@/views/company/features/index.vue"),
-        //     },
+       
+        
+        {
+          path: "permission",
+          meta: {
+            auth: true,
+          },
+          component: () => import("@/views/company/permission/Home.vue"),
+          children: [
+            {
+              path: "",
+              name: "permission",
+              meta: {
+                auth: true,
+                permission: ["permission", "index"],
+              },
+              component: () => import("@/views/company/permission/index.vue"),
+            },
 
-        //     {
-        //       path: "form/:id",
-        //       props: true,
-        //       name: "edit-features",
-        //       meta: {
-        //         auth: true,
-        //         permission: ["features", "update"],
-        //       },
-        //       component: () => import("@/views/company/features/Form.vue"),
-        //     },
-        //     {
-        //       path: "form",
-        //       props: true,
-        //       name: "add-features",
-        //       meta: {
-        //         auth: true,
-        //         permission: ["features", "store"],
-        //       },
-        //       component: () => import("@/views/company/features/Form.vue"),
-        //     },
-        //   ],
-        // },
-        // {
-        //   path: "sizes",
-        //   meta: {
-        //     auth: true,
-        //   },
-        //   component: () => import("@/views/company/sizes/Home.vue"),
-        //   children: [
-        //     {
-        //       path: "",
-        //       name: "sizes",
-        //       meta: {
-        //         auth: true,
-        //         permission: ["sizes", "index"],
-        //       },
-        //       component: () => import("@/views/company/sizes/index.vue"),
-        //     },
+            {
+              path: "form/:id",
+              props: true,
+              name: "edit-permission",
+              meta: {
+                auth: true,
+                permission: ["permission", "update"],
+              },
+              component: () => import("@/views/company/permission/Form.vue"),
+            },
+            {
+              path: "form",
+              props: true,
+              name: "add-permission",
+              meta: {
+                auth: true,
+                permission: ["permission", "store"],
+              },
+              component: () => import("@/views/company/permission/Form.vue"),
+            },
+          ],
+        },
+        {
+          path: "role",
+          meta: {
+            auth: true,
+          },
+          component: () => import("@/views/company/role/Home.vue"),
+          children: [
+            {
+              path: "",
+              name: "role",
+              meta: {
+                auth: true,
+                permission: ["role", "index"],
+              },
+              component: () => import("@/views/company/role/index.vue"),
+            },
 
-        //     {
-        //       path: "form/:id",
-        //       props: true,
-        //       name: "edit-size",
-        //       meta: {
-        //         auth: true,
-        //         permission: ["sizes", "update"],
-        //       },
-        //       component: () => import("@/views/company/sizes/Form.vue"),
-        //     },
-
-        //     {
-        //       path: "form",
-        //       props: true,
-        //       name: "add-size",
-        //       meta: {
-        //         auth: true,
-        //         permission: ["sizes", "store"],
-        //       },
-        //       component: () => import("@/views/company/sizes/Form.vue"),
-        //     },
-        //   ],
-        // },
-        // {
-        //   path: "banks",
-        //   meta: {
-        //     auth: true,
-        //   },
-        //   component: () => import("@/views/company/banks/Home.vue"),
-        //   children: [
-        //     {
-        //       path: "",
-        //       name: "banks",
-        //       meta: {
-        //         auth: true,
-        //         permission: ["banks", "index"],
-        //       },
-        //       component: () => import("@/views/company/banks/index.vue"),
-        //     },
-
-        //     {
-        //       path: "form/:id",
-        //       props: true,
-        //       name: "edit-bank",
-        //       meta: {
-        //         auth: true,
-        //         permission: ["banks", "update"],
-        //       },
-        //       component: () => import("@/views/company/banks/Form.vue"),
-        //     },
-        //     {
-        //       path: "form",
-        //       props: true,
-        //       name: "add-bank",
-        //       meta: {
-        //         auth: true,
-        //         permission: ["banks", "store"],
-        //       },
-        //       component: () => import("@/views/company/banks/Form.vue"),
-        //     },
-        //   ],
-        // },
-        // {
-        //   path: "roles",
-        //   meta: {
-        //     auth: true,
-        //   },
-        //   component: () => import("@/views/company/roles/Home.vue"),
-        //   children: [
-        //     {
-        //       path: "",
-        //       name: "roles",
-        //       meta: {
-        //         auth: true,
-        //         permission: ["role", "index"],
-        //       },
-        //       component: () => import("@/views/company/roles/index.vue"),
-        //     },
-
-        //     {
-        //       path: "form/:id",
-        //       props: true,
-        //       name: "edit-role",
-        //       meta: {
-        //         auth: true,
-        //         permission: ["role", "update"],
-        //       },
-        //       component: () => import("@/views/company/roles/Form.vue"),
-        //     },
-        //     {
-        //       path: "form",
-        //       props: true,
-        //       name: "add-role",
-        //       meta: {
-        //         auth: true,
-        //         permission: ["role", "store"],
-        //       },
-        //       component: () => import("@/views/company/roles/Form.vue"),
-        //     },
-        //   ],
-        // },
+            {
+              path: "form/:id",
+              props: true,
+              name: "edit-role",
+              meta: {
+                auth: true,
+                permission: ["role", "update"],
+              },
+              component: () => import("@/views/company/role/Form.vue"),
+            },
+            {
+              path: "form",
+              props: true,
+              name: "add-role",
+              meta: {
+                auth: true,
+                permission: ["role", "store"],
+              },
+              component: () => import("@/views/company/role/Form.vue"),
+            },
+          ],
+        },
         {
           path: "admins",
           meta: {
@@ -325,7 +248,7 @@ const router = createRouter({
             {
               path: "form/:id",
               props: true,
-              name: "edit-admin",
+              name: "edit-store-activities",
               meta: {
                 auth: true,
                 permission: ["store-activities", "update"],
@@ -335,7 +258,7 @@ const router = createRouter({
             {
               path: "form",
               props: true,
-              name: "add-admin",
+              name: "store-activities",
               meta: {
                 auth: true,
                 permission: ["store-activities", "store"],
@@ -380,6 +303,45 @@ const router = createRouter({
                 permission: ["brands", "store"],
               },
               component: () => import("@/views/company/brands/Form.vue"),
+            },
+          ],
+        },
+        {
+          path: "notifications",
+          meta: {
+            auth: true,
+          },
+          component: () => import("@/views/company/notifications/Home.vue"),
+          children: [
+            {
+              path: "",
+              name: "notifications",
+              meta: {
+                auth: true,
+                permission: ["notifications", "index"],
+              },
+              component: () => import("@/views/company/notifications/index.vue"),
+            },
+
+            {
+              path: "form/:id",
+              props: true,
+              name: "edit-notifications",
+              meta: {
+                auth: true,
+                permission: ["notifications", "update"],
+              },
+              component: () => import("@/views/company/notifications/Form.vue"),
+            },
+            {
+              path: "form",
+              props: true,
+              name: "add-notifications",
+              meta: {
+                auth: true,
+                permission: ["notifications", "store"],
+              },
+              component: () => import("@/views/company/notifications/Form.vue"),
             },
           ],
         },
@@ -462,41 +424,41 @@ const router = createRouter({
           ],
         },
         {
-          path: "product-type",
+          path: "type-product",
           meta: {
             auth: true,
           },
-          component: () => import("@/views/company/product-type/Home.vue"),
+          component: () => import("@/views/company/type-product/Home.vue"),
           children: [
             {
               path: "",
-              name: "product-type",
+              name: "type-product",
               meta: {
                 auth: true,
-                permission: ["product-type", "index"],
+                permission: ["type-product", "index"],
               },
-              component: () => import("@/views/company/product-type/index.vue"),
+              component: () => import("@/views/company/type-product/index.vue"),
             },
 
             {
               path: "form/:id",
               props: true,
-              name: "edit-brand",
+              name: "edit-type-product",
               meta: {
                 auth: true,
-                permission: ["product-type", "update"],
+                permission: ["type-product", "update"],
               },
-              component: () => import("@/views/company/product-type/Form.vue"),
+              component: () => import("@/views/company/type-product/Form.vue"),
             },
             {
               path: "form",
               props: true,
-              name: "add-brand",
+              name: "add-type-product",
               meta: {
                 auth: true,
-                permission: ["product-type", "store"],
+                permission: ["type-product", "store"],
               },
-              component: () => import("@/views/company/product-type/Form.vue"),
+              component: () => import("@/views/company/type-product/Form.vue"),
             },
           ],
         },
@@ -575,6 +537,45 @@ const router = createRouter({
                 permission: ["clients", "store"],
               },
               component: () => import("@/views/company/clients/Form.vue"),
+            },
+          ],
+        },
+        {
+          path: "review",
+          meta: {
+            auth: true,
+          },
+          component: () => import("@/views/company/review/Home.vue"),
+          children: [
+            {
+              path: "",
+              name: "review",
+              meta: {
+                auth: true,
+                permission: ["review", "index"],
+              },
+              component: () => import("@/views/company/review/index.vue"),
+            },
+
+            {
+              path: "form/:id",
+              props: true,
+              name: "edit-review",
+              meta: {
+                auth: true,
+                permission: ["review", "update"],
+              },
+              component: () => import("@/views/company/review/Form.vue"),
+            },
+            {
+              path: "form",
+              props: true,
+              name: "add-review",
+              meta: {
+                auth: true,
+                permission: ["review", "store"],
+              },
+              component: () => import("@/views/company/review/Form.vue"),
             },
           ],
         },
@@ -1055,6 +1056,45 @@ const router = createRouter({
                 permission: ["cities", "store"],
               },
               component: () => import("@/views/company/cities/Form.vue"),
+            },
+          ],
+        },
+        {
+          path: "settlement-requests",
+          meta: {
+            auth: true,
+          },
+          component: () => import("@/views/company/settlement-requests/Home.vue"),
+          children: [
+            {
+              path: "",
+              name: "settlement-requests",
+              meta: {
+                auth: true,
+                permission: ["settlement-requests", "index"],
+              },
+              component: () => import("@/views/company/settlement-requests/index.vue"),
+            },
+
+            {
+              path: "form/:id",
+              props: true,
+              name: "edit-settlement-request",
+              meta: {
+                auth: true,
+                permission: ["settlement-requests", "update"],
+              },
+              component: () => import("@/views/company/settlement-requests/Form.vue"),
+            },
+            {
+              path: "form",
+              props: true,
+              name: "add-settlement-request",
+              meta: {
+                auth: true,
+                permission: ["settlement-requests", "store"],
+              },
+              component: () => import("@/views/company/settlement-requests/Form.vue"),
             },
           ],
         },

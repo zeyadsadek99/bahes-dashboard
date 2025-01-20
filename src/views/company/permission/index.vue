@@ -1,16 +1,16 @@
 <template>
   <div class="h-full flex flex-col">
-    <breadcrumbs :items="breadItems" :title="$t('LABELS.store-activities')" />
+    <breadcrumbs :items="breadItems" :title="$t('LABELS.permission')" />
     <div
       class="bg-white rounded-3xl h-full shadow-[0_7px_6px_0px,rgba(#B1B1B11A)] md:p-7 flex-1 flex flex-col"
     >
       <base-filter
-        name="store-activities"
+        name="permission"
         :inputs="[]"
-        :btn-name="t(`BUTTONS.add`, { name: t('LABELS.activity') })"
+        :btn-name="t(`BUTTONS.Edit`, { name: t('LABELS.permission') })"
         icon="fas fa-plus"
         :keyword="true"
-        @action="$router.push('/store-activities/form')"
+        @action="$router.push('/permission/form')"
       />
       <v-data-table-virtual
         :headers="headers"
@@ -33,17 +33,17 @@
             <h3 class="mt-4 font-semibold text-text text-center">
               {{
                 $t("TITLES.No have been added yet", {
-                  name: $t("LABELS.store-activities"),
+                  name: $t("LABELS.permission"),
                 })
               }}
             </h3>
             <div class="flex items-center justify-center mt-7 gap-2 flex-wrap">
               <router-link
-                to="/store-activities/form"
+                to="/permission/form"
                 class="base-btn rounded-xl self-end"
               >
                 <i class="fas fa-plus"></i>
-                {{ $t(`BUTTONS.add`, { name: $t("LABELS.activity") }) }}
+                {{ $t(`BUTTONS.add`, { name: $t("LABELS.permission") }) }}
               </router-link>
             </div>
           </div>
@@ -52,32 +52,34 @@
           </h3>
         </template>
 
-        <template v-slot:[`item.name`]="{ item }">
+        <template v-slot:[`item.title`]="{ item }">
           <div class="flex gap-2 items-center flex-wrap">
             <small-details-card
-              :title="`${item.name}`"
+              :title="`${item.title}`"
             />
-          </div>
-        </template>
-
-        <template v-slot:[`item.email`]="{ item }">
-          <div class="flex gap-2 items-center flex-wrap">
-            <small-details-card :title="`${item.email}`" />
           </div>
         </template>
 
         
+        <!-- <template v-slot:[`item.is_admin_active_user`]="{ item }">
+          <global-switcher
+            :id="item.id"
+            :url="`permission/${item.id}/toggle-active-brand`"
+            v-model:modalValue="item.is_admin_active_user"
+          />
+        </template> -->
         <template v-slot:[`item.actions`]="{ item, index }">
           <div class="flex items-center gap-4">
-            <router-link :to="`/store-activities/form/${item.id}`">
+            <router-link :to="`/permission/form/${item.id}`">
               <svg-icon class="text-primary" name="edit" filled />
             </router-link>
-            <Deleter
-              :url="`store-activities/${item.id}`"
+            <!-- <Deleter
+              :url="`permission/${item.id}`"
               :id="item.id"
               method="DELETE"
               @remove="items.splice(index, 1)"
-            />
+            /> -->
+            
           </div>
         </template>
       </v-data-table-virtual>
@@ -102,8 +104,8 @@ const breadItems = [
     imgIcon: "settings.svg",
   },
   {
-    name: t("LABELS.store-activities"),
-    path: "/store-activities",
+    name: t("LABELS.permission"),
+    path: "/permission",
     imgIcon: "",
   },
 ];
@@ -114,12 +116,18 @@ const paginator = ref(null);
 
 const headers = [
   {
-    title: t("LABELS.Name", { name: t("LABELS.activity") }),
+    title: t("LABELS.Name", { name: t("LABELS.permission") }),
     align: "start",
     sortable: false,
-    key: "name",
+    key: "title",
   },
- 
+  
+  // {
+  //   title: t("LABELS.activation"),
+  //   align: "start",
+  //   sortable: false,
+  //   key: "is_admin_active_user",
+  // },
 
   {
     title: t("LABELS.Actions"),
@@ -132,9 +140,9 @@ const headers = [
 function fetchData() {
   loading.value = true;
   axios
-    .get("store-activities", {
+    .get("permission", {
       params: {
-        keyword: route.query.keyword || "",
+        page: route.query.page || "",
       },
     })
     .then((res) => {

@@ -84,7 +84,7 @@ const props = defineProps({
   },
   search: {
     requred: false,
-    default: true,
+    default: false,
   },
   optionLabel: {
     requred: false,

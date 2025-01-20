@@ -1,12 +1,12 @@
 <template>
   <div>
-    <breadcrumbs back="/models" :title="$t('LABELS.models')" :items="breads" />
+    <breadcrumbs back="/notifications" :title="$t('LABELS.notifications')" :items="breads" />
     <div class="flex gap-4 flex-wrap">
       <div class="flex-1 w-full min-w-[250px]">
         <FormSkelton v-if="loading" />
         <template v-else>
           <base-card1
-            :title="$t('TITLES.Details', { name: $t('LABELS.model') })"
+            :title="$t('TITLES.Details', { name: $t('LABELS.notifications') })"
           >
             <VeeForm
               :validation-schema="schema"
@@ -24,18 +24,27 @@
                   type="text"
                 /> -->
                 <base-input
-                  id="nameAr"
-                  name="nameAr"
-                  :placeholder="$t('LABELS.nameAr')"
-                  :label="$t('LABELS.nameAr')"
+                  id="title"
+                  name="title"
+                  :placeholder="$t('LABELS.title')"
+                  :label="$t('LABELS.title')"
                   type="text"
                 />
                 <base-input
-                  id="nameEn"
-                  name="nameEn"
-                  :placeholder="$t('LABELS.nameEn')"
-                  :label="$t('LABELS.nameEn')"
+                  id="body"
+                  name="body"
+                  :placeholder="$t('LABELS.body')"
+                  :label="$t('LABELS.body')"
                   type="text"
+                />
+                <base-select
+                  id="type"
+                  name="type"
+                  :placeholder="$t('LABELS.type')"
+                  :label="$t('LABELS.type')"
+                  :options="types"
+                  v-model:itemValue="initialValues.type"
+
                 />
 
                 
@@ -48,7 +57,7 @@
                 class="flex items-center justify-end mt-7 gap-4 md:col-span-2 xl:col-span-3"
               >
                 <router-link
-                  to="/models"
+                  to="/notifications"
                   class="capitalize font-semibold text-sub"
                 >
                   {{ $t("BUTTONS.cancel") }}
@@ -80,8 +89,9 @@ const router = useRouter();
 const { t } = useI18n();
 
 const initialValues = reactive({
-  nameAr: "",
-  nameEn: "",
+  title: "",
+  body: "",
+  type: "",
   
 });
 
@@ -147,19 +157,20 @@ function handleSubmit(values, actions) {
   btnLoading.value = true;
   const frmData = new FormData();
 
-  let url = "car-models";
+  let url = "notifications";
 
   if (route.params.id) {
     frmData.append("_method", "PUT");
-    url = `car-models/${values.id}`;
+    url = `notifications/${values.id}`;
   }
 
   // if (initialValues.image) {
   //   frmData.append("image", initialValues.image);
   // }
 
-  frmData.append("en[name]", values.nameEn);
-  frmData.append("ar[name]", values.nameAr);
+  frmData.append("title", values.title);
+  frmData.append("body", values.body);
+  frmData.append("type", values.type);
   // frmData.append("phone", values.phoneNumber);
   // frmData.append("phone_code", values.phoneCode);
   // frmData.append("email", values.email);
@@ -169,7 +180,7 @@ function handleSubmit(values, actions) {
     .post(url, frmData)
     .then((res) => {
       setTimeout(() => toast.success(res.data.message), 300);
-      router.push("/models");
+      router.push("/notifications");
       btnLoading.value = false;
       actions.resetForm();
     })
@@ -188,20 +199,20 @@ const breads = [
     name: t("TITLES.home"),
   },
   {
-    name: t("LABELS.models"),
-    path: "/models",
+    name: t("LABELS.notifications"),
+    path: "/notifications",
     imgIcon: "",
   },
   {
     name: t(`BUTTONS.${route.params.id ? "Edit" : "add"}`, {
-      name: t("LABELS.model"),
+      name: t("LABELS.notifications"),
     }),
-    path: `/models/form${route.params.id ? "/" + route.params.id : ""}`,
+    path: `/notifications/form${route.params.id ? "/" + route.params.id : ""}`,
   },
 ];
 
 function getData() {
-  axios.get(`models/${route.params.id}`).then((res) => {
+  axios.get(`notifications/${route.params.id}`).then((res) => {
     const result = res.data.data;
 
     // initialValues.nameAr = result.name;
@@ -212,7 +223,24 @@ function getData() {
     loading.value = false;
   });
 }
+const types = ref([
+{ id: 'all', name: 'All' },
+  { id: 'admin', name: 'Admin' },
+  { id: 'supper_admin', name: 'Super Admin' },
+  { id: 'specific', name: 'Specific' }
+]);
 
+function getCategories() {
+  axios.get("product-types").then((res) => {
+    categories.value = res.data.data.map((el) => {
+      return {
+        id: el.id,
+        name: el.name,
+      };
+    });
+  });
+}
+// getCategories();
 onBeforeMount(() => {
   if (route.params.id) {
     loading.value = true;
