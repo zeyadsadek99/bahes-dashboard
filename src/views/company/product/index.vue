@@ -74,7 +74,7 @@
         <template v-slot:[`item.is_admin_active_user`]="{ item }">
           <global-switcher
             :id="item.id"
-            :url="`product/${item.id}/toggle-active-brand`"
+            :url="`products/${item.id}/toggle-active-product`"
             v-model:modalValue="item.is_admin_active_user"
           />
         </template>

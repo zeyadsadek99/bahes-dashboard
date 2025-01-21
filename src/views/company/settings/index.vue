@@ -5,7 +5,7 @@
       <base-filter
         name="settings"
         :inputs="[]"
-        :btn-name="t(`BUTTONS.add`, { name: t('LABELS.settings') })"
+        :btn-name="t(`BUTTONS.Edit`, { name: t('LABELS.settings') })"
         icon="fas fa-plus"
         @action="$router.push('/settings/form')"
       />

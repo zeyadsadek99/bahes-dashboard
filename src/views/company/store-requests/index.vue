@@ -1,19 +1,17 @@
 <template>
   <div class="h-full flex flex-col">
-    <breadcrumbs :items="breadItems" :title="$t('LABELS.profile')" />
-    <div
-      class="bg-white rounded-3xl h-full shadow-[0_7px_6px_0px,rgba(#B1B1B11A)] md:p-7 flex-1 flex flex-col"
-    >
+    <breadcrumbs :items="breadItems" :title="$t('LABELS.store-requests')" />
+    <div class="bg-white rounded-3xl h-full shadow-[0_7px_6px_0px,rgba(#B1B1B11A)] md:p-7 flex-1 flex flex-col">
       <base-filter
-        name="profile"
+        name="store-requests"
         :inputs="[]"
-        :btn-name="t(`BUTTONS.Edit`, { name: t('LABELS.profile') })"
+        :btn-name="t(`BUTTONS.edit`)"
         icon="fas fa-plus"
-        @action="$router.push('/profile/form')"
+        @action="$router.push('/store-requests/form')"
       />
       <v-data-table-virtual
         :headers="headers"
-        :items="[items]"
+        :items="items"
         :loading="loading"
         item-value="id"
         class="project-table"
@@ -25,24 +23,14 @@
         </template>
 
         <template v-slot:no-data>
-          <div
-            class="text-center"
-            v-if="!$route.query.keyword && !$route.query.status"
-          >
+          <div class="text-center" v-if="!$route.query.keyword && !$route.query.status">
             <h3 class="mt-4 font-semibold text-text text-center">
-              {{
-                $t("TITLES.No have been added yet", {
-                  name: $t("LABELS.profile"),
-                })
-              }}
+              {{ $t("TITLES.No have been added yet", { name: $t("LABELS.store-requests") }) }}
             </h3>
             <div class="flex items-center justify-center mt-7 gap-2 flex-wrap">
-              <router-link
-                to="/profile/form"
-                class="base-btn rounded-xl self-end"
-              >
+              <router-link to="/app_ratios/form" class="base-btn rounded-xl self-end">
                 <i class="fas fa-plus"></i>
-                {{ $t(`BUTTONS.add`, { name: $t("LABELS.admin") }) }}
+                {{ $t(`BUTTONS.add`, { name: $t("LABELS.store-requests") }) }}
               </router-link>
             </div>
           </div>
@@ -50,21 +38,32 @@
             {{ $t("TITLES.No Search result") }}
           </h3>
         </template>
-        <!-- {{ item.full_name }} -->
-        <template v-slot:[`item.name`]="{ item }">
+
+        <!-- Custom Slot for displaying Key -->
+        <template v-slot:[`item.key`]="{ item }">
           <div class="flex gap-2 items-center flex-wrap">
-            <small-details-card
-              :title="`${item.full_name}`"
-              :image="item.image"
-              :text="item.email"
-            />
+            <small-details-card :title="`${item.key}`" />
           </div>
+
         </template>
 
-        <template v-slot:[`item.country`]="{ item }">
+        <!-- Custom Slot for displaying Value -->
+        <template v-slot:[`item.value`]="{ item }">
           <div class="flex gap-2 items-center flex-wrap">
-            <small-details-card :title="`${item.country?.name}`" :image="item.country?.flag"
-            />
+            <!-- Check if the key is 'phones' and display accordingly -->
+            <div v-if="item.key === 'phones'">
+              <ul>
+                <li v-for="(phone, index) in item.value" :key="index" class="flex items-center">
+                  <span class="font-semibold">Phone: </span> 
+                  <span>{{ phone.phone }}</span>
+                  <span class="ml-2">({{ phone.phone_code }})</span>
+                </li>
+              </ul>
+            </div>
+            <!-- For other keys, show them as regular text -->
+            <div v-else>
+              <small-details-card :title="`${item.value}`" />
+            </div>
           </div>
         </template>
 
@@ -73,6 +72,7 @@
     <base-pagination :item="paginator" v-if="paginator" />
   </div>
 </template>
+
 
 <script setup>
 import axios from "axios";
@@ -90,8 +90,8 @@ const breadItems = [
     imgIcon: "settings.svg",
   },
   {
-    name: t("LABELS.profile"),
-    path: "/profile",
+    name: t("LABELS.store-requests"),
+    path: "/store-requests",
     imgIcon: "",
   },
 ];
@@ -102,36 +102,24 @@ const paginator = ref(null);
 
 const headers = [
   {
-    title: t("LABELS.Name", { name: t("LABELS.Admin") }),
+    title: t("LABELS.key"),
     align: "start",
     sortable: false,
-    key: "name",
+    key: "key",
   },
-  {
-    title: t("LABELS.country"),
-    align: "start",
-    sortable: false,
-    key: "country",
-  },
-  // {
-  //   title: t("LABELS.activation"),
-  //   align: "start",
-  //   sortable: false,
-  //   key: "is_admin_active_user",
-  // },
 
-  // {
-  //   title: t("LABELS.Actions"),
-  //   align: "start",
-  //   sortable: false,
-  //   key: "actions",
-  // },
+  {
+    title: t("LABELS.value"),
+    align: "start",
+    sortable: false,
+    key: "value",
+  },
 ];
 
 function fetchData() {
   loading.value = true;
   axios
-    .get("profile", {
+    .get("store-requests", {
       params: {
         keyword: route.query.keyword || "",
       },

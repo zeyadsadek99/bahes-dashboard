@@ -144,6 +144,15 @@ const sidebar = ref([
   },
   {
     label: "",
+    title: "LABELS.store-requests",
+    path: "store-requests",
+    icon: "person-circle",
+    type: "general",
+    active: "store-requests",
+    permission: checkRootPermission(["store-requests"]),
+  },
+  {
+    label: "",
     title: "LABELS.Product",
     path: "product",
     icon: "person-circle",

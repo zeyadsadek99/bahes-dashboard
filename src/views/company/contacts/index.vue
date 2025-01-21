@@ -70,13 +70,13 @@
 
         <template v-slot:[`item.action`]="{ item }">
           <div class="flex items-center gap-4">
-            <router-link :to="`contacts/reply/${item.id}`">
+            <router-link :to="`contacts/form/${item.id}`">
               <button class="icon-button w-5">
                 <svg-icon name="eye2" />
               </button>
             </router-link>
 
-            <router-link :to="`/contacts/form/${item.id}`">
+            <router-link :to="`/contacts/reply/${item.id}`">
               <svg-icon class="text-primary" name="edit" filled />
             </router-link>
             

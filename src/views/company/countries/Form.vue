@@ -73,7 +73,15 @@
                   :label="$t('LABELS.phoneNumberLimit')"
                   type="text"
                 />
-                <!-- <base-input
+                <base-input
+                  id="shortName"
+                  name="shortName"
+                  :placeholder="$t('LABELS.shortName')"
+                  :label="$t('LABELS.shortName')"
+                  type="text"
+                />
+                
+                <base-input
                   id="shortNameAr"
                   name="shortNameAr"
                   :placeholder="$t('LABELS.shortNameAr')"
@@ -115,15 +123,15 @@
                   :placeholder="$t('LABELS.curEn')"
                   :label="$t('LABELS.curEn')"
                   type="text"
-                /> -->
-                <!-- <base-input
+                />
+                <base-input
                   id="natIdlimit"
                   name="natIdlimit"
                   :placeholder="$t('LABELS.natIdlimit')"
                   :label="$t('LABELS.natIdlimit')"
                   type="text"
                 />
-                <base-input
+                <!-- <base-input
                   id="continent"
                   name="continent"
                   :placeholder="$t('LABELS.continent')"
@@ -233,14 +241,15 @@ const initialValues = reactive({
   natEn: "",
   curAr: "",
   curEn: "",
-  natIdlimit: "",
   continent: "",
+  shortName: "",
+  currency: "",
+  natIdlimit: "",
+  nationality: "",
   id: "",
-  // countries: "",
-  // price: "",
+  
   // flag:'',
-  // name: "",
-  // email: "",
+  name: "",
   phoneNumberLimit: "",
   // preview: "",
   phone_code: "",
@@ -324,16 +333,24 @@ function handleSubmit(values, actions) {
     frmData.append("flag[media]", initialValues.image);
   }
 
+  frmData.append("phone_code", values.phone_code);
+  frmData.append("short_name", values.shortName);
+  frmData.append("nationality", values.nationality);
+  frmData.append("currency", values.currency);
+
   frmData.append("ar[name]", values.nameAr);
   frmData.append("en[name]", values.nameEn);
-  frmData.append("phone_code", values.phone_code);
-  // frmData.append("short_name", values.shortName);
-  // frmData.append("ar[nationality]", values.natAr);
-  // frmData.append("en[nationality]", values.natEn);
-  // frmData.append("ar[currency]", values.curAr);
-  // frmData.append("en[currency]", values.curEn);
-  // // frmData.append("continent", values.continent);
-  // frmData.append("national_id_limit", values.natIdlimit);
+
+  frmData.append("ar[short_name]", values.shortNameAr);
+  frmData.append("en[short_name]", values.shortNameEn);
+
+  frmData.append("ar[nationality]", values.natAr);
+  frmData.append("en[nationality]", values.natEn);
+
+  frmData.append("ar[currency]", values.curAr);
+  frmData.append("en[currency]", values.curEn);
+  // frmData.append("continent", values.continent);
+  frmData.append("national_id_limit", values.natIdlimit);
   // frmData.append("phone_code", values.phoneCode);
   frmData.append("phone_number_limit", values.phoneNumberLimit);
   // frmData.append("email", values.email);
@@ -387,7 +404,7 @@ function getData() {
     initialValues.natEn = result.en.nationality;
     initialValues.curAr = result.ar.currency;
     initialValues.curEn = result.en.currency;
-    // initialValues.natIdlimit = result["national_id_limit "];
+    initialValues.natIdlimit = result.national_id_limit;
     // initialValues.continent = result["continent "];
 
     // initialValues.image = result.flag.media;

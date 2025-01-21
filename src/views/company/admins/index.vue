@@ -4,6 +4,10 @@
     <div
       class="bg-white rounded-3xl h-full shadow-[0_7px_6px_0px,rgba(#B1B1B11A)] md:p-7 flex-1 flex flex-col"
     >
+    <div class="flex gap-4 flex-row-reverse flex-wrap">
+
+      
+      
       <base-filter
         name="Admins"
         :inputs="inputs"
@@ -12,6 +16,13 @@
         :hideLabel="true"
         @action="$router.push('/admins/form')"
       />
+      <base-filter
+        name="Admins"
+        :inputs="roles"
+        icon="fas fa-plus"
+        :hideLabel="true"
+      />
+    </div>
       
       <v-data-table-virtual
         :headers="headers"
@@ -78,6 +89,11 @@
         <template v-slot:[`item.actions`]="{ item, index }">
           <div class="flex items-center gap-4">
             <router-link :to="`/admins/form/${item.id}`">
+                <button class="icon-button w-5">
+                  <svg-icon name="eye2" />
+                </button>
+              </router-link>
+            <router-link :to="`/admins/form/${item.id}`">
               <svg-icon class="text-primary" name="edit" filled />
             </router-link>
             <Deleter
@@ -112,8 +128,25 @@ const inputs = [
     filter: null,
     options : [
     { id: "", name: t("STATUS.all")},
-    { id: '1', name: 'active' },
-    { id: '0', name: 'inactive' },
+    { id: '1', name: 'Active' },
+    { id: '0', name: 'Inactive' },
+  ],
+
+    multiple: false,
+  },
+];
+const roles = [
+  
+  {
+    name: "role_id",
+    placeholder: "role",
+    type: "select",
+    // icon: "calendar",
+    filter: null,
+    options : [
+    { id: "", name: t("STATUS.all")},
+    { id: '1', name: 'Admin' },
+    { id: '2', name: 'Super Admin' },
   ],
 
     multiple: false,

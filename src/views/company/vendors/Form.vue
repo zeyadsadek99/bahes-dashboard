@@ -63,13 +63,13 @@
                   type="text"
                 />
 
-                <!-- <base-input
-                    id="bankAcc"
-                    name="bankAcc"
-                    :placeholder="$t('LABELS.bankAcc')"
-                    :label="$t('LABELS.bankAcc')"
+                <base-input
+                    id="user_type"
+                    name="user_type"
+                    :placeholder="$t('LABELS.user_type')"
+                    :label="$t('LABELS.user_type')"
                     type="text"
-                  /> -->
+                  />
                 <base-phone
                   id="phoneNumber"
                   name="phoneNumber"
@@ -92,6 +92,7 @@
                   label="password"
                 />
                 <base-password
+
                   id="cPassword"
                   name="cPassword"
                   :placeholder="$t('LABELS.cPassword')"
@@ -257,6 +258,8 @@ const { t } = useI18n();
 
 const initialValues = reactive({
   name: "",
+  id: "",
+  user_type: "",
   email: "",
   phoneNumber: "",
   phoneCode: "",
@@ -345,7 +348,9 @@ function handleSubmit(values, actions) {
   // frmData.append("card_front[media]", initialValues.image);
 
   // frmData.append("card_back[media]", initialValues.image2);
-
+  if (initialValues.image) {
+    frmData.append("image", initialValues.image);
+  }
   frmData.append("full_name", values.name);
   frmData.append("email", values.email);
   frmData.append("store[0][full_name]", values.storeName);
@@ -410,7 +415,8 @@ function getData() {
     initialValues.storeName = result.store.full_name;
     initialValues.storeRegion = result.store.region;
     initialValues.storeCity = result.store.id;
-
+    initialValues.image = result.image;
+    initialValues.preview = result.image;
     initialValues.storeActivity = result.store.store_activity;
     initialValues.storeLocation = result.store.location_in_map;
     initialValues.storeImage = result.store.store_image;

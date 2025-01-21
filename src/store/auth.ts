@@ -27,7 +27,7 @@ export const useAppAuth = defineStore("authStore", {
     },
 
     getPermissions() {
-      axios.get("permission_not_paginated").then((res) => {
+      axios.get("get_my_permissions").then((res) => {
         this.setRolesSettings(res.data.data);
       });
     },

@@ -64,9 +64,13 @@
         <template v-slot:[`item.is_admin_active_user`]="{ item }">
           <global-switcher
             :id="item.id"
-            :url="`models/${item.id}/toggle-active-car-models`"
+            :url="`car-models/${item.id}/toggle-active-car-models`"
             v-model:modalValue="item.is_admin_active_user"
           />
+          <!-- <GlobalApproval
+            :id="item.id"
+            :url="`settlement-requests/${item.id}`"
+          /> -->
         </template>
         <template v-slot:[`item.actions`]="{ item, index }">
           <div class="flex items-center gap-4">
@@ -88,6 +92,7 @@
 </template>
 
 <script setup>
+import GlobalApproval from "@/components/inputs/GlobalApproval.vue";
 import axios from "axios";
 import { ref, onMounted, watch } from "vue";
 import { useI18n } from "vue-i18n";

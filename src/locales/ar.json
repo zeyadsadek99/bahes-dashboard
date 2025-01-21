@@ -86,6 +86,11 @@
     "notifications": "الإشعارات",
     "review": "المراجعات",
     
+    "users": "المستخدمون",
+    "most_request_count": "أكثر طلبات",
+    "most_review_count": "أكثر مراجعات",
+    
+    "admin_count": "عدد المسؤولين",
     "contacts": "جهات الاتصال",
     "client_count": "عدد العملاء",
     "vendor_most_request_count": "البائع الأكثر طلباً",

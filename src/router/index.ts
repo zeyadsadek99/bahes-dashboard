@@ -807,6 +807,45 @@ const router = createRouter({
           ],
         },
         {
+          path: "store-requests",
+          meta: {
+            auth: true,
+          },
+          component: () => import("@/views/company/store-requests/Home.vue"),
+          children: [
+            {
+              path: "",
+              name: "store-requests",
+              meta: {
+                auth: true,
+                permission: ["store-requests", "index"],
+              },
+              component: () => import("@/views/company/store-requests/index.vue"),
+            },
+
+            {
+              path: "form/:id",
+              props: true,
+              name: "edit-store-requests",
+              meta: {
+                auth: true,
+                permission: ["store-requests", "update"],
+              },
+              component: () => import("@/views/company/store-requests/Form.vue"),
+            },
+            {
+              path: "form",
+              props: true,
+              name: "add-store-requests",
+              meta: {
+                auth: true,
+                permission: ["store-requests", "store"],
+              },
+              component: () => import("@/views/company/store-requests/Form.vue"),
+            },
+          ],
+        },
+        {
           path: "settings",
           meta: {
             auth: true,
@@ -1044,6 +1083,16 @@ const router = createRouter({
               meta: {
                 auth: true,
                 permission: ["cities", "update"],
+              },
+              component: () => import("@/views/company/cities/Form.vue"),
+            },
+            {
+              path: "form/:id",
+              props: true,
+              name: "show-cities",
+              meta: {
+                auth: true,
+                permission: ["cities", "show"],
               },
               component: () => import("@/views/company/cities/Form.vue"),
             },

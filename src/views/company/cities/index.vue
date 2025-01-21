@@ -66,7 +66,7 @@
         
         <template v-slot:[`item.action`]="{ item, index }">
           <div class="flex items-center gap-4">
-            <router-link :to="`cities/form/${item.id}`">
+            <router-link :to="`/cities/form/${item.id}`">
                 <button class="icon-button w-5">
                   <svg-icon name="eye2" />
                 </button>

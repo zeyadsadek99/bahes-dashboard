@@ -201,7 +201,7 @@ const breads = [
 ];
 
 function getData() {
-  axios.get(`models/${route.params.id}`).then((res) => {
+  axios.get(`car-models/${route.params.id}`).then((res) => {
     const result = res.data.data;
 
     // initialValues.nameAr = result.name;

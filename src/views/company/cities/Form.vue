@@ -187,7 +187,6 @@ function handleSubmit(values, actions) {
   const frmData = new FormData();
 
   let url = "cities";
-  console.log(route.params)
     //   console.log(values);
 
 

@@ -81,11 +81,18 @@
                   :label="$t('LABELS.phoneNumber')"
                   type="text"
                 />
+                <base-input
+                  id="currentPassword"
+                  name="currentPassword"
+                  :placeholder="$t('LABELS.currentPassword')"
+                  :label="$t('LABELS.currentPassword')"
+                  type="text"
+                />
                 
                 
               </div>
 
-              <!-- <div class="grid md:grid-cols-2 gap-2 mt-4">
+              <div class="grid md:grid-cols-2 gap-2 mt-4">
                 <base-password
                   id="password"
                   name="password"
@@ -98,7 +105,7 @@
                   :placeholder="$t('LABELS.cPassword')"
                   label="cPassword"
                 />
-              </div> -->
+              </div>
 
               <div
                 class="flex items-center justify-end mt-7 gap-4 md:col-span-2 xl:col-span-3"
@@ -137,15 +144,20 @@ const { t } = useI18n();
 
 const initialValues = reactive({
   
+  id: "",
   full_name: "",
   email: "",
   gender: "",
   phoneNumber: "",
   
+  role: "",
+  
+  preview: "",
   image: "",
   phoneCode: "",
   password: "",
   cPassword: "",
+  currentPassword: "",
 });
 
 
@@ -233,8 +245,19 @@ function handleSubmit(values, actions) {
   // frmData.append("en[nationality]", values.natEn);
   // frmData.append("ar[currency]", values.curAr);
   frmData.append("gender", values.gender);
-  // frmData.append("password", values.password);
-  // frmData.append("current_password", values.cPassword);
+  if(values.cPassword){
+
+    frmData.append("password_confirmation", values.cPassword);
+  }
+  if(values.password){
+
+    frmData.append("password", values.password);
+  }
+  if(values.currentPassword){
+      
+      frmData.append("current_password", values.currentPassword);
+  }
+
   // frmData.append("full_name", values.name);
   // frmData.append("phone", values.phoneNumber);
   frmData.append("phone_code", values.phoneCode);

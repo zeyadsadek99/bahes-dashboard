@@ -79,14 +79,14 @@
                   
                   :regular-phone="true"
                 />
-                <!-- <base-select
+                <base-select
                   id="role"
                   name="role"
                   :placeholder="$t('LABELS.Role')"
                   :label="$t('LABELS.Role')"
                   url="role-names"
                   v-model:itemValue="initialValues.role"
-                /> -->
+                />
               </div>
 
               <div class="grid md:grid-cols-2 gap-2 mt-4">
@@ -144,6 +144,7 @@ const initialValues = reactive({
   email: "",
   phoneNumber: "",
   preview: "",
+  role: "",
   // option: "",
   phoneCode: "",
   image: "",
@@ -224,6 +225,7 @@ function handleSubmit(values, actions) {
   }
 
   frmData.append("full_name", values.name);
+  frmData.append("role_id", values.role);
   // frmData.append("option", values.option);
   frmData.append("phone", values.phoneNumber);
   frmData.append("phone_code", values.phoneCode);
@@ -276,7 +278,7 @@ function getData() {
     initialValues.phoneCode = result.phone_code;
 
     initialValues.preview = result.image ?? result.logo;
-
+    initialValues.role = result.role.id;
     initialValues.id = result.id;
 
     loading.value = false;
@@ -284,7 +286,7 @@ function getData() {
 }
 
 onBeforeMount(() => {
-  console.log('zzz');
+  
   
   if (route.params.id) {
     loading.value = true;

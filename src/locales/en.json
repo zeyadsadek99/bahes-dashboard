@@ -73,6 +73,12 @@
   "LABELS": {
     "models": "Models",
     "role": "Role",
+   
+    "users": "Users",
+    "most_request_count": "Most Requests",
+    "most_review_count": "Most Reviews",
+   
+    "admin_count": "Admin Count",
     "settlement-requests": "Settlement Requests",
     "permission": "Permission",
     "store-activities": "Store Activities",

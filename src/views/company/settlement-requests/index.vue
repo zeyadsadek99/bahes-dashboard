@@ -1,20 +1,23 @@
 <template>
   <div class="h-full flex flex-col">
-    <breadcrumbs :items="breadItems" :title="$t('LABELS.settlement-requests')" />
+    <breadcrumbs
+      :items="breadItems"
+      :title="$t('LABELS.settlement-requests')"
+    />
     <div
       class="bg-white rounded-3xl h-full shadow-[0_7px_6px_0px,rgba(#B1B1B11A)] md:p-7 flex-1 flex flex-col"
     >
-      <base-filter
+      <!-- <base-filter
         name="settlement-requests"
         :inputs="[]"
         :btn-name="t(`BUTTONS.Edit`, { name: t('LABELS.settlement-requests') })"
         icon="fas fa-plus"
         :keyword="true"
         @action="$router.push('/settlement-requests/form')"
-      />
+      /> -->
       <v-data-table-virtual
         :headers="headers"
-        :items="[items]"
+        :items="items"
         :loading="loading"
         item-value="id"
         class="project-table"
@@ -43,16 +46,31 @@
                 class="base-btn rounded-xl self-end"
               >
                 <i class="fas fa-plus"></i>
-                {{ $t(`BUTTONS.add`, { name: $t("LABELS.settlement-requests") }) }}
+                {{
+                  $t(`BUTTONS.add`, { name: $t("LABELS.settlement-requests") })
+                }}
               </router-link>
             </div>
           </div>
           <h3 v-else class="mt-4 font-semibold text-text text-center">
             {{ $t("TITLES.No Search result") }}
           </h3>
+          
+          <!-- <div>
+            <button @click="handleReject('accepted', amount)">
+              <i class="fas fa-check"></i>
+            </button>
+            <button @click="handleReject('rejected')">
+              <i class="fas fa-times"></i>
+            </button>
+          </div> -->
+          <!-- <GlobalApproval
+            :id="item.id"
+            :url="`settlement-requests/${item.id}?status=accepted&amount=${amount}`"
+          /> -->
         </template>
         <!-- {{ item.full_name }} -->
-        <template v-slot:[`item.name`]="{ item }">
+        <!-- <template v-slot:[`item.name`]="{ item }">
           <div class="flex gap-2 items-center flex-wrap">
             <small-details-card
               :title="`${item.full_name}`"
@@ -60,85 +78,16 @@
               :text="item.email"
             />
           </div>
-
         </template>
 
         <template v-slot:[`item.country`]="{ item }">
           <div class="flex gap-2 items-center flex-wrap">
-            <small-details-card :title="`${item.country?.name}`" :image="item.country?.flag"
+            <small-details-card
+              :title="`${item.country?.name}`"
+              :image="item.country?.flag"
             />
           </div>
-        </template>
-        <div
-              class="flex items-center mt-1 gap-2"
-              v-if="product.status == 'pending'"
-            >
-              <button
-                type="button"
-                class="bg-error rounded-full p-2 w-[32px] h-[32px]"
-                @click="openCancelModel = true"
-              >
-                <svg-icon name="refuse" class="m-auto" />
-              </button>
-              <button
-                type="button"
-                class="bg-collected rounded-full w-[32px] h-[32px] p-1"
-                @click="openConfirmModel = true"
-              >
-                <svg-icon name="accept" class="m-auto" />
-              </button>
-              <Teleport to="body">
-                <ConfirmModal
-                  :disabled="btnConfirmLoading"
-                  v-if="openConfirmModel"
-                  message=""
-                  @cancel="openConfirmModel = false"
-                  btn-confirm="base-btn py-4 rounded-xl"
-                  button-name="BUTTONS.Yes Accept"
-                  @confirm="acceptOrder(product.id)"
-                />
-              </Teleport>
-              <teleport to="body">
-                <modal
-                  :persist="true"
-                  v-if="openCancelModel"
-                  :title="t('LABELS.reject order')"
-                  @close="resetCancelForm"
-                >
-                  <VeeForm
-                    :validation-schema="schema"
-                    @submit="(values) => cancelOrder(values, product.id)"
-                    :initial-values="initialValues"
-                  >
-                    <base-input
-                      id="reject_reason"
-                      name="reject_reason"
-                      :placeholder="$t('LABELS.choose')"
-                      :label="$t('LABELS.Rejection reason')"
-                      type="textarea"
-                      rows="4"
-                    />
-
-                    <div class="flex items-center justify-end gap-2">
-                      <button
-                        class="white-btn rounded-lg"
-                        type="button"
-                        @click="openCancelModel = false"
-                      >
-                        {{ $t("BUTTONS.cancel") }}
-                      </button>
-                      <button
-                        class="base-btn rounded-lg py-3"
-                        :disabled="btnLoading"
-                        type="submit"
-                      >
-                        {{ $t("BUTTONS.save") }}
-                      </button>
-                    </div>
-                  </VeeForm>
-                </modal>
-              </teleport>
-            </div>
+        </template> -->
       </v-data-table-virtual>
     </div>
     <base-pagination :item="paginator" v-if="paginator" />
@@ -170,7 +119,8 @@ const breadItems = [
 const items = ref([]);
 const loading = ref(false);
 const paginator = ref(null);
-
+const amount = ref(0);
+const status = ref("");
 const headers = [
   {
     title: t("LABELS.Name", { name: t("LABELS.settlement-requests") }),
@@ -198,6 +148,20 @@ const headers = [
   //   key: "actions",
   // },
 ];
+
+function handleReject(status, amount) {
+  console.log(status, amount);
+  if (status === "accepted") {
+    
+    openModal.value = true;
+    status.value = status;
+    amount.value = amount;
+    // amount.value = amount;
+    console.log("accepted");
+  } else if (status === "rejected") {
+    console.log("rejected");
+  }
+}
 
 function fetchData() {
   loading.value = true;

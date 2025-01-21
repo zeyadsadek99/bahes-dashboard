@@ -9,7 +9,6 @@
         :inputs="[]"
         :btn-name="t(`BUTTONS.add`, { name: t('LABELS.notifications') })"
         icon="fas fa-plus"
-        :keyword="true"
         @action="$router.push('/notifications/form')"
       />
       <v-data-table-virtual
@@ -26,6 +25,11 @@
         </template>
 
         <template v-slot:no-data>
+          <Deleter
+              :url="`delete_all_notifications`"
+              method="DELETE"
+              @remove="items=[]"
+            />
           <div
             class="text-center"
             v-if="!$route.query.keyword && !$route.query.status"
@@ -67,7 +71,9 @@
             :url="`notifications/${item.id}/toggle-active-brand`"
             v-model:modalValue="item.is_admin_active_user"
           />
+          
         </template> -->
+        
         <template v-slot:[`item.actions`]="{ item, index }">
           <div class="flex items-center gap-4">
             <router-link :to="`/notifications/form/${item.id}`">
@@ -84,6 +90,7 @@
               method="DELETE"
               @remove="items=[]"
             />
+            
           </div>
         </template>
       </v-data-table-virtual>
