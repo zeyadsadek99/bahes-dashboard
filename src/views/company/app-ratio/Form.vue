@@ -283,7 +283,6 @@ function handleSubmit(values, actions) {
   // if (initialValues.image) {
   //   frmData.append("image", initialValues.image);
   // }
-  console.log(values);
   frmData.append("tax_rate", values.tax_rate);
   frmData.append("rate_for_application_from_merchants", values.rate_for_application_from_merchants);
   frmData.append("rate_for_workshop_customers", values.rate_for_workshop_customers);
@@ -324,7 +323,7 @@ const breads = [
     imgIcon: "",
   },
   {
-    name: t(`BUTTONS.${route.params.id ? "Edit" : "add"}`, {
+    name: t(`BUTTONS.${route.params.id ? "Edit" : "Edit"}`, {
       name: t("LABELS.app-ratio"),
     }),
     path: `/app-ratio/form${route.params.id ? "/" + route.params.id : ""}`,

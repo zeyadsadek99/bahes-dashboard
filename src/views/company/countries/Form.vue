@@ -73,13 +73,13 @@
                   :label="$t('LABELS.phoneNumberLimit')"
                   type="text"
                 />
-                <base-input
+                <!-- <base-input
                   id="shortName"
                   name="shortName"
                   :placeholder="$t('LABELS.shortName')"
                   :label="$t('LABELS.shortName')"
                   type="text"
-                />
+                /> -->
                 
                 <base-input
                   id="shortNameAr"
@@ -108,7 +108,6 @@
                   :placeholder="$t('LABELS.natEn')"
                   :label="$t('LABELS.natEn')"
                   type="text"
-                  :disabled="true"
                 />
                 <base-input
                   id="curAr"
@@ -334,7 +333,7 @@ function handleSubmit(values, actions) {
   }
 
   frmData.append("phone_code", values.phone_code);
-  frmData.append("short_name", values.shortName);
+  // frmData.append("short_name", values.shortName);
   frmData.append("nationality", values.nationality);
   frmData.append("currency", values.currency);
 

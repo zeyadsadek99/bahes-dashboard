@@ -4,14 +4,14 @@
     <div
       class="bg-white rounded-3xl h-full shadow-[0_7px_6px_0px,rgba(#B1B1B11A)] md:p-7 flex-1 flex flex-col"
     >
-      <base-filter
+      <!-- <base-filter
         name="review"
         :inputs="[]"
         :btn-name="t(`BUTTONS.add`, { name: t('LABELS.review') })"
         icon="fas fa-plus"
         :keyword="true"
         @action="$router.push('/review/form')"
-      />
+      /> -->
       <v-data-table-virtual
         :headers="headers"
         :items="items"

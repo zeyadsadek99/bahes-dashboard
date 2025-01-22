@@ -55,15 +55,63 @@
           <h3 v-else class="mt-4 font-semibold text-text text-center">
             {{ $t("TITLES.No Search result") }}
           </h3>
-          
-          <!-- <div>
-            <button @click="handleReject('accepted', amount)">
-              <i class="fas fa-check"></i>
+
+          <div>
+            <button @click="handleRequest('accepted', amount)">
+              <svg-icon class="text-primary" name="close" filled />
+
             </button>
-            <button @click="handleReject('rejected')">
-              <i class="fas fa-times"></i>
+            <button @click="handleRequest('rejected')">
+              <svg-icon class="text-primary" name="checked" filled />
+
             </button>
-          </div> -->
+          </div>
+          <Teleport to="body">
+            <Modal
+              class="z-[1009]"
+              :title="$t('TITLES.confirmProcess')"
+              v-if="openModal"
+              @close="openModal = false"
+            >
+              <img
+                width="60"
+                class="mx-auto"
+                src="@/assets/images/icons/list.png"
+                alt="list"
+              />
+              <h4 class="text-center font-bold text-lg mt-4">
+                {{ $t("TITLES.areYouSureToConfirm") }}
+              </h4>
+              <div class="mt-4 px-4">
+                <label class="block text-sm font-medium text-gray-700 mb-1">
+                  {{ $t("LABELS.amount") }}
+                </label>
+                <input 
+                  type="number"
+                  v-model="amount"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"
+                  :placeholder="$t('PLACEHOLDERS.enterAmount')"
+                />
+              </div>
+
+              <div class="flex items-center justify-center gap-2 mt-5">
+                <button
+                  type="button"
+                  class="capitalize base-btn-white"
+                  @click="openModal = false"
+                >
+                  {{ $t("BUTTONS.cancel") }}
+                </button>
+                <button
+                  type="button"
+                  class="capitalize base-btn"
+                  @click="confirm"
+                >
+                  {{ $t("BUTTONS.confirm") }}
+                </button>
+              </div>
+            </Modal>
+          </Teleport>
           <!-- <GlobalApproval
             :id="item.id"
             :url="`settlement-requests/${item.id}?status=accepted&amount=${amount}`"
@@ -120,7 +168,8 @@ const items = ref([]);
 const loading = ref(false);
 const paginator = ref(null);
 const amount = ref(0);
-const status = ref("");
+const openModal = ref(false);
+const status = ref(0);
 const headers = [
   {
     title: t("LABELS.Name", { name: t("LABELS.settlement-requests") }),
@@ -149,16 +198,17 @@ const headers = [
   // },
 ];
 
-function handleReject(status, amount) {
+function handleRequest(status, amount) {
   console.log(status, amount);
   if (status === "accepted") {
-    
     openModal.value = true;
     status.value = status;
     amount.value = amount;
     // amount.value = amount;
-    console.log("accepted");
+    console.log("accepted",amount.value);
   } else if (status === "rejected") {
+    openModal.value = true;
+
     console.log("rejected");
   }
 }

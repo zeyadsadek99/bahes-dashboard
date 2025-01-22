@@ -1,12 +1,12 @@
 <template>
   <div>
-    <breadcrumbs back="/brands" :title="$t('LABELS.brands')" :items="breads" />
+    <breadcrumbs back="/requests-product" :title="$t('LABELS.requests-product')" :items="breads" />
     <div class="flex gap-4 flex-wrap">
       <div class="flex-1 w-full min-w-[250px]">
         <FormSkelton v-if="loading" />
         <template v-else>
           <base-card1
-            :title="$t('TITLES.Details', { name: $t('LABELS.brand') })"
+            :title="$t('TITLES.Details', { name: $t('LABELS.requests-product') })"
           >
             <VeeForm
               :validation-schema="schema"
@@ -23,7 +23,7 @@
                   :label="$t('LABELS.name')"
                   type="text"
                 /> -->
-                <base-input
+                <!-- <base-input
                   id="nameAr"
                   name="nameAr"
                   :placeholder="$t('LABELS.nameAr')"
@@ -36,6 +36,10 @@
                   :placeholder="$t('LABELS.nameEn')"
                   :label="$t('LABELS.nameEn')"
                   type="text"
+                /> -->
+                <base-file
+                  name="file"
+                  :label="$t('LABELS.file')"
                 />
 
                 
@@ -48,7 +52,7 @@
                 class="flex items-center justify-end mt-7 gap-4 md:col-span-2 xl:col-span-3"
               >
                 <router-link
-                  to="/brands"
+                  to="/requests-product"
                   class="capitalize font-semibold text-sub"
                 >
                   {{ $t("BUTTONS.cancel") }}
@@ -82,6 +86,7 @@ const { t } = useI18n();
 const initialValues = reactive({
   nameAr: "",
   nameEn: "",
+  file: null,
   
 });
 
@@ -147,19 +152,21 @@ function handleSubmit(values, actions) {
   btnLoading.value = true;
   const frmData = new FormData();
 
-  let url = "brands";
+  let url = "requests-product";
 
   if (route.params.id) {
     frmData.append("_method", "PUT");
-    url = `brands/${values.id}`;
+    url = `requests-product/${values.id}/accept-and-store`;
   }
 
   // if (initialValues.image) {
   //   frmData.append("image", initialValues.image);
   // }
-
-  frmData.append("en[name]", values.nameEn);
-  frmData.append("ar[name]", values.nameAr);
+  if (initialValues.file) {
+    frmData.append("file", initialValues.file);
+  }
+  // frmData.append("en[name]", values.nameEn);
+  // frmData.append("ar[name]", values.nameAr);
   // frmData.append("phone", values.phoneNumber);
   // frmData.append("phone_code", values.phoneCode);
   // frmData.append("email", values.email);
@@ -169,7 +176,7 @@ function handleSubmit(values, actions) {
     .post(url, frmData)
     .then((res) => {
       setTimeout(() => toast.success(res.data.message), 300);
-      router.push("/brands");
+      router.push("/requests-product");
       btnLoading.value = false;
       actions.resetForm();
     })
@@ -188,25 +195,25 @@ const breads = [
     name: t("TITLES.home"),
   },
   {
-    name: t("LABELS.brands"),
-    path: "/brands",
+    name: t("LABELS.requests-product"),
+    path: "/requests-product",
     imgIcon: "",
   },
   {
     name: t(`BUTTONS.${route.params.id ? "Edit" : "add"}`, {
-      name: t("LABELS.brand"),
+      name: t("LABELS.model"),
     }),
-    path: `/brands/form${route.params.id ? "/" + route.params.id : ""}`,
+    path: `/requests-product/form${route.params.id ? "/" + route.params.id : ""}`,
   },
 ];
 
 function getData() {
-  axios.get(`brands/${route.params.id}`).then((res) => {
+  axios.get(`requests-product/${route.params.id}`).then((res) => {
     const result = res.data.data;
 
-    initialValues.nameAr = result.ar.name;
-    initialValues.nameEn = result.en.name;
-
+    // initialValues.nameAr = result.name;
+  //  initialValues.nameEn = result.name;
+    initialValues.file = result.file;
     initialValues.id = result.id;
 
     loading.value = false;

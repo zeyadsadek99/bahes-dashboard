@@ -77,7 +77,7 @@
             </router-link>
 
             <router-link :to="`/contacts/reply/${item.id}`">
-              <svg-icon class="text-primary" name="edit" filled />
+              <svg-icon class="text-primary rotate-180 " name="reply" filled />
             </router-link>
             
           </div>

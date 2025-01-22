@@ -61,9 +61,9 @@
           </div>
         </template>
 
-        <template v-slot:[`item.country`]="{ item }">
+        <template v-slot:[`item.phone`]="{ item }">
           <div class="flex gap-2 items-center flex-wrap">
-            <small-details-card :title="`${item.country?.name}`" :image="item.country?.flag"
+            <small-details-card :title="`${item.phone}`" :text="item.phone_code"
             />
           </div>
         </template>
@@ -108,10 +108,10 @@ const headers = [
     key: "name",
   },
   {
-    title: t("LABELS.country"),
+    title: t("LABELS.phone"),
     align: "start",
     sortable: false,
-    key: "country",
+    key: "phone",
   },
   // {
   //   title: t("LABELS.activation"),

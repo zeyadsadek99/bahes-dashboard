@@ -1,16 +1,16 @@
 <template>
   <div class="h-full flex flex-col">
-    <breadcrumbs :items="breadItems" :title="$t('LABELS.Services')" />
+    <breadcrumbs :items="breadItems" :title="$t('LABELS.requests-product')" />
     <div
       class="bg-white rounded-3xl h-full shadow-[0_7px_6px_0px,rgba(#B1B1B11A)] md:p-7 flex-1 flex flex-col"
     >
       <base-filter
-        name="Services"
+        name="requests-product"
         :inputs="[]"
-        :btn-name="t(`BUTTONS.add`, { name: t('LABELS.services') })"
+        :btn-name="t(`BUTTONS.add`, { name: t('LABELS.requests-product') })"
         icon="fas fa-plus"
         :keyword="true"
-        @action="$router.push('/services/form')"
+        @action="$router.push('/requests-product/form')"
       />
       <v-data-table-virtual
         :headers="headers"
@@ -33,17 +33,17 @@
             <h3 class="mt-4 font-semibold text-text text-center">
               {{
                 $t("TITLES.No have been added yet", {
-                  name: $t("LABELS.Services"),
+                  name: $t("LABELS.requests-product"),
                 })
               }}
             </h3>
             <div class="flex items-center justify-center mt-7 gap-2 flex-wrap">
               <router-link
-                to="/services/form"
+                to="/requests-product/form"
                 class="base-btn rounded-xl self-end"
               >
                 <i class="fas fa-plus"></i>
-                {{ $t(`BUTTONS.add`, { name: $t("LABELS.services") }) }}
+                {{ $t(`BUTTONS.add`, { name: $t("LABELS.requests-product") }) }}
               </router-link>
             </div>
           </div>
@@ -52,42 +52,39 @@
           </h3>
         </template>
 
-        <template v-slot:[`item.title`]="{ item }">
+        <template v-slot:[`item.name`]="{ item }">
           <div class="flex gap-2 items-center flex-wrap">
             <small-details-card
-              :title="item.title"
-              :image="item.image"
-              :text="item.slug"
+              :title="`${item.name}`"
             />
           </div>
         </template>
 
-        <!-- <template v-slot:[`item.email`]="{ item }">
-          <div class="flex gap-2 items-center flex-wrap">
-            <small-details-card :title="`${item.title}`" />
-          </div>
-        </template> -->
-
-        <!-- <template v-slot:[`item.is_admin_active_user`]="{ item }">
+        
+        <template v-slot:[`item.is_admin_active_user`]="{ item }">
           <global-switcher
             :id="item.id"
-            :url="`faq/${item.id}/toggle-active-user`"
+            :url="`requests-product/${item.id}/toggle-active-requests-product`"
             v-model:modalValue="item.is_admin_active_user"
           />
-        </template> -->
-        <template v-slot:[`item.actions`]="{ item, index }">
+          <!-- <GlobalApproval
+            :id="item.id"
+            :url="`settlement-requests/${item.id}`"
+          /> -->
+        </template>
+        <!-- <template v-slot:[`item.actions`]="{ item, index }">
           <div class="flex items-center gap-4">
-            <router-link :to="`/services/form/${item.id}`">
+            <router-link :to="`/requests-product/form/${item.id}`">
               <svg-icon class="text-primary" name="edit" filled />
             </router-link>
             <Deleter
-              :url="`services/${item.id}`"
+              :url="`product-requests/${item.id}`"
               :id="item.id"
               method="DELETE"
               @remove="items.splice(index, 1)"
             />
           </div>
-        </template>
+        </template> -->
       </v-data-table-virtual>
     </div>
     <base-pagination :item="paginator" v-if="paginator" />
@@ -110,8 +107,8 @@ const breadItems = [
     imgIcon: "settings.svg",
   },
   {
-    name: t("LABELS.Services"),
-    path: "/services",
+    name: t("LABELS.requests-product"),
+    path: "/requests-product",
     imgIcon: "",
   },
 ];
@@ -122,29 +119,12 @@ const paginator = ref(null);
 
 const headers = [
   {
-    title: t("LABELS.Title"),
+    title: t("LABELS.Name", { name: t("LABELS.model") }),
     align: "start",
     sortable: false,
-    key: "title",
+    key: "name",
   },
-  {
-    title: t("LABELS.Price"),
-    align: "start",
-    sortable: false,
-    key: "price",
-  },
-  // {
-  //   title: t("LABELS.Name", { name: t("LABELS.Slug") }),
-  //   align: "start",
-  //   sortable: false,
-  //   key: "slug",
-  // },
-  // {
-  //   title: t("LABELS.email"),
-  //   align: "start",
-  //   sortable: false,
-  //   key: "email",
-  // },
+  
   // {
   //   title: t("LABELS.activation"),
   //   align: "start",
@@ -163,9 +143,9 @@ const headers = [
 function fetchData() {
   loading.value = true;
   axios
-    .get("services", {
+    .get("product-requests", {
       params: {
-        keyword: route.query.keyword || "",
+        user_type: route.query.user_type || "",
       },
     })
     .then((res) => {

@@ -61,11 +61,11 @@
         </template>
 
         
-        <template v-slot:[`item.is_admin_active_user`]="{ item }">
+        <template v-slot:[`item.status`]="{ item }">
           <global-switcher
             :id="item.id"
             :url="`product-types/${item.id}/toggle-active-product-types`"
-            v-model:modalValue="item.is_admin_active_user"
+            v-model:modalValue="item.status"
           />
         </template>
         <template v-slot:[`item.actions`]="{ item, index }">
@@ -115,7 +115,7 @@ const paginator = ref(null);
 
 const headers = [
   {
-    title: t("LABELS.Name", { name: t("LABELS.Type") }),
+    title: t("LABELS.Name", { name: t("LABELS.type") }),
     align: "start",
     sortable: false,
     key: "name",
@@ -125,7 +125,7 @@ const headers = [
     title: t("LABELS.activation"),
     align: "start",
     sortable: false,
-    key: "is_admin_active_user",
+    key: "status",
   },
 
   {
@@ -141,7 +141,7 @@ function fetchData() {
   axios
     .get("product-types", {
       params: {
-        user_type: route.query.keyword || "",
+        // user_type: route.query.keyword || "",
       },
     })
     .then((res) => {

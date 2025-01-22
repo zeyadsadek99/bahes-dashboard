@@ -204,8 +204,8 @@ function getData() {
   axios.get(`product-types/${route.params.id}`).then((res) => {
     const result = res.data.data;
 
-    // initialValues.nameAr = result.name;
-  //  initialValues.nameEn = result.name;
+    initialValues.nameAr = result.ar.name;
+    initialValues.nameEn = result.en.name;
 
     initialValues.id = result.id;
 

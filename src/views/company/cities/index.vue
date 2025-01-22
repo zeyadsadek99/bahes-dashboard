@@ -57,8 +57,8 @@
         <template v-slot:[`item.country.name`]="{ item }">
           <div class="flex gap-2 items-center flex-wrap">
             <small-details-card
-              :title="`${item.country.name}`"
-              :image="item.country.flag?.media"
+              :title="`${item.country?.name}`"
+              :image="item.country?.flag?.media"
             />
           </div>
         </template>
@@ -129,12 +129,12 @@ const headers = [
     sortable: false,
     key: "country.name",
   },
-  {
-    title:t("LABELS.Country key"),
-    align: "start",
-    sortable: false,
-    key: "country.phone_code",
-  },
+  // {
+  //   title:t("LABELS.Country key"),
+  //   align: "start",
+  //   sortable: false,
+  //   key: "country.phone_code",
+  // },
   {
     title: t("LABELS.Actions"),
     align: "start",
@@ -154,12 +154,7 @@ const headers = [
   //   key: "is_admin_active_user",
   // },
 
-  // {
-  //   title: t("LABELS.Actions"),
-  //   align: "start",
-  //   sortable: false,
-  //   key: "actions",
-  // },
+  
 ];
 
 function fetchData() {
@@ -168,6 +163,9 @@ function fetchData() {
     .get("cities", {
       params: {
         keyword: route.query.keyword || "",
+        direction: route.query.direction || "",
+        orderBy: route.query.orderBy || "",
+        page: route.query.page || "",
       },
     })
     .then((res) => {

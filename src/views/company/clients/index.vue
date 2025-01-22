@@ -10,6 +10,7 @@
         :btn-name="t(`BUTTONS.add`, { name: t('LABELS.clients') })"
         icon="fas fa-plus"
         :keyword="true"
+        :hide-label="true"
         @action="$router.push('/clients/form')"
       />
       <v-data-table-virtual

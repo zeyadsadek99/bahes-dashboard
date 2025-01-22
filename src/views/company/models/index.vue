@@ -61,11 +61,11 @@
         </template>
 
         
-        <template v-slot:[`item.is_admin_active_user`]="{ item }">
+        <template v-slot:[`item.status`]="{ item }">
           <global-switcher
             :id="item.id"
             :url="`car-models/${item.id}/toggle-active-car-models`"
-            v-model:modalValue="item.is_admin_active_user"
+            v-model:modalValue="item.status"
           />
           <!-- <GlobalApproval
             :id="item.id"
@@ -130,7 +130,7 @@ const headers = [
     title: t("LABELS.activation"),
     align: "start",
     sortable: false,
-    key: "is_admin_active_user",
+    key: "status",
   },
 
   {

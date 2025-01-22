@@ -42,7 +42,7 @@
         <!-- Custom Slot for displaying Key -->
         <template v-slot:[`item.key`]="{ item }">
           <div class="flex gap-2 items-center flex-wrap">
-            <small-details-card :title="`${item.key}`" />
+            <small-details-card :title="$t(`LABELS.${item.key}`)" />
           </div>
 
         </template>

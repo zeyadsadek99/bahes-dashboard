@@ -48,6 +48,13 @@
                   type="text"
                 />
                 <base-input
+                  id="back_route_name"
+                  name="back_route_name"
+                  :placeholder="$t('LABELS.back_route_name')"
+                  :label="$t('LABELS.back_route_name')"
+                  type="text"
+                />
+                <base-input
                   id="icon"
                   name="icon"
                   :placeholder="$t('LABELS.icon')"
@@ -116,6 +123,8 @@ const initialValues = reactive({
   titleAr: "",
   titleEn: "",
   front_route_name: "",
+  back_route_name: "",
+
   icon: "",
   
 });
@@ -197,6 +206,7 @@ function handleSubmit(values, actions) {
   frmData.append("ar[title]", values.titleAr);
   frmData.append("en[title]", values.titleEn);
   frmData.append("front_route_name", values.front_route_name);
+  frmData.append("back_route_name", values.back_route_name);
   frmData.append("icon", values.icon);
 
  
@@ -248,7 +258,11 @@ function getData() {
   //  initialValues.nameEn = result.name;
 
     initialValues.id = result.id;
-
+    initialValues.back_route_name = result.back_route_name;
+    initialValues.front_route_name = result.front_route_name;
+    initialValues.icon = result.icon;
+    initialValues.titleAr = result.ar.title;
+    initialValues.titleEn = result.en.title;
     loading.value = false;
   });
 }

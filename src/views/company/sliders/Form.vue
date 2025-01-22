@@ -20,6 +20,7 @@
             >
               <div class="grid gap-2 md:grid-cols-2 xl:grid-cols-3">
                 <base-date
+                  :min-date="new Date()"
                   id="start_day"
                   name="start_day"
                   :placeholder="

@@ -203,7 +203,7 @@ const sidebar = ref([
     icon: "person-circle",
     type: "general",
     active: "/type-product", // Exact path
-    permission: checkRootPermission(["type-product"]),
+    permission: checkRootPermission(["product-types"]),
   },
   {
     label: "",
@@ -231,6 +231,15 @@ const sidebar = ref([
     type: "general",
     active: "profile",
     permission: checkRootPermission(["profile"]),
+  },
+  {
+    label: "",
+    title: "LABELS.requests-product",
+    path: "requests-product",
+    icon: "person-circle",
+    type: "general",
+    active: "requests-product",
+    permission: checkRootPermission(["product-requests"]),
   },
   {
     label: "",

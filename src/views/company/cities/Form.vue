@@ -55,14 +55,49 @@
                   :label="$t('LABELS.nameEn')"
                   type="text"
                 />
-                <!-- <base-input
-                  id="shortName"
-                  name="shortName"
-                  :placeholder="$t('LABELS.shortName')"
-                  :label="$t('LABELS.shortName')"
+                <base-input
+                  id="shortNameAr"
+                  name="shortNameAr"
+                  :placeholder="$t('LABELS.shortNameAr')"
+                  :label="$t('LABELS.shortNameAr')"
                   type="text"
-                /> -->
-                
+                />
+                <base-input
+                  id="shortNameEn"
+                  name="shortNameEn"
+                  :placeholder="$t('LABELS.shortNameEn')"
+                  :label="$t('LABELS.shortNameEn')"
+                  type="text"
+                /> 
+
+                <base-input
+                  id="lat"
+                  name="lat"
+                  :placeholder="$t('LABELS.lat')"
+                  :label="$t('LABELS.lat')"
+                  type="text"
+                />
+                <base-input
+                  id="lng"
+                  name="lng"
+                  :placeholder="$t('LABELS.lng')"
+                  :label="$t('LABELS.lng')"
+                  type="text"
+                />
+                <base-input
+                  id="location"
+                  name="location"
+                  :placeholder="$t('LABELS.location')"
+                  :label="$t('LABELS.location')"
+                  type="text"
+                />
+                <base-input
+                  id="postal_code"
+                  name="postal_code"
+                  :placeholder="$t('LABELS.postal_code')"
+                  :label="$t('LABELS.postal_code')"
+                  type="text"
+                />
                 <base-select
                   id="countries"
                   name="countries"
@@ -113,8 +148,14 @@ const { t } = useI18n();
 const initialValues = reactive({
   nameAr:"",
   nameEn:"",
-  shortName: "",
+  shortNameAr: "",
+  shortNameEn: "",
   countries:"",
+  lat: "",
+  lng: "",
+  location: "",
+  postal_code: "",
+
   // cityName: "",
   // countryName: "",
   id: "",
@@ -202,6 +243,13 @@ function handleSubmit(values, actions) {
   // frmData.append("short_name", values.shortName);
   frmData.append("ar[name]", values.nameAr);
   frmData.append("en[name]", values.nameEn);
+  frmData.append("ar[short_name]", values.shortNameAr);
+  frmData.append("en[short_name]", values.shortNameEn);
+  frmData.append("lat", values.lat);
+  frmData.append("lng", values.lng);
+  frmData.append("location", values.location);
+  frmData.append("postal_code", values.postal_code);
+
   // if (route.params.id)
   frmData.append("country_id", values.countries);
   // console.log(values)
@@ -252,8 +300,16 @@ function getData() {
     // initialValues.shortName = result.short_name;
     initialValues.nameAr = result.en.name;
     initialValues.nameEn = result.ar.name;
+    initialValues.shortNameAr = result.ar?.short_name;
+    initialValues.shortNameEn = result.en?.short_name;
+    initialValues.lat = result.lat;
+    initialValues.lng = result.lng;
+    initialValues.location = result.location;
+    initialValues.postal_code = result.postal_code;
+
+
     // initialValues.shortName = result.short_name;
-    initialValues.countries = result.country.id;
+    initialValues.countries = result.country?.id;
     // initialValues.nameEn = result.en[name];
     // initialValues.name = result.full_name;
     // initialValues.email = result.email;
