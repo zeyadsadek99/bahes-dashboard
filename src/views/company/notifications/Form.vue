@@ -1,6 +1,10 @@
 <template>
   <div>
-    <breadcrumbs back="/notifications" :title="$t('LABELS.notifications')" :items="breads" />
+    <breadcrumbs
+      back="/notifications"
+      :title="$t('LABELS.notifications')"
+      :items="breads"
+    />
     <div class="flex gap-4 flex-wrap">
       <div class="flex-1 w-full min-w-[250px]">
         <FormSkelton v-if="loading" />
@@ -11,10 +15,10 @@
             <VeeForm
               :validation-schema="schema"
               @submit="handleSubmit"
+              v-slot="{ values, errors }"
               :initial-values="initialValues"
               class="profile_page"
             >
-             
               <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <!-- <base-input
                   id="name"
@@ -37,6 +41,7 @@
                   :label="$t('LABELS.body')"
                   type="text"
                 />
+
                 <base-select
                   id="type"
                   name="type"
@@ -44,14 +49,19 @@
                   :label="$t('LABELS.type')"
                   :options="types"
                   v-model:itemValue="initialValues.type"
-
                 />
 
-                
-              
+                <base-select
+                  v-if="initialValues.type == 'specific'"
+                  id="users"
+                  name="users"
+                  :placeholder="$t('LABELS.users')"
+                  :label="$t('LABELS.users')"
+                  :options="users"
+                  :multiple="true"
+                  v-model:itemValue="initialValues.users"
+                />
               </div>
-
-              
 
               <div
                 class="flex items-center justify-end mt-7 gap-4 md:col-span-2 xl:col-span-3"
@@ -92,64 +102,12 @@ const initialValues = reactive({
   title: "",
   body: "",
   type: "",
-  
 });
 
 const schema = yup.object().shape({
-  // name: yup.string().required(t("ERRORS.name")),
-  // email: yup.string().required(t("ERRORS.emailAddress")),
-  // phoneCode: yup.mixed().required(t("ERRORS.phoneCode")),
-
-  // phoneNumber: yup
-  //   .string()
-  //   .required(t("ERRORS.isRequired", { name: t("LABELS.phone") }))
-  //   .test((value, context) => {
-  //     let parent = context.parent.phoneCode?.phone_number_limit;
-
-  //     if (value.length > parent || value.length < parent) {
-  //       return context.createError({
-  //         message: t("ERRORS.phoneLength", { value: parent }),
-  //         path: "phoneNumber",
-  //       });
-  //     } else {
-  //       return true;
-  //     }
-  //   }),
-  // // role: yup
-  // //   .string()
-  // //   .required(t("ERRORS.isRequired", { name: t("LABELS.Role") })),
-  // image: yup
-  //   .mixed()
-  //   .test(
-  //     "image",
-  //     t("ERRORS.isRequired", { name: t("LABELS.image") }),
-  //     (value) => {
-  //       if (value || initialValues.preview) {
-  //         return true;
-  //       }
-  //     }
-  //   ),
-  // password: yup.string().test("password", t("ERRORS.password"), (value) => {
-  //   if (route.params.id) {
-  //     return true;
-  //   } else if (value) {
-  //     return true;
-  //   } else return false;
-  // }),
-  // cPassword: yup.string().when("password", (password, field) =>
-  //   password
-  //     ? field
-  //         .test("cPassword", t("ERRORS.confirmPassword"), (value) => {
-  //           if (route.params.id) {
-  //             return true;
-  //           } else if (value) {
-  //             return true;
-  //           } else return false;
-  //         })
-
-  //         .oneOf([yup.ref("password")], t("ERRORS.notEqualPasswords"))
-  //     : field
-  // ),
+  title: yup.string().required(t("ERRORS.title")),
+  body: yup.string().required(t("ERRORS.body")),
+  type: yup.string().required(t("ERRORS.type")),
 });
 const btnLoading = ref(false);
 
@@ -164,13 +122,16 @@ function handleSubmit(values, actions) {
     url = `notifications/${values.id}`;
   }
 
-  // if (initialValues.image) {
-  //   frmData.append("image", initialValues.image);
-  // }
-
   frmData.append("title", values.title);
   frmData.append("body", values.body);
   frmData.append("type", values.type);
+  if (values.type == "specific") {
+    if (values.users) {
+      values.users.forEach((el, idx) => {
+        frmData.append(`user_ids[${idx}]`, el?.id);
+      });
+    }
+  }
   // frmData.append("phone", values.phoneNumber);
   // frmData.append("phone_code", values.phoneCode);
   // frmData.append("email", values.email);
@@ -216,7 +177,7 @@ function getData() {
     const result = res.data.data;
 
     // initialValues.nameAr = result.name;
-  //  initialValues.nameEn = result.name;
+    //  initialValues.nameEn = result.name;
 
     initialValues.id = result.id;
 
@@ -224,10 +185,10 @@ function getData() {
   });
 }
 const types = ref([
-{ id: 'all', name: 'All' },
-  { id: 'admin', name: 'Admin' },
-  { id: 'supper_admin', name: 'Super Admin' },
-  { id: 'specific', name: 'Specific' }
+  { id: "all", name: "All" },
+  { id: "admin", name: "Admin" },
+  { id: "supper_admin", name: "Super Admin" },
+  { id: "specific", name: "Specific" },
 ]);
 
 function getCategories() {
@@ -240,8 +201,22 @@ function getCategories() {
     });
   });
 }
+
+const users = ref([]);
+
+function getUsers() {
+  axios.get("users").then((res) => {
+    users.value = res.data.data.map((el) => {
+      return {
+        id: el.id,
+        name: el?.full_name,
+      };
+    });
+  });
+}
 // getCategories();
 onBeforeMount(() => {
+  getUsers();
   if (route.params.id) {
     loading.value = true;
     getData();

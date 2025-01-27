@@ -86,6 +86,7 @@
               </div>
             </VeeForm>
           </base-card1>
+          
         </template>
       </div>
     </div>
@@ -261,6 +262,7 @@ function getCategories() {
   });
 }
 getCategories();
+
 onBeforeMount(() => {
   if (route.params.id) {
     loading.value = true;

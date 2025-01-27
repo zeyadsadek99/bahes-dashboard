@@ -258,7 +258,7 @@ const router = createRouter({
             {
               path: "form",
               props: true,
-              name: "store-activities",
+              name: "add-store-activities",
               meta: {
                 auth: true,
                 permission: ["store-activities", "store"],
@@ -845,45 +845,45 @@ const router = createRouter({
             },
           ],
         },
-        {
-          path: "store-requests",
-          meta: {
-            auth: true,
-          },
-          component: () => import("@/views/company/store-requests/Home.vue"),
-          children: [
-            {
-              path: "",
-              name: "store-requests",
-              meta: {
-                auth: true,
-                permission: ["store-requests", "index"],
-              },
-              component: () => import("@/views/company/store-requests/index.vue"),
-            },
+        // {
+        //   path: "store-requests",
+        //   meta: {
+        //     auth: true,
+        //   },
+        //   component: () => import("@/views/company/store-requests/Home.vue"),
+        //   children: [
+        //     {
+        //       path: "",
+        //       name: "store-requests",
+        //       meta: {
+        //         auth: true,
+        //         permission: ["store-requests", "index"],
+        //       },
+        //       component: () => import("@/views/company/store-requests/index.vue"),
+        //     },
 
-            {
-              path: "form/:id",
-              props: true,
-              name: "edit-store-requests",
-              meta: {
-                auth: true,
-                permission: ["store-requests", "update"],
-              },
-              component: () => import("@/views/company/store-requests/Form.vue"),
-            },
-            {
-              path: "form",
-              props: true,
-              name: "add-store-requests",
-              meta: {
-                auth: true,
-                permission: ["store-requests", "store"],
-              },
-              component: () => import("@/views/company/store-requests/Form.vue"),
-            },
-          ],
-        },
+        //     {
+        //       path: "form/:id",
+        //       props: true,
+        //       name: "edit-store-requests",
+        //       meta: {
+        //         auth: true,
+        //         permission: ["store-requests", "update"],
+        //       },
+        //       component: () => import("@/views/company/store-requests/Form.vue"),
+        //     },
+        //     {
+        //       path: "form",
+        //       props: true,
+        //       name: "add-store-requests",
+        //       meta: {
+        //         auth: true,
+        //         permission: ["store-requests", "store"],
+        //       },
+        //       component: () => import("@/views/company/store-requests/Form.vue"),
+        //     },
+        //   ],
+        // },
         {
           path: "settings",
           meta: {

@@ -7,14 +7,6 @@
     <div
       class="bg-white rounded-3xl h-full shadow-[0_7px_6px_0px,rgba(#B1B1B11A)] md:p-7 flex-1 flex flex-col"
     >
-      <!-- <base-filter
-        name="settlement-requests"
-        :inputs="[]"
-        :btn-name="t(`BUTTONS.Edit`, { name: t('LABELS.settlement-requests') })"
-        icon="fas fa-plus"
-        :keyword="true"
-        @action="$router.push('/settlement-requests/form')"
-      /> -->
       <v-data-table-virtual
         :headers="headers"
         :items="items"
@@ -57,15 +49,14 @@
           </h3>
 
           <div>
-            <button @click="handleRequest('accepted', amount)">
+            <button @click="handleRequest('reject')">
               <svg-icon class="text-primary" name="close" filled />
-
             </button>
-            <button @click="handleRequest('rejected')">
+            <button @click="handleRequest('accept')">
               <svg-icon class="text-primary" name="checked" filled />
-
             </button>
           </div>
+
           <Teleport to="body">
             <Modal
               class="z-[1009]"
@@ -82,16 +73,26 @@
               <h4 class="text-center font-bold text-lg mt-4">
                 {{ $t("TITLES.areYouSureToConfirm") }}
               </h4>
-              <div class="mt-4 px-4">
+              <div v-if="status === 'accept'" class="mt-4 px-4">
                 <label class="block text-sm font-medium text-gray-700 mb-1">
                   {{ $t("LABELS.amount") }}
                 </label>
-                <input 
+                <input
                   type="number"
                   v-model="amount"
                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"
                   :placeholder="$t('PLACEHOLDERS.enterAmount')"
                 />
+              </div>
+              <div v-else class="mt-4 px-4">
+                <label class="block text-sm font-medium text-gray-700 mb-1">
+                  {{ $t("LABELS.note") }}
+                </label>
+                <textarea
+                  v-model="note"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-primary focus:border-primary"
+                  :placeholder="$t('PLACEHOLDERS.enterNote')"
+                ></textarea>
               </div>
 
               <div class="flex items-center justify-center gap-2 mt-5">
@@ -112,30 +113,8 @@
               </div>
             </Modal>
           </Teleport>
-          <!-- <GlobalApproval
-            :id="item.id"
-            :url="`settlement-requests/${item.id}?status=accepted&amount=${amount}`"
-          /> -->
-        </template>
-        <!-- {{ item.full_name }} -->
-        <!-- <template v-slot:[`item.name`]="{ item }">
-          <div class="flex gap-2 items-center flex-wrap">
-            <small-details-card
-              :title="`${item.full_name}`"
-              :image="item.image"
-              :text="item.email"
-            />
-          </div>
         </template>
 
-        <template v-slot:[`item.country`]="{ item }">
-          <div class="flex gap-2 items-center flex-wrap">
-            <small-details-card
-              :title="`${item.country?.name}`"
-              :image="item.country?.flag"
-            />
-          </div>
-        </template> -->
       </v-data-table-virtual>
     </div>
     <base-pagination :item="paginator" v-if="paginator" />
@@ -168,8 +147,9 @@ const items = ref([]);
 const loading = ref(false);
 const paginator = ref(null);
 const amount = ref(0);
+const note = ref("");
 const openModal = ref(false);
-const status = ref(0);
+const status = ref("");
 const headers = [
   {
     title: t("LABELS.Name", { name: t("LABELS.settlement-requests") }),
@@ -183,34 +163,40 @@ const headers = [
     sortable: false,
     key: "country",
   },
-  // {
-  //   title: t("LABELS.activation"),
-  //   align: "start",
-  //   sortable: false,
-  //   key: "is_admin_active_user",
-  // },
-
-  // {
-  //   title: t("LABELS.Actions"),
-  //   align: "start",
-  //   sortable: false,
-  //   key: "actions",
-  // },
 ];
 
-function handleRequest(status, amount) {
-  console.log(status, amount);
-  if (status === "accepted") {
-    openModal.value = true;
-    status.value = status;
-    amount.value = amount;
-    // amount.value = amount;
-    console.log("accepted",amount.value);
-  } else if (status === "rejected") {
-    openModal.value = true;
-
-    console.log("rejected");
+function handleRequest(requestStatus) {
+  status.value = requestStatus;
+  amount.value = 0; // Reset amount
+  note.value = "";  // Reset note
+  openModal.value = true;
+}
+function closeModal() {
+  openModal.value = false;
+  amount.value = 0; // Reset amount
+  note.value = "";  // Reset note
+}
+function confirm() {
+  const id = 1;
+  let url = `settlement-requests/${id}?status=${status.value}`;
+  if (status.value === "accept") {
+    url += `&amount=${amount.value}`;
+  } else if (status.value === "reject") {
+    url += `&note=${note.value}`;
   }
+
+  axios
+    .patch(url)
+    .then((res) => {
+      console.log(res.data.message);
+      closeModal();
+
+    })
+    .catch((e) => {
+      console.error(e.response.data.message);
+      // closeModal();
+
+    });
 }
 
 function fetchData() {
@@ -223,7 +209,6 @@ function fetchData() {
     })
     .then((res) => {
       items.value = res.data.data;
-
       paginator.value = res.data.meta;
       loading.value = false;
     })

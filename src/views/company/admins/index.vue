@@ -7,7 +7,6 @@
     <div class="flex gap-4 flex-row-reverse flex-wrap">
 
       
-      
       <base-filter
         name="Admins"
         :inputs="inputs"
@@ -102,9 +101,11 @@
               method="DELETE"
               @remove="items.splice(index, 1)"
             />
+            
           </div>
         </template>
       </v-data-table-virtual>
+      
     </div>
     <base-pagination :item="paginator" v-if="paginator" />
   </div>
@@ -135,6 +136,8 @@ const inputs = [
     multiple: false,
   },
 ];
+// const roles = ref({});
+
 const roles = [
   
   {
@@ -143,11 +146,11 @@ const roles = [
     type: "select",
     // icon: "calendar",
     filter: null,
-    options : [
-    { id: "", name: t("STATUS.all")},
-    { id: '1', name: 'Admin' },
-    { id: '2', name: 'Super Admin' },
-  ],
+    options : [{id: "", name: t("STATUS.all")},
+      {id: "1", name: "Admin"},
+      {id: "2", name: "User"},
+      {id: "3", name: "Assistant"},
+    ],
 
     multiple: false,
   },
@@ -220,7 +223,26 @@ function fetchData() {
     .catch(() => (loading.value = false));
 }
 
+function getRoles() {
+  axios.get("role-names").then((res) => {
+    const uniqueRoles = [];
+    const roleNames = new Set();
 
+    res.data.data.forEach((el) => {
+      if (!roleNames.has(el.name)) {
+        roleNames.add(el.name);
+        uniqueRoles.push({
+          id: el.id,
+          name: el.name,
+        });
+      }
+    });
+
+    roles.value = uniqueRoles;
+  });
+}
+// getRoles();
+// console.log(roles.value)
 watch(
   () => route.query,
   () => fetchData()

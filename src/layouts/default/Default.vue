@@ -34,27 +34,27 @@ import { useI18n } from "vue-i18n";
 const appStore = useAppStore();
 
 const SOCKET_URL = import.meta.env.VITE_BASE_SOCKET_URL;
-const socket = io(SOCKET_URL);
+// const socket = io(SOCKET_URL);
 
 const { locale } = useI18n();
 
 const appAuth = useAppAuth();
 onMounted(() => appAuth.getProfile());
 
-watch(
-  () => appAuth.userData,
-  async (value, old) => {
-    if (value?.id != old?.id) {
-      appStore.getNotifications();
+// watch(
+//   () => appAuth.userData,
+//   async (value, old) => {
+//     if (value?.id != old?.id) {
+//       appStore.getNotifications();
 
-      setConnection();
-    }
-  },
-  {
-    deep: true,
-    immediate: true,
-  }
-);
+//       setConnection();
+//     }
+//   },
+//   {
+//     deep: true,
+//     immediate: true,
+//   }
+// );
 
 function setConnection() {
   socket.off(`sybolaays-notification:${appAuth.userData.id}`);
