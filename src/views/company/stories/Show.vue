@@ -100,7 +100,7 @@
             <button
               type="button"
               @click="showStatistics = true"
-              class="bg-[#FFF6E5] text-[#47ada9] flex items-center justify-center rounded-full h-11 py-2 px-4"
+              class="bg-[#FFF6E5] text-[#31703F] flex items-center justify-center rounded-full h-11 py-2 px-4"
             >
               {{ $t("LABELS.statistics") }}
             </button>
@@ -224,7 +224,7 @@
                     y2="9.65785"
                     gradientUnits="userSpaceOnUse"
                   >
-                    <stop stop-color="#47ada9" />
+                    <stop stop-color="#31703F" />
                     <stop offset="1" stop-color="#FFE8BA" />
                   </linearGradient>
                 </defs>

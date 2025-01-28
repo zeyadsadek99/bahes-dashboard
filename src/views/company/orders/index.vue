@@ -39,6 +39,25 @@
           </p>
 
           <p class="text-lg font-bold text-center">
+            {{ stats.new_orders }} {{ $t("LABELS.Order") }}
+          </p>
+          <button type="button" class="" @click.stop="setStatus('')">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div
+          class="base-card-1 state_card"
+          @click="setStatus('admin_accepted')"
+          :class="{ active: route.query.status == 'admin_accepted' }"
+        >
+          <p
+            class="!bg-white text-center font-medium mb-5"
+            :class="getStatusColor('admin_accepted')"
+          >
+            {{ $t("STATUS.admin_accepted") }}
+          </p>
+
+          <p class="text-lg font-bold text-center">
             {{ stats.accepted_orders }} {{ $t("LABELS.Order") }}
           </p>
           <button type="button" class="" @click.stop="setStatus('')">
@@ -153,7 +172,7 @@
             <small-details-card :title="`#${item.id}`" />
           </div>
         </template>
-        <template v-slot:[`item.order_type`]="{ item }">
+        <!-- <template v-slot:[`item.order_type`]="{ item }">
           <small-details-card :title="t(item.title)" />
         </template>
 
@@ -180,11 +199,11 @@
           <small-details-card
             :title="item.total.toFixed(2) + ' ' + $t('SAR')"
           />
-        </template>
+        </template> -->
         <template v-slot:[`item.created_at`]="{ item }">
           <small-details-card
             :title="
-              new Date(item.created_at).toLocaleDateString(
+              new Date(item.order_date).toLocaleDateString(
                 locale == 'ar' ? 'ar-eg' : 'en-us',
                 {
                   day: 'numeric',
@@ -194,7 +213,7 @@
               )
             "
             :text="
-              new Date(item.created_at).toLocaleTimeString(
+              new Date(item.order_date).toLocaleTimeString(
                 locale == 'ar' ? 'ar-eg' : 'en-us',
                 {
                   hour: 'numeric',
@@ -254,6 +273,7 @@ const stats = reactive({
   canceled_orders: 0,
   delivered_orders: 0,
   pending_orders: 0,
+  new_orders: 0,
   accepted_orders: 0,
   in_progress_orders: 0,
 });
@@ -274,12 +294,12 @@ const headers = [
     sortable: false,
     key: "order_num",
   },
-  {
-    title: t("LABELS.Retailer"),
-    align: "start",
-    sortable: false,
-    key: "client",
-  },
+  // {
+  //   title: t("LABELS.Retailer"),
+  //   align: "start",
+  //   sortable: false,
+  //   key: "client",
+  // },
   {
     title: t("LABELS.Order Date"),
     align: "start",
@@ -293,25 +313,25 @@ const headers = [
   //   key: "order_type",
   // },
 
-  {
-    title: t("LABELS.orderStatus"),
-    align: "start",
-    sortable: false,
-    key: "status_trans",
-  },
+  // {
+  //   title: t("LABELS.orderStatus"),
+  //   align: "start",
+  //   sortable: false,
+  //   key: "status_trans",
+  // },
 
-  {
-    title: t("LABELS.total"),
-    align: "start",
-    sortable: false,
-    key: "price_detail",
-  },
-  {
-    title: t("LABELS.payment_method"),
-    align: "start",
-    sortable: false,
-    key: "payment_method",
-  },
+  // {
+  //   title: t("LABELS.total"),
+  //   align: "start",
+  //   sortable: false,
+  //   key: "price_detail",
+  // },
+  // {
+  //   title: t("LABELS.payment_method"),
+  //   align: "start",
+  //   sortable: false,
+  //   key: "payment_method",
+  // },
 
   {
     title: t("LABELS.Actions"),
@@ -446,6 +466,9 @@ function updateStats() {
         break;
       case "cancelled":
         stats.canceled_orders++;
+        break;
+      case "new":
+        stats.new_orders++;
         break;
       case "accepted":
         stats.accepted_orders++;

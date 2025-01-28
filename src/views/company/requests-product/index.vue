@@ -59,7 +59,7 @@
         </template>
 
         <template v-slot:[`item.action`]="{ item }">
-          <div class="flex flex-wrap gap-2" v-if="item.status == 'pending'">
+          <div class="flex flex-wrap gap-2" >
             <button
               type="button"
               class="bg-error rounded-full p-2 w-[32px] h-[32px]"
@@ -196,8 +196,8 @@
                   />
 
                   <base-input
-                    id="nameEn"
-                    name="nameEn"
+                    id="reject_reason"
+                    name="reject_reason"
                     :placeholder="$t('LABELS.choose')"
                     :label="$t('LABELS.Rejection reason')"
                     type="textarea"
@@ -230,14 +230,14 @@
               </modal>
             </teleport>
           </div>
-          <div v-else>
+          <!-- <div >
             <p
               :class="getStatusColor(item.status)"
               class="inline-flex p-1 rounded-full"
             >
               {{ $t(`STATUS.${item.status}`) }}
             </p>
-          </div>
+          </div> -->
         </template>
         <!--  -->
         <!-- <template v-slot:[`item.actions`]="{ item, index }">
@@ -308,7 +308,7 @@ const failmodal = ref(false);
 const failmessage = ref("");
 const headers = [
   {
-    title: t("LABELS.Name", { name: t("LABELS.model") }),
+    title: t("LABELS.Name", { name: t("LABELS.request") }),
     align: "start",
     sortable: false,
     key: "name",
@@ -389,7 +389,7 @@ function cancelOrder(values, id) {
     });
 }
 
-function acceptOrder(id) {
+function acceptOrder(values, id) {
   btnConfirmLoading.value = true;
   const frmData = new FormData();
 

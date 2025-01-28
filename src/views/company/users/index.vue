@@ -1,17 +1,17 @@
 <template>
   <div class="h-full flex flex-col">
-    <breadcrumbs :items="breadItems" :title="$t('LABELS.clients')" />
+    <breadcrumbs :items="breadItems" :title="$t('LABELS.users')" />
     <div
       class="bg-white rounded-3xl h-full shadow-[0_7px_6px_0px,rgba(#B1B1B11A)] md:p-7 flex-1 flex flex-col"
     >
       <base-filter
-        name="clients"
+        name="users"
         :inputs="inputs"
-        :btn-name="t(`BUTTONS.add`, { name: t('LABELS.clients') })"
+        :btn-name="t(`BUTTONS.add`, { name: t('LABELS.users') })"
         icon="fas fa-plus"
         :keyword="true"
         :hide-label="true"
-        @action="$router.push('/clients/form')"
+        @action="$router.push('/users/form')"
       />
       <v-data-table-virtual
         :headers="headers"
@@ -34,17 +34,17 @@
             <h3 class="mt-4 font-semibold text-text text-center">
               {{
                 $t("TITLES.No have been added yet", {
-                  name: $t("LABELS.clients"),
+                  name: $t("LABELS.users"),
                 })
               }}
             </h3>
             <div class="flex items-center justify-center mt-7 gap-2 flex-wrap">
               <router-link
-                to="/clients/form"
+                to="/users/form"
                 class="base-btn rounded-xl self-end"
               >
                 <i class="fas fa-plus"></i>
-                {{ $t(`BUTTONS.add`, { name: $t("LABELS.clients") }) }}
+                {{ $t(`BUTTONS.add`, { name: $t("LABELS.users") }) }}
               </router-link>
             </div>
           </div>
@@ -73,31 +73,31 @@
         <template v-slot:[`item.is_admin_active_user`]="{ item }">
           <global-switcher
             :id="item.id"
-            :url="`clients/${item.id}/toggle-active-client`"
+            :url="`users/${item.id}/toggle-active-client`"
             v-model:modalValue="item.is_admin_active_user"
             method='POST'
 
           />
         </template>
-        <template v-slot:[`item.is_ban`]="{ item }">
+        <!-- <template v-slot:[`item.is_ban`]="{ item }">
           <global-switcher
             :id="item.id"
-            :url="`clients/block/${item.id}`"
+            :url="`users/block/${item.id}`"
             v-model:modalValue="item.is_ban"
             method='POST'
 
           />
-        </template>
+        </template> -->
         <template v-slot:[`item.actions`]="{ item, index }">
           <div class="flex items-center gap-4">
-            <router-link :to="`/clients/form/${item.id}`">
+            <router-link :to="`/users/form/${item.id}`">
               <svg-icon class="text-primary" name="edit" filled />
             </router-link>
-            <router-link :to="`/clients/form/${item.id}`">
+            <router-link :to="`/users/form/${item.id}`">
               <svg-icon class="text-primary" name="trending-up" filled />
             </router-link>
             <Deleter
-              :url="`clients/${item.id}`"
+              :url="`users/${item.id}`"
               :id="item.id"
               method="DELETE"
               @remove="items.splice(index, 1)"
@@ -173,8 +173,8 @@ const breadItems = [
     imgIcon: "settings.svg",
   },
   {
-    name: t("LABELS.clients"),
-    path: "/clients",
+    name: t("LABELS.users"),
+    path: "/users",
     imgIcon: "",
   },
 ];
@@ -185,7 +185,7 @@ const paginator = ref(null);
 
 const headers = [
   {
-    title: t("LABELS.Name", { name: t("LABELS.clients") }),
+    title: t("LABELS.Name", { name: t("LABELS.users") }),
     align: "start",
     sortable: false,
     key: "name",

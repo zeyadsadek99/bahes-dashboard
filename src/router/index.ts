@@ -284,26 +284,26 @@ const router = createRouter({
               component: () => import("@/views/company/requests-product/index.vue"),
             },
 
-            {
-              path: "form/:id",
-              props: true,
-              name: "edit-requests-product",
-              meta: {
-                auth: true,
-                permission: ["product-requests", "update"],
-              },
-              component: () => import("@/views/company/requests-product/Form.vue"),
-            },
-            {
-              path: "form",
-              props: true,
-              name: "add-requests-product",
-              meta: {
-                auth: true,
-                permission: ["product-requests", "store"],
-              },
-              component: () => import("@/views/company/requests-product/Form.vue"),
-            },
+            // {
+            //   path: "form/:id",
+            //   props: true,
+            //   name: "edit-requests-product",
+            //   meta: {
+            //     auth: true,
+            //     permission: ["product-requests", "update"],
+            //   },
+            //   component: () => import("@/views/company/requests-product/Form.vue"),
+            // },
+            // {
+            //   path: "form",
+            //   props: true,
+            //   name: "add-requests-product",
+            //   meta: {
+            //     auth: true,
+            //     permission: ["product-requests", "store"],
+            //   },
+            //   component: () => import("@/views/company/requests-product/Form.vue"),
+            // },
           ],
         },
         {
@@ -567,6 +567,16 @@ const router = createRouter({
               },
               component: () => import("@/views/company/clients/Form.vue"),
             },
+            // {
+            //   path: "upgrade/:id",
+            //   props: true,
+            //   name: "upgrade-clients",
+            //   meta: {
+            //     auth: true,
+            //     permission: ["clients", "update"],
+            //   },
+            //   component: () => import("@/views/company/clients/Upgrade.vue"),
+            // },
             {
               path: "form",
               props: true,
@@ -576,6 +586,104 @@ const router = createRouter({
                 permission: ["clients", "store"],
               },
               component: () => import("@/views/company/clients/Form.vue"),
+            },
+          ],
+        },
+        {
+          path: "users",
+          meta: {
+            auth: true,
+          },
+          component: () => import("@/views/company/users/Home.vue"),
+          children: [
+            {
+              path: "",
+              name: "users",
+              meta: {
+                auth: true,
+                permission: ["users", "index"],
+              },
+              component: () => import("@/views/company/users/index.vue"),
+            },
+
+            {
+              path: "form/:id",
+              props: true,
+              name: "edit-users",
+              meta: {
+                auth: true,
+                permission: ["users", "update"],
+              },
+              component: () => import("@/views/company/users/Form.vue"),
+            },
+            // {
+            //   path: "upgrade/:id",
+            //   props: true,
+            //   name: "upgrade-clients",
+            //   meta: {
+            //     auth: true,
+            //     permission: ["clients", "update"],
+            //   },
+            //   component: () => import("@/views/company/clients/Upgrade.vue"),
+            // },
+            {
+              path: "form",
+              props: true,
+              name: "add-users",
+              meta: {
+                auth: true,
+                permission: ["users", "store"],
+              },
+              component: () => import("@/views/company/users/Form.vue"),
+            },
+          ],
+        },
+        {
+          path: "bank-accounts",
+          meta: {
+            auth: true,
+          },
+          component: () => import("@/views/company/bank-accounts/Home.vue"),
+          children: [
+            {
+              path: "",
+              name: "bank-accounts",
+              meta: {
+                auth: true,
+                permission: ["bank-accounts", "index"],
+              },
+              component: () => import("@/views/company/bank-accounts/index.vue"),
+            },
+
+            {
+              path: "form/:id",
+              props: true,
+              name: "edit-bank-accounts",
+              meta: {
+                auth: true,
+                permission: ["bank-accounts", "update"],
+              },
+              component: () => import("@/views/company/bank-accounts/Form.vue"),
+            },
+            // {
+            //   path: "upgrade/:id",
+            //   props: true,
+            //   name: "upgrade-clients",
+            //   meta: {
+            //     auth: true,
+            //     permission: ["clients", "update"],
+            //   },
+            //   component: () => import("@/views/company/clients/Upgrade.vue"),
+            // },
+            {
+              path: "form",
+              props: true,
+              name: "add-bank-accounts",
+              meta: {
+                auth: true,
+                permission: ["bank-accounts", "store"],
+              },
+              component: () => import("@/views/company/bank-accounts/Form.vue"),
             },
           ],
         },

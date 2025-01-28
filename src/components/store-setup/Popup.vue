@@ -5,7 +5,7 @@
     <button
       type="button"
       @click.stop="$emit('close')"
-      class="p-4 absolute top-3 close-btn w-[58px] h-[58px] rounded-full border border-[#47ada9] text-[#47ada9] flex items-center justify-center"
+      class="p-4 absolute top-3 close-btn w-[58px] h-[58px] rounded-full border border-[#31703F] text-[#31703F] flex items-center justify-center"
     >
       <i class="fas fa-times text-xl"></i>
     </button>

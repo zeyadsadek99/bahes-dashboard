@@ -4,7 +4,7 @@ export default {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
     colors: {
-      reserved: "#47ada9",
+      reserved: "#31703F",
       reserved1: "#FCC230",
       collected: "#06D6A0",
       soon: "#DA7416",
@@ -14,7 +14,7 @@ export default {
       split: "#FF445B",
       subBg: "#FCFCFE",
       mainBg: "#FCFCFE",
-      primary: "#47ada9",
+      primary: "#31703F",
       secondary: "#5CBBF6",
       third: "#EFF0FD99",
       text: "#171717",
@@ -81,7 +81,7 @@ export default {
     extend: {
       boxShadow: {
         card: "0 4px 4px  rgba(35, 40, 105, 0.08)",
-        "base-shadow": "0px 6px 20px 0px #47ada978",
+        "base-shadow": "0px 6px 20px 0px #31703F78",
         "base-shadow1": "0px 6px 20px 0px #F5F6FF",
       },
     },

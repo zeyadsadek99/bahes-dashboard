@@ -23,7 +23,7 @@
         <p class="title">{{ $t("TEXT.order date and time") }}</p>
         <p class="value">
           {{
-            new Date(item.created_at)
+            new Date(item.order_date)
               .toLocaleDateString(locale == "ar" ? "ar-eg" : "en-us", {
                 day: "numeric",
                 month: "2-digit",
@@ -44,7 +44,7 @@
       </li> -->
       <li>
         <p class="title">{{ $t("TEXT.Total order") }}</p>
-        <p class="value">{{ item.total }} {{ $t("SAR") }}</p>
+        <!-- <p class="value">{{ item.total }} {{ $t("SAR") }}</p> -->
       </li>
         <!-- <li class="sm:col-span-2 lg:col-span-4" v-if="item.admin_reject_reason">
           <p class="title">{{ $t("LABELS.Rejection reason") }}</p>
@@ -63,7 +63,7 @@
         <p class="title">
           {{ $t("LABELS.Name", { name: $t("LABELS.Vendor") }) }}
         </p>
-        <p class="value">{{ item.vendor.full_name }}</p>
+        <p class="value">{{ item.vendor.name }}</p>
       </li>
       <li v-if="item.vendor?.rate">
         <p class="title">{{ $t("LABELS.rate") }}</p>
@@ -77,11 +77,11 @@
           {{ item.provider.created_at }}
         </p>
       </li> -->
-    </ul> 
+    <!-- </ul> 
     <h3 class="mb-3 text-text font-bold text-xl">
       {{ $t("LABELS.Client Details") }}
     </h3>
-    <ul class="top-header">
+    <ul class="top-header"> -->
       <!-- <li>
         <p class="title">{{ $t("LABELS.facility type") }}</p>
         <p class="value">{{ item.client.facility_type?.name }}</p>

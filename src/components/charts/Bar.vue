@@ -78,10 +78,10 @@ const setChartData = () => {
     datasets: [
       {
         backgroundColor: dataValues.map((value) =>
-          value === highestValue.value ? "#47ada9" : "#FFE4AE"
+          value === highestValue.value ? "#31703F" : "#FFE4AE"
         ),
         borderColor: dataValues.map((value) =>
-          value === highestValue.value ? "#47ada9" : "#FFE4AE"
+          value === highestValue.value ? "#31703F" : "#FFE4AE"
         ),
         data: dataValues,
         barThickness: 70,

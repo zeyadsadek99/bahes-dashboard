@@ -240,7 +240,7 @@ watch(
 
     &.p-highlight {
       color: #fff !important;
-      background: #47ada9 !important;
+      background: #31703F !important;
     }
     &.p-disabled {
       color: #828aba !important;

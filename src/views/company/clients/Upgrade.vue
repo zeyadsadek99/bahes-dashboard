@@ -56,66 +56,64 @@
                   :label="$t('LABELS.storeLocation')"
                   type="text"
                 />
-                
               </div>
-              <div
-                  class="grid grid-cols-1 md:grid-cols-3 gap-2 mb-7 relative"
-                >
-                  <div class="image1 relative w-52">
-                    <base-file
-                      @uploading="btnLoading = $event"
-                      modalName="users"
-                      modalType="image"
-                      id="storeImage"
-                      name="storeImage"
-                      :placeholder="$t('LABELS.image')"
-                      label=""
-                      v-model:itemValue="initialValues.storeImage"
-                      v-model:image="initialValues.storeImage"
-                      accept="image/png, image/webp, image/jpeg"
-                      :no_preview="true"
-                    />
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-2 mb-7 relative">
+                <div class="image1 relative w-52">
+                  <base-file
+                    @uploading="btnLoading = $event"
+                    modalName="users"
+                    modalType="image"
+                    id="storeImage"
+                    name="storeImage"
+                    :placeholder="$t('LABELS.image')"
+                    label=""
+                    v-model:itemValue="initialValues.storeImage"
+                    v-model:image="initialValues.storeImage"
+                    accept="image/png, image/webp, image/jpeg"
+                    :no_preview="true"
+                  />
 
-                    <label
-                      for="image"
-                      class="w-10 h-10 end-9 bg-primary rounded-full flex justify-center items-center absolute -bottom-1"
-                    >
-                      <img
-                        class="!object-contain"
-                        src="@/assets/images/icons/solar_upload-linear.png"
-                        alt="solar icon"
-                      />
-                    </label>
-                  </div>
-                  <div class="image1 relative w-52">
-                    <base-file
-                      @uploading="btnLoading = $event"
-                      modalName="users"
-                      modalType="image"
-                      id="storeCommericalRegisterImage"
-                      name="storeCommericalRegisterImage"
-                      :placeholder="$t('LABELS.image')"
-                      label=""
-                      v-model:itemValue="
-                        initialValues.storeCommericalRegisterImage
-                      "
-                      v-model:image="initialValues.storeCommericalRegisterImage"
-                      accept="image/png, image/webp, image/jpeg"
-                      :no_preview="true"
+                  <label
+                    for="image"
+                    class="w-10 h-10 end-9 bg-primary rounded-full flex justify-center items-center absolute -bottom-1"
+                  >
+                    <img
+                      class="!object-contain"
+                      src="@/assets/images/icons/solar_upload-linear.png"
+                      alt="solar icon"
                     />
-
-                    <label
-                      for="image"
-                      class="w-10 h-10 end-9 bg-primary rounded-full flex justify-center items-center absolute -bottom-1"
-                    >
-                      <img
-                        class="!object-contain"
-                        src="@/assets/images/icons/solar_upload-linear.png"
-                        alt="solar icon"
-                      />
-                    </label>
-                  </div>
+                  </label>
                 </div>
+                <div class="image1 relative w-52">
+                  <base-file
+                    @uploading="btnLoading = $event"
+                    modalName="users"
+                    modalType="image"
+                    id="storeCommericalRegisterImage"
+                    name="storeCommericalRegisterImage"
+                    :placeholder="$t('LABELS.image')"
+                    label=""
+                    v-model:itemValue="
+                      initialValues.storeCommericalRegisterImage
+                    "
+                    v-model:image="initialValues.storeCommericalRegisterImage"
+                    accept="image/png, image/webp, image/jpeg"
+                    :no_preview="true"
+                  />
+
+                  <label
+                    for="image"
+                    class="w-10 h-10 end-9 bg-primary rounded-full flex justify-center items-center absolute -bottom-1"
+                  >
+                    <img
+                      class="!object-contain"
+                      src="@/assets/images/icons/solar_upload-linear.png"
+                      alt="solar icon"
+                    />
+                  </label>
+                </div>
+              </div>
+              <!-- </base-card1> -->
 
               <div
                 class="flex items-center justify-end mt-7 gap-4 md:col-span-2 xl:col-span-3"
@@ -153,7 +151,7 @@ const router = useRouter();
 const { t } = useI18n();
 
 const initialValues = reactive({
-  // name: "",
+  name: "",
   id: "",
   // user_type: "",
   // email: "",
@@ -237,16 +235,16 @@ function handleSubmit(values, actions) {
   console.log(route.params);
   console.log(values);
   if (route.params.id) {
-    frmData.append("_method", "PUT");
+    //   frmData.append("_method", "PUT");
     url = `clients/${values.id}/upgrade`;
   }
 
   // frmData.append("card_front[media]", initialValues.image);
 
   // frmData.append("card_back[media]", initialValues.image2);
-  // if (initialValues.image) {
-  //   frmData.append("image", initialValues.image);
-  // }
+  if (initialValues.image) {
+    frmData.append("image", initialValues.image);
+  }
   // frmData.append("full_name", values.name);
   // frmData.append("email", values.email);
   frmData.append("full_name", values.storeName);

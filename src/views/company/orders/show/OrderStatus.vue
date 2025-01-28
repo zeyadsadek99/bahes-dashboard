@@ -16,9 +16,9 @@
     <ul class="top-header">
       <li>
         <p class="title">{{ $t("TEXT.Estimated time of arrival") }}</p>
-        <p class="value">
+        <!-- <p class="value">
           {{
-            new Date(order.delivery_at).toLocaleDateString(
+            new Date(order.order_accept_date).toLocaleDateString(
               locale == "ar" ? "ar-eg" : "en-us",
               {
                 day: "numeric",
@@ -27,7 +27,7 @@
               }
             )
           }}
-        </p>
+        </p> -->
       </li>
       <!-- <li>
         <p class="title">{{ $t("LABELS.Shipping company") }}</p>
@@ -36,17 +36,17 @@
       <!-- <li>
         <p class="title">{{ $t("LABELS.Shipping type") }}</p>
         <p class="value font-aclonica text-error">Express</p>
-      </li> -->
-      <li>
+      </li> 
+       <li>
         <p class="title">{{ $t("LABELS.Payment") }}</p>
         <p
           class="value font-aclonica"
           
         >
           {{ $t(`LABELS.${order.payment_method}`) }}
-          <!-- {{ $t(`LABELS.${order.is_payment}`) }} -->
+           {{ $t(`LABELS.${order.is_payment}`) }} 
         </p>
-      </li>
+      </li> -->
     </ul>
     <div class="flex items-center justify-between gap-3 mb-7">
       <!-- <div

@@ -2,7 +2,7 @@
   <div v-if="order" class="ordersTable">
     <table class="w-full rounded-md mb-5">
       <thead class="bg-[#f9fafc] text-sub">
-        <!-- <th class="text-start rounded-s-lg p-[10px] text-[15px] max-w-[250px]">
+        <th class="text-start rounded-s-lg p-[10px] text-[15px] max-w-[250px]">
           {{ $t("LABELS.Product") }}
         </th>
         <th class="text-start p-[10px] text-[15px]">
@@ -10,23 +10,27 @@
         </th>
         <th class="text-start p-[10px] text-[15px]">
           {{ $t("LABELS.Quantity") }}
-        </th> -->
+        </th>
         <th class="text-start rounded-s-lg p-[10px] text-[15px] ">
           {{ $t("ORDER.Total") }}
         </th>
       </thead>
-      <!-- <tbody>
+      <tbody>
         <tr
           class="border-b border-placeholder"
           v-for="item in order.items"
           :key="item.id"
         >
-          <td class="text-[14px] p-[10px] font-medium flex items-center gap-2">
+          <!-- <td class="text-[14px] p-[10px] font-medium flex items-center gap-2">
             <img
               :src="item.image"
               :alt="item.name"
               class="w-[60px] h-[60px] rounded-lg object-cover"
             />
+          </td> -->
+
+          <td class="text-[14px] p-[10px] font-medium">
+            {{ item.name }}
           </td>
           <td class="text-[14px] p-[10px] font-medium">
             {{ item.price.toFixed(2) }}
@@ -34,14 +38,14 @@
           <td class="text-[14px] p-[10px] font-medium">
             {{ item.quantity }}
           </td>
-          <td class="text-[14px] p-[10px] font-medium">
+          <!-- <td class="text-[14px] p-[10px] font-medium">
             {{ item.total.toFixed(2) }}
-          </td>
+          </td> -->
         </tr>
-      </tbody> -->
+      </tbody>
     </table>
 
-    <div class="flex justify-start md:mt-0 mx-3 my-5">
+   <!-- <div class="flex justify-start md:mt-0 mx-3 my-5">
       <div class="space-y-3">
         <div class="grid grid-cols-2 gap-12">
           <p class="text-sub font-medium">{{ $t("ORDER.Subtotal") }} :</p>
@@ -51,14 +55,14 @@
           </p>
         </div>
 
-        <!-- <div class="grid grid-cols-2 gap-12">
+         <div class="grid grid-cols-2 gap-12">
           <p class="text-sub font-medium">{{ $t("ORDER.Delivery") }} :</p>
           <p class="uppercase font-semibold">
             {{ order.shipping_price.toFixed(2) }}
           </p>
         </div> -->
 
-        <div class="grid grid-cols-2 gap-12">
+        <!--<div class="grid grid-cols-2 gap-12">
           <p class="text-sub font-medium">{{ $t("ORDER.VAT") }} :</p>
           <p class="uppercase font-semibold">
             {{ order.vat }}
@@ -66,13 +70,13 @@
           </p>
         </div>
 
-        <!-- <div class="grid grid-cols-2 gap-12">
+         <div class="grid grid-cols-2 gap-12">
           <p class="text-sub font-medium">{{ $t("LABELS.coupon_price") }} :</p>
           <p class="uppercase font-semibold">
             {{ order.coupon_value.toFixed(2) }}
             {{ $t("SAR") }}
           </p>
-        </div> -->
+        </div> 
 
         <hr class="border-border w-full" />
 
@@ -84,7 +88,7 @@
           </p>
         </div>
       </div>
-    </div>
+    </div>-->
     <!-- <base-card1 class="p-3" :title="$t('LABELS.Notes')" v-if="order.comment">
       <div class="flex justify-between items-center gap-8 flex-wrap">
         <div class="w-full md:max-w-[600px]">

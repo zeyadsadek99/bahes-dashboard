@@ -1,8 +1,8 @@
 <template>
   <div>
     <breadcrumbs
-      back="/clients"
-      :title="$t('LABELS.clients')"
+      back="/users"
+      :title="$t('LABELS.users')"
       :items="breads"
     />
     <div class="flex gap-4 flex-wrap">
@@ -10,7 +10,7 @@
         <FormSkelton v-if="loading" />
         <template v-else>
           <base-card1
-            :title="$t('TITLES.Details', { name: $t('LABELS.Client') })"
+            :title="$t('TITLES.Details', { name: $t('LABELS.User') })"
           >
             <VeeForm
               :validation-schema="schema"
@@ -121,7 +121,7 @@
                 class="flex items-center justify-end mt-7 gap-4 md:col-span-2 xl:col-span-3"
               >
                 <router-link
-                  to="/clients"
+                  to="/users"
                   class="capitalize font-semibold text-sub"
                 >
                   {{ $t("BUTTONS.cancel") }}
@@ -233,12 +233,12 @@ function handleSubmit(values, actions) {
   btnLoading.value = true;
   const frmData = new FormData();
 
-  let url = "clients";
+  let url = "users";
   console.log(route.params);
   console.log(values);
   if (route.params.id) {
     frmData.append("_method", "PUT");
-    url = `clients/${values.id}/upgrade`;
+    url = `users/${values.id}/upgrade`;
   }
 
   // frmData.append("card_front[media]", initialValues.image);
@@ -270,7 +270,7 @@ function handleSubmit(values, actions) {
     .post(url, frmData)
     .then((res) => {
       setTimeout(() => toast.success(res.data.message), 300);
-      router.push("/clients");
+      router.push("/users");
       btnLoading.value = false;
       actions.resetForm();
     })
@@ -289,15 +289,15 @@ const breads = [
     name: t("TITLES.home"),
   },
   {
-    name: t("LABELS.clients"),
-    path: "/clients",
+    name: t("LABELS.users"),
+    path: "/users",
     imgIcon: "",
   },
   {
     name: t(`BUTTONS.${route.params.id ? "Edit" : "add"}`, {
       name: t("LABELS.vendor"),
     }),
-    path: `/clients/form${route.params.id ? "/" + route.params.id : ""}`,
+    path: `/users/form${route.params.id ? "/" + route.params.id : ""}`,
   },
 ];
 

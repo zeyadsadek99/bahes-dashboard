@@ -59,7 +59,7 @@
                     :for="`available_products_ids[${idx}].selected`"
                     :class="
                       field.value.selected
-                        ? '  bg-[#47ada9] !text-white'
+                        ? '  bg-[#31703F] !text-white'
                         : 'bg-primary/20 text-primary'
                     "
                   >

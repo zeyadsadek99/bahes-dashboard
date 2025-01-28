@@ -51,14 +51,14 @@ const setChartData = () => {
         data: orders_num.value,
         backgroundColor: (ctx) => {
           const gradient = ctx.chart.ctx.createLinearGradient(0, 0, 0, 300);
-          gradient.addColorStop(0, "#47ada9"); // Start color of the gradient
+          gradient.addColorStop(0, "#31703F"); // Start color of the gradient
           gradient.addColorStop(1, "#EB631E"); // End color of the gradient
           return [
             gradient, // Gradient for the percentage part
             "#FFE8BA", // Solid color for the remaining part
           ];
         },
-        hoverBackgroundColor: ["#47ada9", "#FFE8BA"],
+        hoverBackgroundColor: ["#31703F", "#FFE8BA"],
       },
     ],
   };

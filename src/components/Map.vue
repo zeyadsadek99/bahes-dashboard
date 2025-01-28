@@ -173,10 +173,10 @@ const getClickedLatLng = (event) => {
 };
 
 const polygonOptions = {
-  strokeColor: "#47ada9",
+  strokeColor: "#31703F",
   strokeOpacity: 0.8,
   strokeWeight: 3,
-  fillColor: "#47ada9",
+  fillColor: "#31703F",
   fillOpacity: 0.35,
 };
 
