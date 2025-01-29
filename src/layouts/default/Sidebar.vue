@@ -241,15 +241,15 @@ const sidebar = ref([
     active: "requests-product",
     permission: checkRootPermission(["product-requests"]),
   },
-  {
-    label: "",
-    title: "LABELS.clients",
-    path: "clients",
-    icon: "users",
-    type: "general",
-    active: "clients",
-    permission: checkRootPermission(["clients"]),
-  },
+  // {
+  //   label: "",
+  //   title: "LABELS.clients",
+  //   path: "clients",
+  //   icon: "users",
+  //   type: "general",
+  //   active: "clients",
+  //   permission: checkRootPermission(["clients"]),
+  // },
   {
     label: "",
     title: "LABELS.users",
@@ -454,17 +454,5 @@ function getUnreadMessages() {
   }
 }
 
-body[dir="rtl"] {
-  .v-navigation-drawer {
-    .v-navigation-drawer__content {
-      .v-list {
-        .v-list-item {
-          &.active {
-            @apply bg-primary;
-          }
-        }
-      }
-    }
-  }
-}
+
 </style>

@@ -33,11 +33,11 @@
       </template>
     </Image>
 
-    <div class="h-full flex flex-col">
+    <div class="h-full flex  flex-col">
       <!-- Title section -->
       <h4
         v-tooltip.bottom="title.length ? title.replace(/<[^>]*>/g, '') : title"
-        class="mb-1 font-semibold text-start truncate whitespace-nowrap min-w-[100px] capitalize text-text"
+        class="mb-1 font-semibold text-start  truncate whitespace-nowrap min-w-[100px] capitalize text-text"
         :class="[ 
           $i18n.locale == 'ar' ? 'font-neo-sans' : 'font-switzer', 
           titleClass 

@@ -1,8 +1,8 @@
 <template>
-  <div class="filter flex gap-3 items-center flex-wrap mb-4" v-if="filterReady">
+  <div class="filter flex gap-3 items-center  mb-4" v-if="filterReady">
     <form
       @submit.prevent="setFilter"
-      class="flex items-center flex-grow flex-wrap gap-2 justify-between"
+      class="flex items-center   gap-2 justify-between"
     >
       <div
         :class="keywordClass"
@@ -32,7 +32,7 @@
 
       <div
         v-if="inputs.length"
-        class="flex items-center flex-grow flex-wrap gap-2 justify-end"
+        class="flex items-center   gap-2 justify-end"
         :class="filterClass"
       >
         <h3 v-if="!hideLabel" class="text-text font-medium">

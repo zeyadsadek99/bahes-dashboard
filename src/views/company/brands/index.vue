@@ -10,6 +10,7 @@
         :btn-name="t(`BUTTONS.add`, { name: t('LABELS.brand') })"
         icon="fas fa-plus"
         :keyword="true"
+        
         @action="$router.push('/brands/form')"
       />
       <v-data-table-virtual
@@ -56,6 +57,7 @@
           <div class="flex gap-2 items-center flex-wrap">
             <small-details-card
               :title="`${item.name}`"
+              :image="item.image"
             />
           </div>
         </template>

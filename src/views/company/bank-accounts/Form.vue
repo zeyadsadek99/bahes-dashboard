@@ -10,7 +10,7 @@
         <FormSkelton v-if="loading" />
         <template v-else>
           <base-card1
-            :title="$t('TITLES.Details', { name: $t('LABELS.activity') })"
+            :title="$t('TITLES.Details', { name: $t('LABELS.account') })"
           >
             <VeeForm
               :validation-schema="schema"
@@ -227,7 +227,7 @@ const breads = [
   },
   {
     name: t(`BUTTONS.${route.params.id ? "Edit" : "add"}`, {
-      name: t("LABELS.activity"),
+      name: t("LABELS.account"),
     }),
     path: `/bank-accounts/form${route.params.id ? "/" + route.params.id : ""}`,
   },

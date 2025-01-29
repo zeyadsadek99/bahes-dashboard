@@ -64,9 +64,10 @@
                   :placeholder="$t('LABELS.product_id')"
                   :label="$t('LABELS.product_id')"
                   :options="categories"
+                  v-model:itemValue="initialValues.product_id"
                 />
                 
-              
+              <!-- {{ categories }} -->
               </div>
 
               
@@ -255,7 +256,7 @@ function getCategories() {
   axios.get("product-types").then((res) => {
     categories.value = res.data.data.map((el) => {
       return {
-        id: el.id,
+        id: el.name,
         name: el.name,
       };
     });

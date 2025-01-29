@@ -55,6 +55,7 @@
                   name="email"
                   type="email"
                 /> -->
+
                 <base-input
                   v-model="initialValues.facebook"
                   :placeholder="$t('LABELS.facebook')"
@@ -116,6 +117,48 @@
                   :placeholder="$t('LABELS.whatsapp')"
                   :label="$t('LABELS.whatsapp')"
                   name="whatsapp"
+                  type="text"
+                />
+                <base-input
+                  v-model="initialValues.tax_rate"
+                  :placeholder="$t('LABELS.tax_rate')"
+                  :label="$t('LABELS.tax_rate')"
+                  name="tax_rate"
+                  type="text"
+                />
+                <base-input
+                  v-model="initialValues.rate_for_application_from_merchants"
+                  :placeholder="$t('LABELS.rate_for_application_from_merchants')"
+                  :label="$t('LABELS.rate_for_application_from_merchants')"
+                  name="rate_for_application_from_merchants"
+                  type="text"
+                />
+                <base-input
+                  v-model="initialValues.rate_for_workshop_customers"
+                  :placeholder="$t('LABELS.rate_for_workshop_customers')"
+                  :label="$t('LABELS.rate_for_workshop_customers')"
+                  name="rate_for_workshop_customers"
+                  type="text"
+                />
+                <base-input
+                  v-model="initialValues.permitted_period_for_accepting_request"
+                  :placeholder="$t('LABELS.permitted_period_for_accepting_request')"
+                  :label="$t('LABELS.permitted_period_for_accepting_request')"
+                  name="permitted_period_for_accepting_request"
+                  type="text"
+                />
+                <base-input
+                  v-model="initialValues.permitted_period_for_completing_request"
+                  :placeholder="$t('LABELS.permitted_period_for_completing_request')"
+                  :label="$t('LABELS.permitted_period_for_completing_request')"
+                  name="permitted_period_for_completing_request"
+                  type="text"
+                />
+                <base-input
+                  v-model="initialValues.maximum_number_of_pending_requests"
+                  :placeholder="$t('LABELS.maximum_number_of_pending_requests')"
+                  :label="$t('LABELS.maximum_number_of_pending_requests')"
+                  name="maximum_number_of_pending_requests"
                   type="text"
                 />
                 <!-- <base-input
@@ -206,7 +249,13 @@ const initialValues = reactive({
   website_name: '',
   vat: '',
   vendor_percentage: '',
-  phones: ''
+  phones: '',
+  tax_rate: '',
+  rate_for_application_from_merchants: '',
+  rate_for_workshop_customers: '',
+  permitted_period_for_accepting_request: '',
+  maximum_number_of_pending_requests: '',
+  permitted_period_for_completing_request: '',
 });
 
 const schema = yup.object().shape({
@@ -294,6 +343,13 @@ function handleSubmit(values, actions) {
   // frmData.append("app_store", values.app_store);
   // frmData.append("google_play", values.google_play);
   frmData.append("whatsapp", values.whatsapp);
+  frmData.append("tax_rate", values.tax_rate);
+  frmData.append("rate_for_application_from_merchants", values.rate_for_application_from_merchants);
+  frmData.append("rate_for_workshop_customers", values.rate_for_workshop_customers);
+  frmData.append("permitted_period_for_accepting_request", values.permitted_period_for_accepting_request);
+  frmData.append("maximum_number_of_pending_requests", values.maximum_number_of_pending_requests);
+  frmData.append("permitted_period_for_completing_request", values.permitted_period_for_completing_request);
+//   frmData.append("vat", values.vat);
 //   frmData.append("website_name", values.website_name);
 //   frmData.append("vat", values.vat);
 //   frmData.append("vendor_percentage", values.vendor_percentage);
@@ -332,7 +388,7 @@ const breads = [
     imgIcon: "",
   },
   {
-    name: t(`BUTTONS.${route.params.id ? "Edit" : "add"}`, {
+    name: t(`BUTTONS.${route.params.id ? "Edit" : "Edit"}`, {
       name: t("LABELS.settings"),
     }),
     path: `/settings/form${route.params.id ? "/" + route.params.id : ""}`,
@@ -379,6 +435,26 @@ function getData() {
       case 'whatsapp':
         initialValues.whatsapp = item.value;
         break;
+
+      case 'tax_rate':  
+        initialValues.tax_rate = item.value;
+        break;
+      case 'rate_for_application_from_merchants':
+        initialValues.rate_for_application_from_merchants = item.value;
+        break;
+      case 'rate_for_workshop_customers':
+        initialValues.rate_for_workshop_customers = item.value;
+        break;
+      case 'permitted_period_for_accepting_request':
+        initialValues.permitted_period_for_accepting_request = item.value;
+        break;
+      case 'maximum_number_of_pending_requests':
+        initialValues.maximum_number_of_pending_requests = item.value;
+        break;
+      case 'permitted_period_for_completing_request':
+        initialValues.permitted_period_for_completing_request = item.value;
+        break;
+
       // case 'website_name':
       //   initialValues.website_name = item.value;
       //   break;

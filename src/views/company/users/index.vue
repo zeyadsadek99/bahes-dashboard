@@ -7,7 +7,7 @@
       <base-filter
         name="users"
         :inputs="inputs"
-        :btn-name="t(`BUTTONS.add`, { name: t('LABELS.users') })"
+        :btn-name="t(`BUTTONS.add`, { name: t('LABELS.User') })"
         icon="fas fa-plus"
         :keyword="true"
         :hide-label="true"
@@ -34,7 +34,7 @@
             <h3 class="mt-4 font-semibold text-text text-center">
               {{
                 $t("TITLES.No have been added yet", {
-                  name: $t("LABELS.users"),
+                  name: $t("LABELS.User"),
                 })
               }}
             </h3>
@@ -61,21 +61,21 @@
 
         <template v-slot:[`item.phone`]="{ item }">
           <div class="flex gap-2 items-center flex-wrap">
-            <small-details-card :title="`${item.phone}`" />
+            <small-details-card :title="`${item.phone}`" :text="`${item.phone_code}`"/>
           </div>
         </template>
-        <template v-slot:[`item.phone_code`]="{ item }">
+        <!-- <template v-slot:[`item.phone_code`]="{ item }">
           <div class="flex gap-2 items-center flex-wrap">
             <small-details-card :title="`${item.phone_code}`" />
           </div>
-        </template>
+        </template> -->
 
         <template v-slot:[`item.is_admin_active_user`]="{ item }">
           <global-switcher
             :id="item.id"
-            :url="`users/${item.id}/toggle-active-client`"
+            :url="`users/${item.id}/toggle-active-user`"
             v-model:modalValue="item.is_admin_active_user"
-            method='POST'
+            method='PATCH'
 
           />
         </template>
@@ -90,12 +90,14 @@
         </template> -->
         <template v-slot:[`item.actions`]="{ item, index }">
           <div class="flex items-center gap-4">
-            <router-link :to="`/users/form/${item.id}`">
+            <!-- <router-link :to="`/users/form/${item.id}`">
               <svg-icon class="text-primary" name="edit" filled />
-            </router-link>
-            <router-link :to="`/users/form/${item.id}`">
+            </router-link> -->
+            <div v-if="item.user_type =='client'">
+              <router-link :to="`/users/form`">
               <svg-icon class="text-primary" name="trending-up" filled />
             </router-link>
+            </div>
             <Deleter
               :url="`users/${item.id}`"
               :id="item.id"
@@ -196,24 +198,24 @@ const headers = [
     sortable: false,
     key: "phone",
   },
-  {
-    title: t("LABELS.phone_code"),
-    align: "start",
-    sortable: false,
-    key: "phone_code",
-  },
+  // {
+  //   title: t("LABELS.phone_code"),
+  //   align: "start",
+  //   sortable: false,
+  //   key: "phone_code",
+  // },
   {
     title: t("LABELS.activation"),
     align: "start",
     sortable: false,
     key: "is_admin_active_user",
   },
-  {
-    title: t("LABELS.block"),
-    align: "start",
-    sortable: false,
-    key: "is_ban",
-  },
+  // {
+  //   title: t("LABELS.block"),
+  //   align: "start",
+  //   sortable: false,
+  //   key: "is_ban",
+  // },
 
   {
     title: t("LABELS.Actions"),

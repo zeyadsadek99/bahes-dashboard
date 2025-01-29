@@ -49,7 +49,7 @@
 
         <!-- Custom Slot for displaying Value -->
         <template v-slot:[`item.value`]="{ item }">
-          <div class="flex gap-2 items-center flex-wrap">
+          <div class="flex gap-2   flex-wrap">
             <!-- Check if the key is 'phones' and display accordingly -->
             <div v-if="item.key === 'phones'">
               <ul>
@@ -61,8 +61,8 @@
               </ul>
             </div>
             <!-- For other keys, show them as regular text -->
-            <div v-else>
-              <small-details-card :title="`${item.value}`" />
+            <div class="" v-else>
+              <small-details-card  :title="`${item.value}`" />
             </div>
           </div>
         </template>

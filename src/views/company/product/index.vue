@@ -56,7 +56,6 @@
           <div class="flex gap-2 items-center flex-wrap">
             <small-details-card
               :title="`${item.name}`"
-              :text="`${item.desc}`"
 
             />
           </div>

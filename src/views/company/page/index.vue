@@ -10,6 +10,7 @@
         :btn-name="t(`BUTTONS.add`, { name: t('LABELS.page') })"
         icon="fas fa-plus"
         :keyword="true"
+        :hideLabel="true"
         @action="$router.push('/page/form')"
       />
       <v-data-table-virtual
@@ -51,15 +52,15 @@
 
         <template v-slot:[`item.title`]="{ item }">
           <div class="flex gap-2 items-center flex-wrap">
-            <small-details-card :title="item.title" />
+            <small-details-card :title="item.title" :text="`${item.desc}`" />
           </div>
         </template>
 
-        <template v-slot:[`item.desc`]="{ item }">
+        <!-- <template v-slot:[`item.desc`]="{ item }">
   <div class="flex gap-2 items-center flex-wrap">
     <small-details-card :title="`${item.desc}`" class="truncate w-full max-w-xs" />
   </div>
-</template>
+</template> -->
 
 
         <!-- <template v-slot:[`item.is_admin_active_user`]="{ item }">
@@ -123,9 +124,9 @@ const inputs = [
     filter: null,
     options : [
     { id: "", name: t("STATUS.all")},
-    { id: 'about', name: 'about' },
-    { id: 'privacy-policy', name: 'privacy-policy' },
-    { id: 'terms-conditions', name: 'terms-conditions' }
+    { id: 'about', name: 'About' },
+    { id: 'privacy-policy', name: 'Privacy Policy' },
+    { id: 'terms-conditions', name: 'Terms C  onditions' }
   ],
 
     multiple: false,
@@ -155,12 +156,12 @@ const headers = [
     sortable: false,
     key: "title",
   },
-  {
-    title: t("LABELS.Desc"),
-    align: "start",
-    sortable: false,
-    key: "desc",
-  },
+  // {
+  //   title: t("LABELS.Desc"),
+  //   align: "start",
+  //   sortable: false,
+  //   key: "desc",
+  // },
   // {
   //   title: t("LABELS.Name", { name: t("LABELS.type") }),
   //   align: "start",

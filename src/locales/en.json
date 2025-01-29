@@ -73,16 +73,45 @@
   "LABELS": {
     "models": "Models",
     "role": "Role",
-   
+    "bank-accounts": "Bank Accounts",
+    "account": "Account", 
+
+    "body": "Body",
+    "storeName": "Store Name",
+    "storeRegion": "Store Region",
+    "storeCity": "Store City",
+    "storeActivity": "Store Activity",
+    "storeLocation": "Store Location",
+
+    "Accept": "Accept",
+    "request": "Request",   
+    "bank_name": "Bank Name",
+    "iban": "IBAN",
+    
+    "activity": "Activity",
     "front_route_name": "Front Route Name",
     "back_route_name": "Back Route Name",
     "icon": "Icon",
     
+    "permitted_period_for_completing_request": "Permitted Period for Completing Request",
     
+    "count": "Count",
+    "mostRequests": "Most Requests",
+    "mostReviews": "Most Reviews",
+    "orderCount": "Order Count",
+    "reviewCount": "Review Count",
+    "failedToLoadData": "Failed to load data",
     "code": "Code",
     "product_id": "Category",
     "reply": "Reply",
-
+    "user_type": "User Type",
+    "acceptance": "Acceptance",
+    "User Details": "User Details",
+    "User": "User",
+    
+    "start_day": "Start Day",
+    "end_day": "End Day",
+    
     "anonymous": "Anonymous",
     "users": "Users",
 

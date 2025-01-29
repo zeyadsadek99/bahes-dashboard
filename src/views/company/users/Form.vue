@@ -295,7 +295,7 @@ const breads = [
   },
   {
     name: t(`BUTTONS.${route.params.id ? "Edit" : "add"}`, {
-      name: t("LABELS.vendor"),
+      name: t("LABELS.User"),
     }),
     path: `/users/form${route.params.id ? "/" + route.params.id : ""}`,
   },

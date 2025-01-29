@@ -25,11 +25,11 @@
         </template>
 
         <template v-slot:no-data>
-          <Deleter
+          <!-- <Deleter
               :url="`delete_all_notifications`"
               method="DELETE"
               @remove="items=[]"
-            />
+            /> -->
           <div
             class="text-center"
             v-if="!$route.query.keyword && !$route.query.status"
