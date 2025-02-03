@@ -1,6 +1,10 @@
 <template>
   <div>
-    <breadcrumbs back="/contacts" :title="$t('LABELS.contacts')" :items="breads" />
+    <breadcrumbs
+      back="/contacts"
+      :title="$t('LABELS.contacts')"
+      :items="breads"
+    />
     <div class="flex gap-4 flex-wrap">
       <div class="flex-1 w-full min-w-[250px]">
         <FormSkelton v-if="loading" />
@@ -44,7 +48,6 @@
                 <base-input
                   v-model="initialValues.name"
                   :disabled="true"
-
                   :placeholder="$t('LABELS.name')"
                   :label="$t('LABELS.name')"
                   name="name"
@@ -58,25 +61,13 @@
                   name="content"
                   type="text"
                 />
-                <!-- <base-input
-                  v-model="initialValues.reply"
-                  :placeholder="$t('LABELS.reply')"
-                  :label="$t('LABELS.reply')"
-                  name="reply"
-                  type="text"
-                /> -->
-                
-                
-                
-
-                
-                
               </div>
               <!-- Replies Section -->
               <div class="mt-6">
                 <h3 class="font-semibold text-lg">
-                  {{ $t('LABELS.replies') }}
+                  {{ $t("LABELS.replies") }}
                 </h3>
+
                 <div
                   v-if="initialValues.replies.length"
                   class="mt-4 space-y-4 bg-gray-50 p-4 rounded-md"
@@ -84,28 +75,34 @@
                   <div
                     v-for="(reply, index) in initialValues.replies"
                     :key="index"
-                    class="p-4 bg-white shadow-sm rounded-md"
+                    class="p-4 bg-white shadow-sm rounded-md flex justify-between items-start border border-gray-200"
                   >
-                    <p class="text-gray-700 font-medium">
-                      {{ reply.author || $t('LABELS.anonymous') }}
-                    </p>
-                    <p class="text-gray-600 mt-1">
-                      {{ reply.content }}
+                    <!-- Left: Author & Content -->
+                    <div class="flex flex-col">
+                      <p class="text-primary font-semibold">
+                        {{ reply.author || $t("LABELS.anonymous") }}
+                      </p>
+                      <p class="text-gray-600 mt-1">{{ reply.content }}</p>
+                    </div>
+
+                    <!-- Right: Created At (Date) -->
+                    <p class="text-gray-500 text-sm whitespace-nowrap">
+                      {{ reply.created_at }}
                     </p>
                   </div>
                 </div>
+
                 <p v-else class="text-gray-500 mt-4">
-                  {{ $t('TITLES.noRepliesYet') }}
+                  {{ $t("TITLES.noRepliesYet") }}
                 </p>
               </div>
 
               <div
                 class="flex items-center justify-end mt-7 gap-4 md:col-span-2 xl:col-span-3"
               >
-                
                 <router-link
                   to="/contacts"
-                  class="capitalize base-btn font-semibold "
+                  class="capitalize base-btn font-semibold"
                 >
                   {{ $t("BUTTONS.Ok") }}
                 </router-link>
@@ -131,121 +128,14 @@ import { useI18n } from "vue-i18n";
 import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
-const router = useRouter();
 
 const { t } = useI18n();
 
 const initialValues = reactive({
-  content: '',
-  name: '',
-  replies:[],
-  
+  content: "",
+  name: "",
+  replies: [],
 });
-
-const schema = yup.object().shape({
-  // questionAr: yup.string().required(t("ERRORS.name")),
-  // questionEn: yup.string().required(t("ERRORS.name")),
-  // answerAr: yup.string().required(t("ERRORS.name")),
-  // answerEn: yup.string().required(t("ERRORS.name")),
-  // name: yup.string().required(t("ERRORS.name")),
-  // email: yup.string().required(t("ERRORS.emailAddress")),
-  // phoneCode: yup.mixed().required(t("ERRORS.phoneCode")),
-  // phoneNumber: yup
-  //   .string()
-  //   .required(t("ERRORS.isRequired", { name: t("LABELS.phone") }))
-  //   .test((value, context) => {
-  //     let parent = context.parent.phoneCode?.phone_number_limit;
-  //     if (value.length > parent || value.length < parent) {
-  //       return context.createError({
-  //         message: t("ERRORS.phoneLength", { value: parent }),
-  //         path: "phoneNumber",
-  //       });
-  //     } else {
-  //       return true;
-  //     }
-  //   }),
-  // role: yup
-  //   .string()
-  //   .required(t("ERRORS.isRequired", { name: t("LABELS.Role") })),
-  // image: yup
-  //   .mixed()
-  //   .test(
-  //     "image",
-  //     t("ERRORS.isRequired", { name: t("LABELS.image") }),
-  //     (value) => {
-  //       if (value || initialValues.preview) {
-  //         return true;
-  //       }
-  //     }
-  //   ),
-  // password: yup.string().test("password", t("ERRORS.password"), (value) => {
-  //   if (route.params.id) {
-  //     return true;
-  //   } else if (value) {
-  //     return true;
-  //   } else return false;
-  // }),
-  // cPassword: yup.string().when("password", (password, field) =>
-  //   password
-  //     ? field
-  //         .test("cPassword", t("ERRORS.confirmPassword"), (value) => {
-  //           if (route.params.id) {
-  //             return true;
-  //           } else if (value) {
-  //             return true;
-  //           } else return false;
-  //         })
-  //         .oneOf([yup.ref("password")], t("ERRORS.notEqualPasswords"))
-  //     : field
-  // ),
-});
-// const btnLoading = ref(false);
-
-// function handleSubmit(values, actions) {
-//   btnLoading.value = true;
-//   const frmData = new FormData();
-
-//   let url = "contacts";
-
-//   // if (route.params.id) {
-//   //   // frmData.append("_method", "PUT");
-//   //   url = `contacts`;
-//   // }
-
-  
-//   // frmData.append("reply", values.reply);
-//   // frmData.append("email", values.email);
-//   // frmData.append("facebook", values.facebook);
-//   // frmData.append("twitter", values.twitter);
-//   // frmData.append("instagram", values.instagram);
-//   // frmData.append("tiktok", values.tiktok);
-//   // frmData.append("snapchat", values.snapchat);
-//   // frmData.append("app_store", values.app_store);
-//   // frmData.append("google_play", values.google_play);
-//   // frmData.append("whatsapp", values.whatsapp);
-// //   frmData.append("website_name", values.website_name);
-// //   frmData.append("vat", values.vat);
-// //   frmData.append("vendor_percentage", values.vendor_percentage);
-// //   values.phones.forEach((phone, index) => {
-// //   frmData.append(`phones[${index}][phone]`, phone.phone);
-// //   frmData.append(`phones[${index}][phone_code]`, phone.phone_code);
-// // });
-
-  
-
-//   axios
-//     .post(url, frmData)
-//     .then((res) => {
-//       setTimeout(() => toast.success(res.data.message), 300);
-//       router.push("/contacts");
-//       btnLoading.value = false;
-//       actions.resetForm();
-//     })
-//     .catch((e) => {
-//       toast.error(e.response.data.message);
-//     })
-//     .finally(() => (btnLoading.value = false));
-// }
 
 const loading = ref(false);
 
@@ -283,10 +173,8 @@ function getData() {
 }
 
 onBeforeMount(() => {
-  
-    loading.value = true;
-    getData();
-  
+  loading.value = true;
+  getData();
 });
 </script>
 

@@ -13,6 +13,8 @@ export default function getStatusColor(status: string): string {
       return "text-red bg-[#FF445B0D]";
     case "rejected":
       return "text-red bg-[#FF445B0D]";
+    case "reject":
+      return "text-red bg-[#FF445B0D]";
     case "cancelled":
       return "text-red bg-[#FF445B0D]";
     case "canceled":
@@ -21,6 +23,8 @@ export default function getStatusColor(status: string): string {
     case "admin_in_progress":
       return "text-[#FCC230] bg-[#FCC2300D]";
     case "accepted":
+      return "text-success bg-[#06D6A01A]";
+    case "accept":
       return "text-success bg-[#06D6A01A]";
     case "ready_to_finish":
       return "text-success bg-[#06D6A01A]";

@@ -7,8 +7,8 @@ import ar from "@/locales/ar.json";
 
 export default createI18n({
   legacy: false,
-  locale: Cookies.get("SAAS_DASHBOARD_LANG") || "en",
-  fallbackLocale: Cookies.get("SAAS_DASHBOARD_LANG") || "en",
+  locale: Cookies.get("SAAS_DASHBOARD_LANG") || "ar",
+  fallbackLocale: Cookies.get("SAAS_DASHBOARD_LANG") || "ar",
 
   messages: {
     ar,

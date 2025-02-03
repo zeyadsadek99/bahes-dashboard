@@ -57,7 +57,7 @@
         </template>
 
         <template v-slot:[`item.action`]="{ item }">
-          <div class="flex flex-wrap gap-2" >
+          <div class="flex flex-wrap gap-2" v-if="item.status== 'pending'">
             <button
               type="button"
               class="bg-error rounded-full p-2 w-[32px] h-[32px]"
@@ -228,14 +228,15 @@
               </modal>
             </teleport>
           </div>
-          <!-- <div >
+          <div v-else>
             <p
               :class="getStatusColor(item.status)"
               class="inline-flex p-1 rounded-full"
             >
               {{ $t(`STATUS.${item.status}`) }}
             </p>
-          </div> -->
+          </div>
+          
         </template>
         <!--  -->
         <!-- <template v-slot:[`item.actions`]="{ item, index }">
@@ -278,6 +279,7 @@ import axios from "axios";
 import { ref, onMounted, watch, reactive } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
+import getStatusColor from "@/utils/getStatusColor.ts";
 
 const route = useRoute();
 const { t } = useI18n();

@@ -59,11 +59,21 @@
         <template v-slot:[`item.name`]="{ item }">
           <div class="flex gap-2 items-center flex-wrap">
             <small-details-card
-              :title="`${item.name}`"
+              :title="`${item.title}`"
+              :text="`${item.message}`"
             />
           </div>
         </template>
 
+        <template v-slot:[`item.time`]="{ item }">
+          <div class="flex gap-2 items-center flex-wrap">
+            <small-details-card
+              :title="`${item.created_at}`"
+              :text="`${item.created_time}`"
+            />
+          </div>
+        </template>
+        
         
         <!-- <template v-slot:[`item.is_admin_active_user`]="{ item }">
           <global-switcher
@@ -127,18 +137,24 @@ const paginator = ref(null);
 
 const headers = [
   {
-    title: t("LABELS.Name", { name: t("LABELS.Brand") }),
+    title: t("LABELS.Message") ,
     align: "start",
     sortable: false,
     key: "name",
   },
-  
   {
-    title: t("LABELS.activation"),
+    title: t("LABELS.CreatedAt") ,
     align: "start",
     sortable: false,
-    key: "is_admin_active_user",
+    key: "time",
   },
+  
+  // {
+  //   title: t("LABELS.activation"),
+  //   align: "start",
+  //   sortable: false,
+  //   key: "is_admin_active_user",
+  // },
 
   {
     title: t("LABELS.Actions"),

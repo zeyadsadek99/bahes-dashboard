@@ -11,7 +11,7 @@
           {{ $t("TITLES.All Copyrights are reserved by") }}
 
           <bdi>
-            <span class="text-primary font-medium"> MAKHDOM </span> @{{
+            <span class="text-primary font-medium"> FILTER </span> @{{
               currentYear
             }}
           </bdi>
