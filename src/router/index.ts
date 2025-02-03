@@ -65,7 +65,7 @@ const router = createRouter({
         //     },
         //   ],
         // },
-        
+
         // {
         //   path: "rating-questions",
         //   meta: {
@@ -109,8 +109,6 @@ const router = createRouter({
         //   ],
         // },
 
-       
-        
         {
           path: "permission",
           meta: {
@@ -242,7 +240,8 @@ const router = createRouter({
                 auth: true,
                 permission: ["store-activities", "index"],
               },
-              component: () => import("@/views/company/store-activities/index.vue"),
+              component: () =>
+                import("@/views/company/store-activities/index.vue"),
             },
 
             {
@@ -253,7 +252,8 @@ const router = createRouter({
                 auth: true,
                 permission: ["store-activities", "update"],
               },
-              component: () => import("@/views/company/store-activities/Form.vue"),
+              component: () =>
+                import("@/views/company/store-activities/Form.vue"),
             },
             {
               path: "form",
@@ -263,7 +263,8 @@ const router = createRouter({
                 auth: true,
                 permission: ["store-activities", "store"],
               },
-              component: () => import("@/views/company/store-activities/Form.vue"),
+              component: () =>
+                import("@/views/company/store-activities/Form.vue"),
             },
           ],
         },
@@ -281,7 +282,8 @@ const router = createRouter({
                 auth: true,
                 permission: ["product-requests", "index"],
               },
-              component: () => import("@/views/company/requests-product/index.vue"),
+              component: () =>
+                import("@/views/company/requests-product/index.vue"),
             },
 
             // {
@@ -359,7 +361,8 @@ const router = createRouter({
                 auth: true,
                 permission: ["notifications", "index"],
               },
-              component: () => import("@/views/company/notifications/index.vue"),
+              component: () =>
+                import("@/views/company/notifications/index.vue"),
             },
 
             {
@@ -652,7 +655,8 @@ const router = createRouter({
                 auth: true,
                 permission: ["bank-accounts", "index"],
               },
-              component: () => import("@/views/company/bank-accounts/index.vue"),
+              component: () =>
+                import("@/views/company/bank-accounts/index.vue"),
             },
 
             {
@@ -822,7 +826,7 @@ const router = createRouter({
             //   },
             //   component: () => import("@/views/company/wallet/show.vue"),
             // },
-            
+
             {
               path: "transaction/:id",
               props: true,
@@ -831,7 +835,8 @@ const router = createRouter({
                 auth: true,
                 permission: ["wallet", "store"],
               },
-              component: () => import("@/views/company/wallet/makeTransaction.vue"),
+              component: () =>
+                import("@/views/company/wallet/makeTransaction.vue"),
             },
           ],
         },
@@ -874,7 +879,7 @@ const router = createRouter({
         //     },
         //   ],
         // },
-        
+
         {
           path: "app-ratio",
           meta: {
@@ -912,6 +917,45 @@ const router = createRouter({
               },
               component: () => import("@/views/company/app-ratio/Form.vue"),
             },
+          ],
+        },
+        {
+          path: "chat",
+          meta: {
+            auth: true,
+          },
+          component: () => import("@/views/company/chat/Home.vue"),
+          children: [
+            {
+              path: "",
+              name: "chat",
+              meta: {
+                auth: true,
+                // permission: ["chat", "index"],
+              },
+              component: () => import("@/views/company/chat/index.vue"),
+            },
+
+            // {
+            //   path: "form/:id",
+            //   props: true,
+            //   name: "edit-chat",
+            //   meta: {
+            //     auth: true,
+            //     permission: ["chat", "update"],
+            //   },
+            //   component: () => import("@/views/company/chat/Form.vue"),
+            // },
+            // {
+            //   path: "reply/:id",
+            //   props: true,
+            //   name: "reply-contacts",
+            //   meta: {
+            //     auth: true,
+            //     permission: ["contacts", "store"],
+            //   },
+            //   component: () => import("@/views/company/contacts/Reply.vue"),
+            // },
           ],
         },
         {
@@ -1031,7 +1075,7 @@ const router = createRouter({
             },
           ],
         },
-        
+
         {
           path: "rate",
           meta: {
@@ -1260,7 +1304,8 @@ const router = createRouter({
           meta: {
             auth: true,
           },
-          component: () => import("@/views/company/settlement-requests/Home.vue"),
+          component: () =>
+            import("@/views/company/settlement-requests/Home.vue"),
           children: [
             {
               path: "",
@@ -1269,7 +1314,8 @@ const router = createRouter({
                 auth: true,
                 permission: ["settlement-requests", "index"],
               },
-              component: () => import("@/views/company/settlement-requests/index.vue"),
+              component: () =>
+                import("@/views/company/settlement-requests/index.vue"),
             },
 
             {
@@ -1280,7 +1326,8 @@ const router = createRouter({
                 auth: true,
                 permission: ["settlement-requests", "update"],
               },
-              component: () => import("@/views/company/settlement-requests/Form.vue"),
+              component: () =>
+                import("@/views/company/settlement-requests/Form.vue"),
             },
             {
               path: "form",
@@ -1290,7 +1337,8 @@ const router = createRouter({
                 auth: true,
                 permission: ["settlement-requests", "store"],
               },
-              component: () => import("@/views/company/settlement-requests/Form.vue"),
+              component: () =>
+                import("@/views/company/settlement-requests/Form.vue"),
             },
           ],
         },
@@ -1331,7 +1379,6 @@ const router = createRouter({
             //   },
             //   component: () => import("@/views/company/cancel-order/Show.vue"),
             // },
-            
           ],
         },
         {

@@ -321,6 +321,15 @@ const sidebar = ref([
   },
   {
     label: "",
+    title: "LABELS.chat",
+    path: "chat",
+    icon: "phone",
+    type: "general",
+    active: "chat",
+    // permission: checkRootPermission(["chat"]),
+  },
+  {
+    label: "",
     title: "LABELS.Countries",
     path: "countries",
     icon: "globe",

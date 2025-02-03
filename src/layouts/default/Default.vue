@@ -39,8 +39,11 @@ const SOCKET_URL = import.meta.env.VITE_BASE_SOCKET_URL;
 const { locale } = useI18n();
 
 const appAuth = useAppAuth();
-onMounted(() => appAuth.getProfile());
+onMounted(() => {
+  appAuth.getProfile();
+});
 
+// watch(
 // watch(
 //   () => appAuth.userData,
 //   async (value, old) => {
